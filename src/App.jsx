@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import Routes from "./routes";
+import "cirrus-ui/dist/cirrus-all.min.css";
 
 const App = () => {
   return (
