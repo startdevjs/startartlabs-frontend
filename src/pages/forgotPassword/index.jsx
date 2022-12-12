@@ -7,7 +7,7 @@ import api from "../../services/api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const ForgotPassword = () => {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,6 @@ const Login = () => {
 
   const schema = yup.object({
     email: yup.string().required("Campo obrigatório").email("Email inválido"),
-    password: yup.string().required("Campo obrigatório").min(6, "Minímo 6 caracteres"),
   });
 
   const {
@@ -30,32 +29,14 @@ const Login = () => {
   const save = async (data) => {
     setLoading(true);
     try {
-      const response = await api.post("/login", data);
-      if (response?.data?.token) {
-        const user = await api.post("/validate", {
-          token: response?.data?.token,
-        });
-
-        const object = {
-          id: user?.data?.id,
-          email: user?.data?.email,
-          username: user?.data?.username,
-          token: response?.data?.token,
-          logged: true,
-        };
-        api.defaults.headers.Authorization = `Bearer ${response?.data?.token}`;
-        localStorage.setItem("startdev-labs", JSON.stringify(object));
-        navigate("/");
-        setLoading(false);
-      } else {
-        setMessage("Usuário e/ou senha inválidos");
-        setError(true);
-        setLoading(false);
-      }
+      await api.post("auth/recoveryPass", data);
+      setLoading(false);
+      navigate("/code");
     } catch (e) {
       setLoading(false);
-      setMessage(e.response?.data?.message);
       setError(true);
+      setMessage(e.response?.data?.message || "Erro, tente novamente mais tarde");
+      console.log(e);
     }
   };
 
@@ -69,17 +50,10 @@ const Login = () => {
               <Logo>Startdev LABS</Logo>
               <Input text="Email" placeholder="Digite seu email" {...register("email")} />
               {errors.email && <ErrorMessage>{errors.email?.message}</ErrorMessage>}
-              <div style={{ marginTop: "45px" }} />
-              <Input
-                text="Senha"
-                placeholder="Digite sua senha"
-                type="password"
-                {...register("password")}
-              />
-              {errors.password && <ErrorMessage>{errors.password?.message}</ErrorMessage>}
-              <Password onClick={() => navigate("/forgotPassword")}>Esqueceu a senha?</Password>
-              <Button label="Entrar" variant="info" type="submit" />
-              <Account onClick={() => navigate("/register")}>Criar uma conta</Account>
+              <div style={{ marginTop: "40px" }} />
+              <Button label="Solicitar código" variant="info" type="submit" />
+
+              <Account onClick={() => navigate("/login")}>Fazer login</Account>
             </form>
           )}
         </Body>
@@ -89,4 +63,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

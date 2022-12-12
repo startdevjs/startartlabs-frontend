@@ -7,10 +7,11 @@ import api from "../../services/api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [errorUsername, setErrorUsername] = useState(false);
 
   const navigate = useNavigate();
 
@@ -42,6 +43,21 @@ const Login = () => {
     }
   };
 
+  const checkUsername = async (value) => {
+    try {
+      const data = { username: value };
+      const response = await api.post("/user/check/username", data);
+      if (response?.data?.message === "OFF") {
+        setErrorUsername(true);
+      } else {
+        setErrorUsername(false);
+      }
+    } catch (e) {
+      setError(true);
+      setMessage("Erro, tente novamente mais tarde");
+    }
+  };
+
   return (
     <>
       <Main>
@@ -60,14 +76,17 @@ const Login = () => {
                     text="Usuário"
                     placeholder="Escolha o nome do seu @usuário"
                     {...register("username")}
+                    onBlur={(ev) => checkUsername(ev.target.value)}
                   />
                   {errors.username && <ErrorMessage>{errors.username?.message}</ErrorMessage>}
+                  {errorUsername && <ErrorMessage>Usuário já existe.</ErrorMessage>}
                 </div>
                 <div className="grid-c-6">
                   <Input
                     text="Email"
                     placeholder="Digite seu melhor email"
                     {...register("email")}
+                    disabled={errorUsername}
                   />
                   {errors.email && <ErrorMessage>{errors.email?.message}</ErrorMessage>}
                 </div>
@@ -77,6 +96,7 @@ const Login = () => {
                     type="password"
                     placeholder="Digite sua senha"
                     {...register("password")}
+                    disabled={errorUsername}
                   />
                   {errors.password && <ErrorMessage>{errors.password?.message}</ErrorMessage>}
                 </div>
@@ -93,4 +113,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
