@@ -3,5 +3,6 @@ import Button from "./button";
 import ErrorMessage from "./errorMessage";
 import Toast from "./toast";
 import Loading from "./loading";
+import Menu from "./menu";
 
-export { Input, Button, ErrorMessage, Toast, Loading };
+export { Input, Button, ErrorMessage, Toast, Loading, Menu };

@@ -38,6 +38,8 @@ const Login = () => {
 
         const object = {
           id: user?.data?.id,
+          name: user?.data?.name,
+          admin: user?.data?.admin,
           email: user?.data?.email,
           username: user?.data?.username,
           token: response?.data?.token,
