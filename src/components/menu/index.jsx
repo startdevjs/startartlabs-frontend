@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Menu,
   Header,
@@ -13,8 +14,8 @@ import {
 
 const MenuComponent = ({ children }) => {
   const session = JSON.parse(localStorage.getItem("startdev-labs"));
-
   console.log(session);
+
   return (
     <>
       <Header>
@@ -39,11 +40,13 @@ const MenuComponent = ({ children }) => {
         </div>
       </Header>
       <Menu>
-        <Option>
-          <div className="tooltip tooltip--right" data-tooltip="Início">
-            <IconHome />
-          </div>
-        </Option>
+        <Link to="/">
+          <Option>
+            <div className="tooltip tooltip--right" data-tooltip="Início">
+              <IconHome />
+            </div>
+          </Option>
+        </Link>
         <Option>
           <div className="tooltip tooltip--right" data-tooltip="Projetos">
             <IconProjects />
@@ -60,11 +63,13 @@ const MenuComponent = ({ children }) => {
           </div>
         </Option>
         {session?.admin && (
-          <Option>
-            <div className="tooltip tooltip--right" data-tooltip="Administração">
-              <IconAdmin />
-            </div>
-          </Option>
+          <Link to="/admin">
+            <Option active={window.location.pathname === "/admin" ? "true" : "false"}>
+              <div className="tooltip tooltip--right" data-tooltip="Administração">
+                <IconAdmin />
+              </div>
+            </Option>
+          </Link>
         )}
         <Option>
           <div className="tooltip tooltip--right" data-tooltip="Sair">

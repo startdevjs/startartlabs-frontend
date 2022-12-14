@@ -4,25 +4,13 @@ import { BsCodeSlash, BsPerson } from "react-icons/bs";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { RxExit } from "react-icons/rx";
 
-export const Header = styled.div`
-  background-color: #131129;
-  position: fixed;
-  top: 0;
-  left: 81px;
-  right: 0;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 40px;
-`;
-
 export const Menu = styled.div`
   position: fixed;
-  left: 0;
+  left: 80px;
   top: 0;
   bottom: 0;
-  width: 80px;
+  width: 150px;
+  height: 100vh;
   background-color: #1d1933;
   display: flex;
   flex-direction: column;
@@ -30,10 +18,16 @@ export const Menu = styled.div`
 `;
 
 export const Option = styled.div`
-  color: ${({ active }) => (active === "true" ? "#2a7ae9" : "#7e7e7e")};
-
   padding-top: 40px;
   cursor: pointer;
+
+  color: ${({ active }) => (active === "true" ? "#2a7ae9" : "#7e7e7e")};
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
   &:hover {
     color: #2a7ae9;
@@ -70,6 +64,6 @@ export const IconExit = styled(RxExit)`
 `;
 
 export const Content = styled.div`
-  margin: 90px 20px 0 100px;
+  margin: 90px 20px 0 calc(100px + 120px);
   color: #dcdcdc !important;
 `;
