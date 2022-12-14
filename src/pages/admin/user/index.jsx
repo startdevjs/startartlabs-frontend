@@ -1,12 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import ModalDelete from "../../../components/admin/modalDelete";
 import Table from "../../../components/admin/table/user";
 import TableMobile from "../../../components/admin/tableMobile/user";
 import Toast from "../../../components/toast";
 import Loading from "../../../components/loading";
 import { onDelete } from "./functions/onDelete";
-import { getAllUsersInRequest } from "../../../store/modules/getAllUsers/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { getAllUsers } from "./functions/getAllUsers";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
 const AdminUser = () => {
@@ -17,15 +16,13 @@ const AdminUser = () => {
   const [loading, setLoading] = useState(false);
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [closeModalDelete, setCloseModalDelete] = useState(false);
+  const [users, setUsers] = useState([]);
 
-  const dispatch = useDispatch();
   const { width } = useWindowDimensions();
 
-  const getAllUsers = useSelector((state) => state.getAllUsers);
-
-  useMemo(() => {
-    dispatch(getAllUsersInRequest());
-  }, [dispatch]);
+  useEffect(() => {
+    getAllUsers(setLoading, setUsers);
+  }, []);
 
   const handleOpenAndCloseModalDelete = () => {
     setIsOpenModalDelete(!isOpenModalDelete);
@@ -39,9 +36,9 @@ const AdminUser = () => {
       setSuccess,
       setError,
       setMessage,
-      dispatch,
       setIsOpenModalDelete,
       setCloseModalDelete,
+      setUsers,
     );
   };
 
@@ -52,17 +49,9 @@ const AdminUser = () => {
       {!loading && (
         <>
           {width > 1180 ? (
-            <Table
-              getAllUsers={getAllUsers}
-              actionDelete={handleOpenAndCloseModalDelete}
-              setId={setId}
-            />
+            <Table users={users} actionDelete={handleOpenAndCloseModalDelete} setId={setId} />
           ) : (
-            <TableMobile
-              getAllUsers={getAllUsers}
-              actionDelete={handleOpenAndCloseModalDelete}
-              setId={setId}
-            />
+            <TableMobile users={users} actionDelete={handleOpenAndCloseModalDelete} setId={setId} />
           )}
 
           <ModalDelete

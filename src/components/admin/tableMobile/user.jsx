@@ -13,10 +13,10 @@ import {
   CardUserFooter,
 } from "./styles";
 
-const TableMobileUserComponent = ({ actionDelete, getAllUsers, setId }) => {
+const TableMobileUserComponent = ({ actionDelete, users, setId }) => {
   return (
     <Container>
-      {getAllUsers?.data?.users?.map((user, i) => (
+      {users?.users?.map((user, i) => (
         <CardUser key={i}>
           <CardUserHeader>
             <TitleCardUserHeader>

@@ -1,5 +1,5 @@
 import api from "../../../../services/api";
-import { getAllUsersInRequest } from "../../../../store/modules/getAllUsers/actions";
+import { getAllUsers } from "./getAllUsers";
 
 export const onDelete = async (
   id,
@@ -7,16 +7,17 @@ export const onDelete = async (
   setSuccess,
   setError,
   setMessage,
-  dispatch,
   setIsOpenModalDelete,
   setCloseModalDelete,
+  setUsers,
 ) => {
   setLoading(true);
 
   try {
     await api.delete(`/user/${id}`);
 
-    dispatch(getAllUsersInRequest());
+    getAllUsers(setLoading, setUsers);
+
     setIsOpenModalDelete(false);
     setCloseModalDelete(true);
 

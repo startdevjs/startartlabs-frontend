@@ -1,11 +1,10 @@
-import { useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Form from "../../../components/admin/form";
 import Input from "../../../components/input";
 import Loading from "../../../components/loading";
 import Toast from "../../../components/toast";
-import { getUserByIdInRequest } from "../../../store/modules/getUserById/actions";
+import { getUserById } from "./functions/getUserById";
 import { onUpdate } from "./functions/onUpdate";
 import { ContainerButtons, ButtonGoBack, ButtonSubmit } from "./styles";
 
@@ -14,25 +13,24 @@ const UpdateUser = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
-  const [error, setError] = useState({});
+  const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [user, setUser] = useState([]);
 
   const { id } = useParams();
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const getUserById = useSelector((state) => state.getUserById);
-
-  useMemo(() => {
-    dispatch(getUserByIdInRequest(id));
-  }, [dispatch]);
+  useEffect(() => {
+    getUserById(id, setLoading, setUser);
+  }, []);
 
   useMemo(() => {
-    setName(getUserById?.data?.name);
-    setUsername(getUserById?.data?.username);
-    setEmail(getUserById?.data?.email);
-  }, [getUserById]);
+    setName(user?.name);
+    setUsername(user?.username);
+    setEmail(user?.email);
+  }, [user]);
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -59,7 +57,7 @@ const UpdateUser = () => {
       email,
     };
 
-    onUpdate(id, data, setLoading, setSuccess, setError, setMessage, dispatch);
+    onUpdate(id, data, setLoading, setSuccess, setError, setMessage, navigate);
   };
 
   return (
@@ -99,7 +97,9 @@ const UpdateUser = () => {
           />
 
           <ContainerButtons>
-            <ButtonGoBack type="button">Voltar</ButtonGoBack>
+            <ButtonGoBack type="button" onClick={() => navigate("/admin")}>
+              Voltar
+            </ButtonGoBack>
             <ButtonSubmit type="submit">Atualizar</ButtonSubmit>
           </ContainerButtons>
         </Form>

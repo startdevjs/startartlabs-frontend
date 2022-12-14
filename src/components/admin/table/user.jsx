@@ -14,7 +14,7 @@ import {
   ButtonDelete,
 } from "./styles";
 
-const TableUserComponent = ({ actionDelete, getAllUsers, setId }) => {
+const TableUserComponent = ({ actionDelete, users, setId }) => {
   return (
     <Container>
       <Table>
@@ -30,7 +30,7 @@ const TableUserComponent = ({ actionDelete, getAllUsers, setId }) => {
         </Thead>
 
         <Tbody>
-          {getAllUsers?.data?.users?.map((user, i) => (
+          {users?.users?.map((user, i) => (
             <Tr key={i}>
               <Td>{user?.id}</Td>
               <Td>{user?.name}</Td>

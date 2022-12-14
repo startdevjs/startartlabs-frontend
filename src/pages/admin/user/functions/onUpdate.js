@@ -1,5 +1,4 @@
 import api from "../../../../services/api";
-import { getAllUsersInRequest } from "../../../../store/modules/getAllUsers/actions";
 
 export const onUpdate = async (
   id,
@@ -8,17 +7,15 @@ export const onUpdate = async (
   setSuccess,
   setError,
   setMessage,
-  dispatch,
+  navigate,
 ) => {
   setLoading(true);
 
   try {
     await api.put(`/user/${id}`, data);
 
-    dispatch(getAllUsersInRequest());
-
     setTimeout(() => {
-      window.location.href = "/admin";
+      navigate("/admin");
     }, 1000);
 
     setLoading(false);
