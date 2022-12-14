@@ -20,8 +20,15 @@ const AdminMenuComponent = ({ children }) => {
       <Menu>
         <Link to="/admin">
           <Option active={window.location.pathname === "/admin" ? "true" : "false"}>
-            <div className="tooltip tooltip--right" data-tooltip="Início">
+            <div className="tooltip tooltip--right" data-tooltip="Admin Usuário">
               <IconMyAccount /> Usuário
+            </div>
+          </Option>
+        </Link>
+        <Link to="/admin/project">
+          <Option active={window.location.pathname === "/admin/project" ? "true" : "false"}>
+            <div className="tooltip tooltip--right" data-tooltip="Admin Projetos">
+              <IconProjects /> Projetos
             </div>
           </Option>
         </Link>
