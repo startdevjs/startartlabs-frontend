@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ModalDelete from "../../../components/admin/modalDelete";
 import Table from "../../../components/admin/table/project";
 import TableMobile from "../../../components/admin/tableMobile/project";
@@ -7,6 +8,7 @@ import Loading from "../../../components/loading";
 import { onDelete } from "./functions/onDelete";
 import { getAllProjects } from "./functions/getAllProjects";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
+import { ButtonCreateProjectContainer, ButtonCreateProject } from "./styles";
 
 const AdminProject = () => {
   const [id, setId] = useState(null);
@@ -48,6 +50,14 @@ const AdminProject = () => {
 
       {!loading && (
         <>
+          <ButtonCreateProjectContainer>
+            <ButtonCreateProject>
+              <Link to="/admin/project/create">
+                <a>Criar projeto</a>
+              </Link>
+            </ButtonCreateProject>
+          </ButtonCreateProjectContainer>
+
           {width > 1180 ? (
             <Table projects={projects} actionDelete={handleOpenAndCloseModalDelete} setId={setId} />
           ) : (

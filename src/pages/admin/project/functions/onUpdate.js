@@ -11,11 +11,26 @@ export const onUpdate = async (
 ) => {
   setLoading(true);
 
+  const formData = new FormData();
+  formData.append("file", data?.image[0]);
+
   try {
-    await api.put(`/project/${id}`, data);
+    await api.put(`/project/${id}`, {
+      name: data.name,
+      description: data.description,
+      image: null,
+    });
+
+    if ((data?.image[0] !== null) | (data?.image[0] !== undefined)) {
+      await api.patch(`/project/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    }
 
     setTimeout(() => {
-      navigate("/admin");
+      navigate("/admin/project");
     }, 1000);
 
     setLoading(false);
