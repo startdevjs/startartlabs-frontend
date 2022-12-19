@@ -2,18 +2,15 @@ import { Link } from "react-router-dom";
 import {
   Menu,
   Option,
-  IconHome,
   IconProjects,
-  IconCommunity,
   IconMyAccount,
-  IconAdmin,
-  IconExit,
+  IconWarning,
+  IconLession,
   Content,
 } from "./styles";
 
 const AdminMenuComponent = ({ children }) => {
   const session = JSON.parse(localStorage.getItem("startdev-labs"));
-  console.log(session);
 
   return (
     <>
@@ -29,6 +26,20 @@ const AdminMenuComponent = ({ children }) => {
           <Option active={window.location.pathname === "/admin/project" ? "true" : "false"}>
             <div className="tooltip tooltip--right" data-tooltip="Admin Projetos">
               <IconProjects /> Projetos
+            </div>
+          </Option>
+        </Link>
+        <Link to="/admin/lession">
+          <Option active={window.location.pathname === "/admin/lession" ? "true" : "false"}>
+            <div className="tooltip tooltip--right" data-tooltip="Admin Aulas">
+              <IconLession /> Aulas
+            </div>
+          </Option>
+        </Link>
+        <Link to="/admin/warning">
+          <Option active={window.location.pathname === "/admin/warning" ? "true" : "false"}>
+            <div className="tooltip tooltip--right" data-tooltip="Admin Aulas">
+              <IconWarning /> Avisos
             </div>
           </Option>
         </Link>

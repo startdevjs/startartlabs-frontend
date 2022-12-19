@@ -14,7 +14,6 @@ import {
 
 const MenuComponent = ({ children }) => {
   const session = JSON.parse(localStorage.getItem("startdev-labs"));
-  console.log(session);
 
   return (
     <>
@@ -72,7 +71,14 @@ const MenuComponent = ({ children }) => {
           </Link>
         )}
         <Option>
-          <div className="tooltip tooltip--right" data-tooltip="Sair">
+          <div
+            className="tooltip tooltip--right"
+            data-tooltip="Sair"
+            onClick={() => {
+              localStorage.removeItem("startdev-labs");
+              window.location.href = "/";
+            }}
+          >
             <IconExit />
           </div>
         </Option>

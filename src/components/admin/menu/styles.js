@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { AiOutlineHome, AiOutlineComment } from "react-icons/ai";
 import { BsCodeSlash, BsPerson } from "react-icons/bs";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
-import { RxExit } from "react-icons/rx";
+import { MdPlayLesson } from "react-icons/md";
+import { RiFolderWarningLine } from "react-icons/ri";
 
 export const Menu = styled.div`
   position: fixed;
@@ -55,11 +55,11 @@ export const IconMyAccount = styled(BsPerson)`
   ${ICON}
 `;
 
-export const IconAdmin = styled(MdOutlineAdminPanelSettings)`
+export const IconWarning = styled(RiFolderWarningLine)`
   ${ICON}
 `;
 
-export const IconExit = styled(RxExit)`
+export const IconLession = styled(MdPlayLesson)`
   ${ICON}
 `;
 
