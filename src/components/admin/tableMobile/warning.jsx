@@ -13,47 +13,29 @@ import {
   CardFooter,
 } from "./styles";
 
-const TableMobileUserComponent = ({ actionDelete, users, setId }) => {
+const TableMobileWarningComponent = ({ actionDelete, warnings, setId }) => {
   return (
     <Container>
-      {users?.users?.map((user, i) => (
+      {warnings?.warnings?.map((warning, i) => (
         <Card key={i}>
           <CardHeader>
             <TitleCardHeader>
-              Nome: <CardBodyText>{user?.name}</CardBodyText>
+              Titulo: <CardBodyText>{warning?.title}</CardBodyText>
             </TitleCardHeader>
 
             <TitleCardHeader>
-              Username: <CardBodyText>{user?.username}</CardBodyText>
+              Descrição: <CardBodyText>{warning?.description}</CardBodyText>
             </TitleCardHeader>
 
             <TitleCardHeader>
-              Email: <CardBodyText>{user?.email}</CardBodyText>
-            </TitleCardHeader>
-
-            <TitleCardHeader>
-              Status:{" "}
-              <CardBodyText
-                style={{
-                  marginTop: "0.5rem",
-                }}
-              >
-                <Toggle
-                  value={user?.status}
-                  onChange={async () => {
-                    await api.put(`/user/${user?.id}`, {
-                      status: !user?.status,
-                    });
-                  }}
-                />
-              </CardBodyText>
+              Background: <CardBodyText>{warning?.background}</CardBodyText>
             </TitleCardHeader>
           </CardHeader>
 
           <CardFooter>
             <ContainerButtons>
               <ButtonEdit>
-                <Link to={`/admin/user/update/${user?.id}`}>
+                <Link to={`/admin/warning/update/${warning?.id}`}>
                   <a>Editar</a>
                 </Link>
               </ButtonEdit>
@@ -61,7 +43,7 @@ const TableMobileUserComponent = ({ actionDelete, users, setId }) => {
               <ButtonDelete
                 onClick={() => {
                   actionDelete();
-                  setId(user?.id);
+                  setId(warning?.id);
                 }}
               >
                 Excluir
@@ -74,4 +56,4 @@ const TableMobileUserComponent = ({ actionDelete, users, setId }) => {
   );
 };
 
-export default TableMobileUserComponent;
+export default TableMobileWarningComponent;

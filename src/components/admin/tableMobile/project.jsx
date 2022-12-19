@@ -13,22 +13,18 @@ import {
   CardFooter,
 } from "./styles";
 
-const TableMobileUserComponent = ({ actionDelete, users, setId }) => {
+const TableMobileProjectComponent = ({ actionDelete, projects, setId }) => {
   return (
     <Container>
-      {users?.users?.map((user, i) => (
+      {projects?.projects?.map((project, i) => (
         <Card key={i}>
           <CardHeader>
             <TitleCardHeader>
-              Nome: <CardBodyText>{user?.name}</CardBodyText>
+              Nome: <CardBodyText>{project?.name}</CardBodyText>
             </TitleCardHeader>
 
             <TitleCardHeader>
-              Username: <CardBodyText>{user?.username}</CardBodyText>
-            </TitleCardHeader>
-
-            <TitleCardHeader>
-              Email: <CardBodyText>{user?.email}</CardBodyText>
+              Descrição: <CardBodyText>{project?.description}</CardBodyText>
             </TitleCardHeader>
 
             <TitleCardHeader>
@@ -39,10 +35,10 @@ const TableMobileUserComponent = ({ actionDelete, users, setId }) => {
                 }}
               >
                 <Toggle
-                  value={user?.status}
+                  value={project?.status}
                   onChange={async () => {
-                    await api.put(`/user/${user?.id}`, {
-                      status: !user?.status,
+                    await api.put(`/project/${project?.id}`, {
+                      status: !project?.status,
                     });
                   }}
                 />
@@ -53,7 +49,7 @@ const TableMobileUserComponent = ({ actionDelete, users, setId }) => {
           <CardFooter>
             <ContainerButtons>
               <ButtonEdit>
-                <Link to={`/admin/user/update/${user?.id}`}>
+                <Link to={`/admin/project/update/${project?.id}`}>
                   <a>Editar</a>
                 </Link>
               </ButtonEdit>
@@ -61,7 +57,7 @@ const TableMobileUserComponent = ({ actionDelete, users, setId }) => {
               <ButtonDelete
                 onClick={() => {
                   actionDelete();
-                  setId(user?.id);
+                  setId(project?.id);
                 }}
               >
                 Excluir
@@ -74,4 +70,4 @@ const TableMobileUserComponent = ({ actionDelete, users, setId }) => {
   );
 };
 
-export default TableMobileUserComponent;
+export default TableMobileProjectComponent;

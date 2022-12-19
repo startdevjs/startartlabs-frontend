@@ -13,47 +13,33 @@ import {
   CardFooter,
 } from "./styles";
 
-const TableMobileUserComponent = ({ actionDelete, users, setId }) => {
+const TableMobileLessionComponent = ({ actionDelete, lessions, setId }) => {
   return (
     <Container>
-      {users?.users?.map((user, i) => (
+      {lessions?.lessions?.map((lession, i) => (
         <Card key={i}>
           <CardHeader>
             <TitleCardHeader>
-              Nome: <CardBodyText>{user?.name}</CardBodyText>
+              Nome: <CardBodyText>{lession?.name}</CardBodyText>
             </TitleCardHeader>
 
             <TitleCardHeader>
-              Username: <CardBodyText>{user?.username}</CardBodyText>
+              Descrição: <CardBodyText>{lession?.description}</CardBodyText>
             </TitleCardHeader>
 
             <TitleCardHeader>
-              Email: <CardBodyText>{user?.email}</CardBodyText>
+              Tipo: <CardBodyText>{lession?.type == 1 ? "Video" : "Desafio"}</CardBodyText>
             </TitleCardHeader>
 
             <TitleCardHeader>
-              Status:{" "}
-              <CardBodyText
-                style={{
-                  marginTop: "0.5rem",
-                }}
-              >
-                <Toggle
-                  value={user?.status}
-                  onChange={async () => {
-                    await api.put(`/user/${user?.id}`, {
-                      status: !user?.status,
-                    });
-                  }}
-                />
-              </CardBodyText>
+              Projeto: <CardBodyText>{lession?.projectId}</CardBodyText>
             </TitleCardHeader>
           </CardHeader>
 
           <CardFooter>
             <ContainerButtons>
               <ButtonEdit>
-                <Link to={`/admin/user/update/${user?.id}`}>
+                <Link to={`/admin/lession/update/${lession?.id}`}>
                   <a>Editar</a>
                 </Link>
               </ButtonEdit>
@@ -61,7 +47,7 @@ const TableMobileUserComponent = ({ actionDelete, users, setId }) => {
               <ButtonDelete
                 onClick={() => {
                   actionDelete();
-                  setId(user?.id);
+                  setId(lession?.id);
                 }}
               >
                 Excluir
@@ -74,4 +60,4 @@ const TableMobileUserComponent = ({ actionDelete, users, setId }) => {
   );
 };
 
-export default TableMobileUserComponent;
+export default TableMobileLessionComponent;

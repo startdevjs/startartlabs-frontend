@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;900&display=swap");
 
 :root {
-  font-family: 'Poppins', sans-serif !important; 
+  font-family: "Poppins", sans-serif !important;
   font-size: 16px;
   line-height: 24px;
-
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87) !important;
@@ -33,7 +32,12 @@ h1 {
 
 input {
   background-color: #000 !important;
-  border: 1px solid #373535 !important
+  border: 1px solid #373535 !important;
+}
+
+select {
+  background-color: #000 !important;
+  border: 1px solid #373535 !important;
 }
 
 button {
@@ -41,5 +45,5 @@ button {
 }
 
 label {
-  margin: 0 !important
+  margin: 0 !important;
 }

@@ -15,7 +15,7 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const CardUser = styled.div`
+export const Card = styled.div`
   width: 100%;
   height: 100%;
   background-color: #1d1933;
@@ -27,7 +27,7 @@ export const CardUser = styled.div`
   align-items: center;
 `;
 
-export const CardUserHeader = styled.div`
+export const CardHeader = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -45,7 +45,7 @@ export const CardUserHeader = styled.div`
   }
 `;
 
-export const TitleCardUserHeader = styled.h1`
+export const TitleCardHeader = styled.h1`
   font-size: 18px;
   color: #d4d4d4;
   font-weight: 500;
@@ -53,13 +53,13 @@ export const TitleCardUserHeader = styled.h1`
   width: 40%;
 `;
 
-export const CardUserBodyText = styled.p`
+export const CardBodyText = styled.p`
   font-size: 16px;
   color: #d4d4d4;
   font-weight: 400;
 `;
 
-export const CardUserFooter = styled.div`
+export const CardFooter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

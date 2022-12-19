@@ -9,6 +9,7 @@ import ForgotPassword from "../pages/forgotPassword";
 import Code from "../pages/forgotPassword/setCode";
 import AdminUser from "../pages/admin/user";
 import UpdateUser from "../pages/admin/user/update";
+import AdminProject from "../pages/admin/project";
 
 const RoutesComponent = () => {
   return (
@@ -20,6 +21,8 @@ const RoutesComponent = () => {
       <Route path="/" element={<Private Component={Home} />} />
       <Route path="/admin" element={<PrivateAdmin Component={AdminUser} />} />
       <Route path="/admin/user/update/:id" element={<PrivateAdmin Component={UpdateUser} />} />
+      <Route path="/admin/project" element={<PrivateAdmin Component={AdminProject} />} />
+      {/* <Route path="/admin/project/update/:id" element={<PrivateAdmin Component={UpdateUser} />} /> */}
     </Routes>
   );
 };
