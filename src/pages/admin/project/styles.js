@@ -44,3 +44,37 @@ export const ButtonSubmit = styled(Button)`
     color: #fff;
   }
 `;
+
+export const ButtonCreateProjectContainer = styled.div`
+  width: 20%;
+
+  @media (max-width: 1260px) {
+    width: 30%;
+  }
+
+  @media (max-width: 860px) {
+    width: 50%;
+  }
+
+  @media (max-width: 780px) {
+    width: 100%;
+  }
+`;
+
+export const ButtonCreateProject = styled(Button)`
+  background-color: #f73164;
+  transition: background-color 0.2s;
+
+  a {
+    color: #fff;
+  }
+
+  &:hover {
+    filter: brightness(0.8);
+    color: #fff;
+
+    a {
+      color: #fff;
+    }
+  }
+`;
