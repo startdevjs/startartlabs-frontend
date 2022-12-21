@@ -11,6 +11,7 @@ import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import { ButtonCreateLessionContainer, ButtonCreateLession } from "./styles";
 
 const AdminLession = () => {
+  const [page, setPage] = useState(1);
   const [id, setId] = useState(null);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -23,7 +24,10 @@ const AdminLession = () => {
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    getAllLessions(setLoading, setLessions);
+    const skip = (page - 1) * 20;
+    const take = 20;
+
+    getAllLessions(setLoading, setLessions, skip, take);
   }, []);
 
   const handleOpenAndCloseModalDelete = () => {
@@ -59,12 +63,24 @@ const AdminLession = () => {
           </ButtonCreateLessionContainer>
 
           {width > 1180 ? (
-            <Table lessions={lessions} actionDelete={handleOpenAndCloseModalDelete} setId={setId} />
+            <Table
+              lessions={lessions}
+              actionDelete={handleOpenAndCloseModalDelete}
+              setId={setId}
+              onPageChange={setPage}
+              totalCountOfRegisters={lessions?.total}
+              page={page}
+              registersPerPage={20}
+            />
           ) : (
             <TableMobile
               lessions={lessions}
               actionDelete={handleOpenAndCloseModalDelete}
               setId={setId}
+              onPageChange={setPage}
+              totalCountOfRegisters={lessions?.total}
+              page={page}
+              registersPerPage={20}
             />
           )}
 

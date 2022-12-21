@@ -11,6 +11,7 @@ import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import { ButtonCreateProjectContainer, ButtonCreateProject } from "./styles";
 
 const AdminProject = () => {
+  const [page, setPage] = useState(1);
   const [id, setId] = useState(null);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -23,7 +24,10 @@ const AdminProject = () => {
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    getAllProjects(setLoading, setProjects);
+    const skip = (page - 1) * 20;
+    const take = 20;
+
+    getAllProjects(setLoading, setProjects, skip, take);
   }, []);
 
   const handleOpenAndCloseModalDelete = () => {
@@ -59,12 +63,24 @@ const AdminProject = () => {
           </ButtonCreateProjectContainer>
 
           {width > 1180 ? (
-            <Table projects={projects} actionDelete={handleOpenAndCloseModalDelete} setId={setId} />
+            <Table
+              projects={projects}
+              actionDelete={handleOpenAndCloseModalDelete}
+              setId={setId}
+              onPageChange={setPage}
+              totalCountOfRegisters={projects?.total}
+              page={page}
+              registersPerPage={20}
+            />
           ) : (
             <TableMobile
               projects={projects}
               actionDelete={handleOpenAndCloseModalDelete}
               setId={setId}
+              onPageChange={setPage}
+              totalCountOfRegisters={projects?.total}
+              page={page}
+              registersPerPage={20}
             />
           )}
 

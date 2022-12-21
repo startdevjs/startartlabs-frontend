@@ -1,10 +1,10 @@
 import api from "../../../../services/api";
 
-export const getAllProjects = async (setLoading, setProjects) => {
+export const getAllProjects = async (setLoading, setProjects, skip, take) => {
   setLoading(true);
 
   try {
-    const { data } = await api.get(`/project`);
+    const { data } = await api.get(`/project?skip=${skip}&take=${take}`);
 
     setLoading(false);
     setProjects(data);

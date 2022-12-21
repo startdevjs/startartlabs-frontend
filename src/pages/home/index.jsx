@@ -16,8 +16,10 @@ import {
   ProjectTitle,
   ProjectContent,
 } from "./styles";
+import Pagination from "../../components/pagination";
 
 const Home = () => {
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [loadingWarning, setLoadingWarning] = useState([]);
   const [warnings, setWarnings] = useState([]);
@@ -25,8 +27,14 @@ const Home = () => {
 
   useEffect(() => {
     getAllWarnings(setLoadingWarning, setWarnings);
-    getAllProjects(setLoading, setProjects);
   }, []);
+
+  useEffect(() => {
+    const skip = (page - 1) * 20;
+    const take = 20;
+
+    getAllProjects(setLoading, setProjects, skip, take);
+  }, [page]);
 
   return (
     <>
@@ -52,21 +60,30 @@ const Home = () => {
 
         {loading && <Loading />}
         {!loading && (
-          <ProjectContainer>
-            <ProjectTitle>Projetos</ProjectTitle>
+          <>
+            <ProjectContainer>
+              <ProjectTitle>Projetos</ProjectTitle>
 
-            <ProjectContent>
-              {projects?.projects?.map((project) => (
-                <ProjectCard
-                  key={project?.id}
-                  id={project?.id}
-                  name={project?.name}
-                  description={project?.description}
-                  image={project?.image}
-                />
-              ))}
-            </ProjectContent>
-          </ProjectContainer>
+              <ProjectContent>
+                {projects?.projects?.map((project) => (
+                  <ProjectCard
+                    key={project?.id}
+                    id={project?.id}
+                    name={project?.name}
+                    description={project?.description}
+                    image={project?.image}
+                  />
+                ))}
+              </ProjectContent>
+            </ProjectContainer>
+
+            <Pagination
+              onPageChange={setPage}
+              totalCountOfRegisters={projects?.total}
+              currentPage={page}
+              registersPerPage={20}
+            />
+          </>
         )}
       </Container>
     </>
