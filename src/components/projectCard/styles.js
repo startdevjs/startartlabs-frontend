@@ -60,7 +60,7 @@ export const Button = styled.button`
 `;
 
 export const ProjectCardButton = styled(Button)`
-  background-color: #6f4ef2;
+  background-color: #2a7ae9;
   transition: background-color 0.2s;
 
   a {

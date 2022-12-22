@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Container,
   ProjectCardInfo,
@@ -23,7 +24,9 @@ const ProjectCard = ({ key, id, name, description, image }) => {
         </ProjectCardDescription>
       </ProjectCardInfo>
 
-      <ProjectCardButton>Entrar</ProjectCardButton>
+      <Link to={`/projects?challenges=${true}&activeProjectId=${id}`}>
+        <ProjectCardButton>Acessar</ProjectCardButton>
+      </Link>
     </Container>
   );
 };
