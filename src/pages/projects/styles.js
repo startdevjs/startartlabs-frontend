@@ -204,3 +204,37 @@ export const ProjectFooter = styled.div`
   height: auto;
   padding: 20px;
 `;
+
+export const SendProjectFooter = styled.div`
+  width: 100%;
+
+  margin-top: 60px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+export const ButtonSendProject = styled.button`
+  padding: 0.4em;
+  margin-top: 10px;
+
+  border: none;
+  border-radius: 5px;
+
+  font-size: 16px;
+  font-weight: bold;
+  color: #1d1933;
+
+  cursor: pointer;
+
+  background-color: #3f9e3f;
+  transition: background-color 0.2s;
+
+  color: #fff;
+
+  &:hover {
+    filter: brightness(0.8);
+    color: #fff;
+  }
+`;
