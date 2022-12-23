@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import api from "../../services/api";
 import {
   Menu,
   Header,
@@ -13,18 +15,37 @@ import {
 } from "./styles";
 
 const MenuComponent = ({ children }) => {
+  const [avatar, setAvatar] = useState();
   const session = JSON.parse(localStorage.getItem("startdev-labs"));
+  const userId = session?.id
+
+  const handleAvatar = async (id) => {
+    const data = await api.get(`/user/${id}`)
+    return `https://api-labs-dev.startdevjs.com.br/public/images/${data?.data?.avatar}`
+  }
+
+  useEffect(() => {
+    handleAvatar(userId)
+    .then((response) => setAvatar(response))
+  }, [userId])
 
   return (
     <>
       <Header>
         <div className="tile m-0 level">
           <div className="tile__icon">
-            <figure
-              className="avatar avatar--sm"
-              data-text="RM"
-              style={{ background: "rgb(163, 211, 156)" }}
-            ></figure>
+          {
+                  avatar ? (
+                    <img 
+                    className="avatar avatar--md" 
+                    src={avatar}
+                    />
+                  ) : (
+                    <figure 
+                    className="avatar avatar--md" 
+                    />
+                  )
+                }
           </div>
           <div className="tile__container">
             <p className="tile__title m-0" style={{ color: "#dcdcdc" }}>
@@ -60,11 +81,13 @@ const MenuComponent = ({ children }) => {
             <IconCommunity />
           </div>
         </Option>
-        <Option>
+        <Link to="/profile">
+        <Option active={window.location.pathname === "/profile" ? "true" : "false"}>
           <div className="tooltip tooltip--right" data-tooltip="Minha Conta">
             <IconMyAccount />
           </div>
         </Option>
+        </Link>
         {session?.admin && (
           <Link to="/admin">
             <Option active={window.location.pathname === "/admin" ? "true" : "false"}>
