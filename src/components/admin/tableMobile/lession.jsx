@@ -34,7 +34,7 @@ const TableMobileLessionComponent = ({
               </TitleCardHeader>
 
               <TitleCardHeader>
-                Descrição: <CardBodyText>{lession?.description}</CardBodyText>
+                Descrição: <CardBodyText>{lession?.description?.substring(0, 100)}...</CardBodyText>
               </TitleCardHeader>
 
               <TitleCardHeader>

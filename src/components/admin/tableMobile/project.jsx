@@ -34,7 +34,7 @@ const TableMobileProjectComponent = ({
               </TitleCardHeader>
 
               <TitleCardHeader>
-                Descrição: <CardBodyText>{project?.description}</CardBodyText>
+                Descrição: <CardBodyText>{project?.description?.substring(0, 100)}...</CardBodyText>
               </TitleCardHeader>
 
               <TitleCardHeader>

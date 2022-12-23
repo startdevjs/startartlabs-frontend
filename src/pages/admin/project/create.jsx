@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "../../../components/admin/form/styles";
 import Input from "../../../components/input";
+import Textarea from "../../../components/textarea";
 import Loading from "../../../components/loading";
 import Toast from "../../../components/toast";
 import { onCreate } from "./functions/onCreate";
@@ -61,7 +62,7 @@ const CreateProject = () => {
             error={errors.name}
           />
 
-          <Input
+          <Textarea
             text="Descrição"
             name="description"
             type="description"
