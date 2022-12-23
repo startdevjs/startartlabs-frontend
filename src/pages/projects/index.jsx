@@ -17,6 +17,7 @@ import {
   ProjectSideBarListItem,
   ProjectSideBarListItemTitle,
   IconPlay,
+  IconChallenge,
   ProjectVideoPlayer,
   ProjectSideBarHeader,
   ProjectSideBarHeaderTitle,
@@ -24,6 +25,7 @@ import {
   ProjectFooter,
 } from "./styles";
 import Pagination from "../../components/pagination";
+import { Link } from "react-router-dom";
 
 const Projects = () => {
   const [pageProject, setPageProject] = useState(1);
@@ -39,13 +41,6 @@ const Projects = () => {
 
   const [loadingProjectActive, setLoadingProjectActive] = useState(false);
   const [activeProject, setActiveProject] = useState([]);
-
-  const [empty, setEmpty] = useState(false);
-
-  const [activeMenu, setActiveMenu] = useState({
-    videos: true,
-    challenges: false,
-  });
 
   const query = useQuery();
   const activeLessionId = query.get("activeLessionId");
@@ -69,19 +64,15 @@ const Projects = () => {
 
   useEffect(() => {
     if (!activeLessionId) {
-      setEmpty(true);
     } else {
       getLessionById(activeLessionId, setLoadingLessionActive, setActiveLession);
-      setEmpty(false);
     }
   }, [activeLessionId]);
 
   useEffect(() => {
     if (!activeProjectId) {
-      setEmpty(true);
     } else {
       getProjectById(activeProjectId, setLoadingProjectActive, setActiveProject);
-      setEmpty(false);
     }
   }, [activeProjectId]);
 
@@ -93,52 +84,59 @@ const Projects = () => {
       {!loadingProject && !loadingLession ? (
         <Container>
           <Content>
-            <ProjectVideoContainer>
-              <ProjectTitle>
-                {videoUrl == "true" && activeLession?.name}
-                {challengesUrl == "true" && activeProject?.name}
-              </ProjectTitle>
+            {loadingLessionActive ? <Loading /> : <></>}
+            {loadingProjectActive ? <Loading /> : <></>}
 
-              <ProjectVideo>
-                {videoUrl == "true" && (
-                  <>
-                    {activeLession?.video ? (
-                      <ProjectVideoPlayer controls>
-                        <source src={activeLession?.video} type="video/mp4"></source>
-                      </ProjectVideoPlayer>
-                    ) : activeLession?.image ? (
-                      <ProjectImg src={activeLession?.image} alt="Imagem da aula" />
-                    ) : (
-                      <ProjectImg
-                        src="/assets/img/empty.jpg"
-                        alt="Nenhuma imagem ou vídeo foi encontrada"
-                      />
-                    )}
-                  </>
-                )}
+            {!loadingLessionActive && !loadingProjectActive ? (
+              <ProjectVideoContainer>
+                <ProjectTitle>
+                  {videoUrl == "true" && activeLession?.name}
+                  {challengesUrl == "true" && activeProject?.name}
+                </ProjectTitle>
 
-                {challengesUrl == "true" && (
-                  <>
-                    {console.log("teste")}
-                    {activeProject?.image ? (
-                      <ProjectImg src={activeProject?.image} alt="Imagem do desafio" />
-                    ) : (
-                      <ProjectImg
-                        src="/assets/img/empty.jpg"
-                        alt="Nenhuma imagem ou vídeo foi encontrada"
-                      />
-                    )}
-                  </>
-                )}
+                <ProjectVideo>
+                  {videoUrl == "true" && (
+                    <>
+                      {activeLession?.video ? (
+                        <ProjectVideoPlayer controls>
+                          <source src={activeLession?.video} type="video/mp4"></source>
+                        </ProjectVideoPlayer>
+                      ) : activeLession?.image ? (
+                        <ProjectImg src={activeLession?.image} alt="Imagem da aula" />
+                      ) : (
+                        <ProjectImg
+                          src="/assets/img/empty.jpg"
+                          alt="Nenhuma imagem ou vídeo foi encontrada"
+                        />
+                      )}
+                    </>
+                  )}
 
-                {!activeLession && !activeProject ? "Nenhuma aula ou desafio foi encontrada" : ""}
-              </ProjectVideo>
+                  {challengesUrl == "true" && (
+                    <>
+                      {console.log("teste")}
+                      {activeProject?.image ? (
+                        <ProjectImg src={activeProject?.image} alt="Imagem do desafio" />
+                      ) : (
+                        <ProjectImg
+                          src="/assets/img/empty.jpg"
+                          alt="Nenhuma imagem ou vídeo foi encontrada"
+                        />
+                      )}
+                    </>
+                  )}
 
-              <ProjectDescription>
-                {videoUrl == "true" && activeLession?.description}
-                {challengesUrl == "true" && activeProject?.description}
-              </ProjectDescription>
-            </ProjectVideoContainer>
+                  {!activeLession && !activeProject ? "Nenhuma aula ou desafio foi encontrada" : ""}
+                </ProjectVideo>
+
+                <ProjectDescription>
+                  {videoUrl == "true" && activeLession?.description}
+                  {challengesUrl == "true" && activeProject?.description}
+                </ProjectDescription>
+              </ProjectVideoContainer>
+            ) : (
+              <></>
+            )}
 
             <ProjectSideBarList>
               <ProjectSideBarHeader>
@@ -153,61 +151,48 @@ const Projects = () => {
                       : false
                   }
                 >
-                  <a
-                    href="?video=true"
-                    onClick={() => {
-                      setActiveMenu({ videos: true, challenges: false });
-                    }}
-                  >
-                    Vídeos
-                  </a>
+                  <Link to="?video=true">Vídeos</Link>
                 </ProjectSideBarHeaderTitle>
 
                 <ProjectSideBarHeaderTitle active={challengesUrl == "true" ? true : false}>
-                  <a
-                    href="?challenges=true"
-                    onClick={() => {
-                      setActiveMenu({ videos: false, challenges: true });
-                    }}
-                  >
-                    Desafios
-                  </a>
+                  <Link to="?challenges=true">Desafios</Link>
                 </ProjectSideBarHeaderTitle>
               </ProjectSideBarHeader>
 
               <ProjectSideBarListContent>
                 {videoUrl == "true" &&
                   lessions?.lessions?.map((lession) => (
-                    <a
+                    <Link
                       style={
                         lession?.id == activeLessionId ? { color: "#2a7ae9" } : { color: "#fff" }
                       }
-                      href={`?video=${true}&activeLessionId=${lession?.id}`}
+                      to={`?video=${true}&activeLessionId=${lession?.id}`}
                     >
                       <ProjectSideBarListItem>
                         <ProjectSideBarListItemTitle>
                           <p>{lession?.name}</p>
-                          <IconPlay />
+                          {lession?.type === 1 && <IconPlay />}
+                          {lession?.type === 2 && <IconChallenge />}
                         </ProjectSideBarListItemTitle>
                       </ProjectSideBarListItem>
-                    </a>
+                    </Link>
                   ))}
 
                 {challengesUrl == "true" &&
                   projects?.projects?.map((project) => (
-                    <a
+                    <Link
                       style={
                         project?.id == activeProjectId ? { color: "#2a7ae9" } : { color: "#fff" }
                       }
-                      href={`?challenges=${true}&activeProjectId=${project?.id}`}
+                      to={`?challenges=${true}&activeProjectId=${project?.id}`}
                     >
                       <ProjectSideBarListItem>
                         <ProjectSideBarListItemTitle>
                           <p>{project?.name}</p>
-                          <IconPlay />
+                          <IconChallenge />
                         </ProjectSideBarListItemTitle>
                       </ProjectSideBarListItem>
-                    </a>
+                    </Link>
                   ))}
               </ProjectSideBarListContent>
 

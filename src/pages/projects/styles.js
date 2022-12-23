@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BiPlayCircle } from "react-icons/bi";
+import { BiCodeAlt, BiPlayCircle } from "react-icons/bi";
 
 export const ProjectTitle = styled.h1`
   font-size: 1.5rem !important;
@@ -76,6 +76,11 @@ export const ProjectDescription = styled.p`
   margin-top: 30px;
 
   margin-left: 4px !important;
+
+  text-align: justify !important;
+  line-height: 2.4 !important;
+
+  color: #dadada !important;
 
   @media (min-width: 1150px) {
     font-size: 1.2rem !important;
@@ -185,6 +190,10 @@ export const ProjectSideBarListItemTitle = styled.h3`
 `;
 
 export const IconPlay = styled(BiPlayCircle)`
+  font-size: 1.8rem !important;
+`;
+
+export const IconChallenge = styled(BiCodeAlt)`
   font-size: 1.8rem !important;
 `;
 
