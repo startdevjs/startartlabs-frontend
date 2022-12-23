@@ -216,21 +216,29 @@ const Projects = () => {
 
               <ProjectFooter>
                 {videoUrl == "true" && (
-                  <Pagination
-                    onPageChange={setPageLession}
-                    totalCountOfRegisters={lessions?.lessions?.total}
-                    currentPage={pageLession}
-                    registersPerPage={20}
-                  />
+                  <>
+                    {lessions?.lessions?.length >= 20 && (
+                      <Pagination
+                        onPageChange={setPageLession}
+                        totalCountOfRegisters={lessions?.lessions?.total}
+                        currentPage={pageLession}
+                        registersPerPage={20}
+                      />
+                    )}
+                  </>
                 )}
 
                 {challengesUrl == "true" && (
-                  <Pagination
-                    onPageChange={setPageProject}
-                    totalCountOfRegisters={projects?.projects?.total}
-                    currentPage={pageProject}
-                    registersPerPage={20}
-                  />
+                  <>
+                    {projects?.projects?.length >= 20 && (
+                      <Pagination
+                        onPageChange={setPageProject}
+                        totalCountOfRegisters={projects?.projects?.total}
+                        currentPage={pageProject}
+                        registersPerPage={20}
+                      />
+                    )}
+                  </>
                 )}
               </ProjectFooter>
             </ProjectSideBarList>

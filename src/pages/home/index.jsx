@@ -77,12 +77,14 @@ const Home = () => {
               </ProjectContent>
             </ProjectContainer>
 
-            <Pagination
-              onPageChange={setPage}
-              totalCountOfRegisters={projects?.total}
-              currentPage={page}
-              registersPerPage={20}
-            />
+            {projects?.projects?.length >= 4 && (
+              <Pagination
+                onPageChange={setPage}
+                totalCountOfRegisters={projects?.total}
+                currentPage={page}
+                registersPerPage={20}
+              />
+            )}
           </>
         )}
       </Container>
