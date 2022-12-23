@@ -42,7 +42,6 @@ const Projects = () => {
 
   const [empty, setEmpty] = useState(false);
 
-  // const [activeLessionId, setActiveLessionId] = useState(null);
   const [activeMenu, setActiveMenu] = useState({
     videos: true,
     challenges: false,
@@ -71,7 +70,6 @@ const Projects = () => {
   useEffect(() => {
     if (!activeLessionId) {
       setEmpty(true);
-      // setActiveLession(lessions?.lessions?.[0]);
     } else {
       getLessionById(activeLessionId, setLoadingLessionActive, setActiveLession);
       setEmpty(false);
@@ -81,7 +79,6 @@ const Projects = () => {
   useEffect(() => {
     if (!activeProjectId) {
       setEmpty(true);
-      // setActiveLession(projects?.projects?.[0]);
     } else {
       getProjectById(activeProjectId, setLoadingProjectActive, setActiveProject);
       setEmpty(false);

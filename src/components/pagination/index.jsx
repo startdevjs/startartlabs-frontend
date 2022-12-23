@@ -12,10 +12,6 @@ function generatePagesArray(from, to) {
 }
 
 const Pagination = ({ onPageChange, totalCountOfRegisters, currentPage, registersPerPage }) => {
-  console.log("totalCountOfRegisters", totalCountOfRegisters);
-  console.log("currentPage", currentPage);
-  console.log("registersPerPage", registersPerPage);
-
   const lastPage = useMemo(() => {
     return Math.ceil(totalCountOfRegisters / registersPerPage);
   }, [registersPerPage, totalCountOfRegisters]);

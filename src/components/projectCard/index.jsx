@@ -9,8 +9,6 @@ import {
 } from "./styles";
 
 const ProjectCard = ({ key, id, name, description, image }) => {
-  console.log("image", image);
-
   return (
     <Container key={key}>
       <ProjectCardImage image={image} />
