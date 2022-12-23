@@ -6,8 +6,6 @@ const AutocompleteComponent = ({ text, items, setDataId, valueIsUpdate = null, .
   const [suggestions, setSuggestions] = useState([]);
   const [value, setValue] = useState("");
 
-  console.log("valueIsUpdate", valueIsUpdate);
-
   useEffect(() => {
     if (valueIsUpdate) {
       const value = items?.find((item) => item.id === valueIsUpdate);

@@ -67,11 +67,15 @@ const MenuComponent = ({ children }) => {
             </div>
           </Option>
         </Link>
-        <Option>
-          <div className="tooltip tooltip--right" data-tooltip="Projetos">
-            <IconProjects />
-          </div>
-        </Option>
+
+        <Link to="/projects?video=true">
+          <Option active={window.location.pathname === "/projects" ? "true" : "false"}>
+            <div className="tooltip tooltip--right" data-tooltip="Projetos">
+              <IconProjects />
+            </div>
+          </Option>
+        </Link>
+
         <Option>
           <div className="tooltip tooltip--right" data-tooltip="Comunidade">
             <IconCommunity />

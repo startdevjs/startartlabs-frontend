@@ -9,6 +9,7 @@ import { getAllUsers } from "./functions/getAllUsers";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
 const AdminUser = () => {
+  const [page, setPage] = useState(1);
   const [id, setId] = useState(null);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -21,7 +22,10 @@ const AdminUser = () => {
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    getAllUsers(setLoading, setUsers);
+    const skip = (page - 1) * 20;
+    const take = 20;
+
+    getAllUsers(setLoading, setUsers, skip, take);
   }, []);
 
   const handleOpenAndCloseModalDelete = () => {
@@ -49,9 +53,25 @@ const AdminUser = () => {
       {!loading && (
         <>
           {width > 1180 ? (
-            <Table users={users} actionDelete={handleOpenAndCloseModalDelete} setId={setId} />
+            <Table
+              users={users}
+              actionDelete={handleOpenAndCloseModalDelete}
+              setId={setId}
+              onPageChange={setPage}
+              totalCountOfRegisters={users?.total}
+              page={page}
+              registersPerPage={20}
+            />
           ) : (
-            <TableMobile users={users} actionDelete={handleOpenAndCloseModalDelete} setId={setId} />
+            <TableMobile
+              users={users}
+              actionDelete={handleOpenAndCloseModalDelete}
+              setId={setId}
+              onPageChange={setPage}
+              totalCountOfRegisters={users?.total}
+              page={page}
+              registersPerPage={20}
+            />
           )}
 
           <ModalDelete

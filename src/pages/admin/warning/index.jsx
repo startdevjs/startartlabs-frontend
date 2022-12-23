@@ -11,6 +11,7 @@ import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import { ButtonCreateWarning, ButtonCreateWarningContainer } from "./styles";
 
 const AdminWarning = () => {
+  const [page, setPage] = useState(1);
   const [id, setId] = useState(null);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -23,7 +24,10 @@ const AdminWarning = () => {
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    getAllWarnings(setLoading, setWarnings);
+    const skip = (page - 1) * 20;
+    const take = 20;
+
+    getAllWarnings(setLoading, setWarnings, skip, take);
   }, []);
 
   const handleOpenAndCloseModalDelete = () => {
@@ -59,12 +63,24 @@ const AdminWarning = () => {
           </ButtonCreateWarningContainer>
 
           {width > 1180 ? (
-            <Table warnings={warnings} actionDelete={handleOpenAndCloseModalDelete} setId={setId} />
+            <Table
+              warnings={warnings}
+              actionDelete={handleOpenAndCloseModalDelete}
+              setId={setId}
+              onPageChange={setPage}
+              totalCountOfRegisters={warnings?.total}
+              page={page}
+              registersPerPage={20}
+            />
           ) : (
             <TableMobile
               warnings={warnings}
               actionDelete={handleOpenAndCloseModalDelete}
               setId={setId}
+              onPageChange={setPage}
+              totalCountOfRegisters={warnings?.total}
+              page={page}
+              registersPerPage={20}
             />
           )}
 

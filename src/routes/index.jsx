@@ -18,6 +18,7 @@ import UpdateLession from "../pages/admin/lession/update";
 import UpdateWarning from "../pages/admin/warning/update";
 import CreateWarning from "../pages/admin/warning/create";
 import AdminWarning from "../pages/admin/warning";
+import Projects from "../pages/projects";
 import Profile from "../pages/profile";
 
 const RoutesComponent = () => {
@@ -29,6 +30,7 @@ const RoutesComponent = () => {
       <Route path="/code" element={<Code />} />
       <Route path="/profile" element={<Private Component={Profile} />} />
       <Route path="/" element={<Private Component={Home} />} />
+      <Route path="/projects" element={<Private Component={Projects} />} />
       <Route path="/admin" element={<PrivateAdmin Component={AdminUser} />} />
       <Route path="/admin/user/update/:id" element={<PrivateAdmin Component={UpdateUser} />} />
       <Route path="/admin/project" element={<PrivateAdmin Component={AdminProject} />} />
