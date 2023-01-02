@@ -18,6 +18,8 @@ import UpdateLession from "../pages/admin/lession/update";
 import UpdateWarning from "../pages/admin/warning/update";
 import CreateWarning from "../pages/admin/warning/create";
 import AdminWarning from "../pages/admin/warning";
+import AdminExercise from "../pages/admin/exercise";
+import UpdateExercise from "../pages/admin/exercise/update";
 import Project from "../pages/projects/project";
 import Profile from "../pages/profile";
 import Projects from "../pages/projects";
@@ -52,6 +54,11 @@ const RoutesComponent = () => {
       <Route
         path="/admin/warning/update/:id"
         element={<PrivateAdmin Component={UpdateWarning} />}
+      />
+      <Route path="/admin/exercise" element={<PrivateAdmin Component={AdminExercise} />} />
+      <Route
+        path="/admin/exercise/update/:id"
+        element={<PrivateAdmin Component={UpdateExercise} />}
       />
     </Routes>
   );

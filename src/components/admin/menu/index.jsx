@@ -6,6 +6,7 @@ import {
   IconMyAccount,
   IconWarning,
   IconLession,
+  IconExercise,
   Content,
 } from "./styles";
 
@@ -29,6 +30,13 @@ const AdminMenuComponent = ({ children }) => {
             </div>
           </Option>
         </Link>
+        <Link to="/admin/exercise">
+          <Option active={location.pathname === "/admin/exercise" ? "true" : "false"}>
+            <div className="tooltip tooltip--right" data-tooltip="Admin Atividades">
+              <IconExercise /> Exercícios
+            </div>
+          </Option>
+        </Link>
         <Link to="/admin/lession">
           <Option active={location.pathname === "/admin/lession" ? "true" : "false"}>
             <div className="tooltip tooltip--right" data-tooltip="Admin Aulas">
@@ -38,7 +46,7 @@ const AdminMenuComponent = ({ children }) => {
         </Link>
         <Link to="/admin/warning">
           <Option active={location.pathname === "/admin/warning" ? "true" : "false"}>
-            <div className="tooltip tooltip--right" data-tooltip="Admin Aulas">
+            <div className="tooltip tooltip--right" data-tooltip="Admin Avisos">
               <IconWarning /> Avisos
             </div>
           </Option>

@@ -115,6 +115,20 @@ export const ButtonEdit = styled(Button)`
   }
 `;
 
+export const ButtonCorrection = styled(Button)`
+  background-color: #2a7ae9;
+  color: #1d1933;
+
+  a {
+    color: #1d1933 !important;
+  }
+
+  &:hover {
+    filter: brightness(0.8);
+    color: #1d1933;
+  }
+`;
+
 export const ButtonDelete = styled(Button)`
   background-color: #ff4d4d;
   color: #1d1933;
@@ -123,4 +137,16 @@ export const ButtonDelete = styled(Button)`
     filter: brightness(0.8);
     color: #1d1933;
   }
+`;
+
+export const Corrected = styled.div`
+  background-color: ${(props) => props.background};
+  color: #1d1933;
+
+  border-radius: 5px;
+  padding: 0.5em;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
