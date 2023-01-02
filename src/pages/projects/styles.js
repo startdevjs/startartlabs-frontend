@@ -1,6 +1,31 @@
 import styled from "styled-components";
 import { BiCodeAlt, BiPlayCircle } from "react-icons/bi";
 
+export const ProjectContainer = styled.div`
+  width: 100%;
+
+  margin-top: 5em;
+`;
+
+export const ProjectContent = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  gap: 4%;
+  margin-top: 2em;
+
+  @media (max-width: 970px) {
+    justify-content: center;
+  }
+
+  @media (min-width: 1400px) {
+    gap: 2.6%;
+  }
+`;
+
 export const ProjectTitle = styled.h1`
   font-size: 1.5rem !important;
   font-weight: 700 !important;
@@ -49,12 +74,14 @@ export const ProjectVideo = styled.div`
   background-color: #1d1933;
   border-radius: 18px;
 
+  padding: 20px 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   @media (min-width: 1150px) {
-    height: 500px;
+    min-height: 500px;
   }
 `;
 
@@ -197,7 +224,9 @@ export const IconChallenge = styled(BiCodeAlt)`
   font-size: 1.8rem !important;
 `;
 
-export const ProjectImg = styled.img``;
+export const ProjectImg = styled.img`
+  border-radius: 18px;
+`;
 
 export const ProjectFooter = styled.div`
   width: 100%;
@@ -215,6 +244,20 @@ export const SendProjectFooter = styled.div`
   gap: 10px;
 `;
 
+export const ButtonSendProjectContainer = styled.div`
+  width: 30%;
+
+  margin-bottom: 20px;
+
+  @media (max-width: 600px) {
+    width: 50%;
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+`;
+
 export const ButtonSendProject = styled.button`
   padding: 0.4em;
   margin-top: 10px;
@@ -228,7 +271,7 @@ export const ButtonSendProject = styled.button`
 
   cursor: pointer;
 
-  background-color: #3f9e3f;
+  background-color: #2a7ae9;
   transition: background-color 0.2s;
 
   color: #fff;
@@ -236,5 +279,83 @@ export const ButtonSendProject = styled.button`
   &:hover {
     filter: brightness(0.8);
     color: #fff;
+  }
+`;
+
+export const ContainerEmpty = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const TitleEmpty = styled.h1`
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 30px;
+  margin-top: 30px;
+
+  margin-left: 4px !important;
+
+  text-align: center !important;
+  line-height: 2.4 !important;
+
+  color: #dadada !important;
+
+  @media (min-width: 1150px) {
+    font-size: 1rem !important;
+  }
+`;
+
+export const DescriptionEmpty = styled.p`
+  font-size: 1.4rem !important;
+  font-weight: 400 !important;
+
+  margin-bottom: 15px;
+  margin-top: 15px;
+
+  margin-left: 4px !important;
+
+  text-align: center !important;
+  line-height: 2.4 !important;
+
+  @media (min-width: 1150px) {
+    font-size: 1.4rem !important;
+  }
+`;
+
+export const ButtonEmpty = styled.button`
+  padding: 0.4em;
+  margin-top: 10px;
+  padding: 1.2rem;
+
+  border: none;
+  border-radius: 5px;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  background-color: #2a7ae9;
+  color: #fff;
+
+  a {
+    color: #dadada !important;
+  }
+
+  transition: background-color 0.2s;
+
+  &:hover {
+    filter: brightness(0.8);
+    color: #fff;
+  }
+
+  @media (min-width: 1150px) {
+    width: 30%;
   }
 `;
