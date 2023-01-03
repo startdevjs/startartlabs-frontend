@@ -12,6 +12,7 @@ const CreateWarning = () => {
   const [description, setDescription] = useState(null);
   const [action, setAction] = useState(null);
   const [background, setBackground] = useState(null);
+  const [image, setImage] = useState("");
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -47,6 +48,7 @@ const CreateWarning = () => {
       description,
       action,
       background,
+      image,
     };
 
     onCreate(data, setLoading, setSuccess, setError, setMessage, navigate);
@@ -88,6 +90,18 @@ const CreateWarning = () => {
             value={background}
             onChange={onChange}
             error={errors?.background}
+          />
+
+          <Input
+            text="Imagem"
+            name="image"
+            type="file"
+            placeholder="Selecione a imagem"
+            accept="image/*"
+            onChange={(event) => {
+              setImage(event.target.files[0]);
+            }}
+            error={errors.image}
           />
 
           <ContainerButtons>

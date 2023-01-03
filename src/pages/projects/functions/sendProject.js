@@ -20,11 +20,14 @@ export const sendProject = async (
     setBranchProject({});
 
     setSuccess(true);
+    setError(false);
 
     setMessage("Solução do projeto foi enviada com sucesso");
   } catch (error) {
     setLoading(false);
+    setSuccess(false);
     setError(true);
+
     setMessage("Erro ao enviar a solução do projeto");
   }
 };

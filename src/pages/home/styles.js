@@ -14,7 +14,9 @@ export const WarningContainer = styled.div`
 
   box-shadow: 0 0 20px rgb(89 102 122 / 5%);
 
-  background-image: url(/assets/img/warning.png) !important;
+  /* background-image: url(/assets/img/warning.png) !important; */
+  background-image: url(${({ image }) => image}) !important;
+
   background-size: cover !important;
   background-position: 50% !important;
 

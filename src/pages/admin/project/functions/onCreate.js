@@ -14,7 +14,7 @@ export const onCreate = async (data, setLoading, setSuccess, setError, setMessag
       const formData = new FormData();
       formData.append("file", data?.image);
 
-      await api.patch(`/project/${res.data.id}`, formData, {
+      await api.post(`/project/${res.data.id}/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

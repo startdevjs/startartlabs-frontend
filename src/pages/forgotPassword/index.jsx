@@ -36,7 +36,6 @@ const ForgotPassword = () => {
       setLoading(false);
       setError(true);
       setMessage(e.response?.data?.message || "Erro, tente novamente mais tarde");
-      console.log(e);
     }
   };
 

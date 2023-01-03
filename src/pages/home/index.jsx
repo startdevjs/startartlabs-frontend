@@ -41,7 +41,9 @@ const Home = () => {
       <Container>
         {loadingWarning && <Loading />}
         {!loadingWarning && (
-          <WarningContainer>
+          <WarningContainer
+            image={`https://api-labs-dev.startdevjs.com.br/public/warnings/${warnings?.warnings?.[0]?.image}`}
+          >
             <WarningOverlay background={warnings?.warnings?.[0]?.background ?? "#6f4ef2"} />
 
             <WarningContainerInfo>
@@ -71,7 +73,7 @@ const Home = () => {
                     id={project?.id}
                     name={project?.name}
                     description={project?.description}
-                    image={project?.image}
+                    image={`https://api-labs-dev.startdevjs.com.br/public/images/${project?.image}`}
                   />
                 ))}
               </ProjectContent>
