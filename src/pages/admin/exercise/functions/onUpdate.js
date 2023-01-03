@@ -13,7 +13,7 @@ export const onUpdate = async (
 
   try {
     await api.put(`/exercise/${id}`, {
-      status,
+      status: Number(status),
     });
 
     setTimeout(() => {
