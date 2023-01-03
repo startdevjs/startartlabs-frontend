@@ -10,6 +10,5 @@ export const getAllUsers = async (setLoading, setUsers, skip, take) => {
     setUsers(data);
   } catch (error) {
     setLoading(false);
-    console.log(error);
   }
 };

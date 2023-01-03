@@ -10,6 +10,5 @@ export const getAllLessions = async (setLoading, setLessions, skip, take) => {
     setLessions(data);
   } catch (error) {
     setLoading(false);
-    console.log(error);
   }
 };

@@ -13,8 +13,6 @@ export const onCreate = async (data, setLoading, setSuccess, setError, setMessag
       projectId: Number(data.projectId),
     });
 
-    console.log(res);
-
     if (data?.image !== null) {
       const formData = new FormData();
       formData.append("file", data.image[0]);

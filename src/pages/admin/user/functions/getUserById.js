@@ -10,6 +10,5 @@ export const getUserById = async (id, setLoading, setUser) => {
     setUser(data);
   } catch (error) {
     setLoading(false);
-    console.log(error);
   }
 };

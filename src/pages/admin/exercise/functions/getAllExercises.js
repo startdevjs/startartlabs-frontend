@@ -10,6 +10,5 @@ export const getAllExercises = async (setLoading, setExercises, skip, take) => {
     setExercises(data);
   } catch (error) {
     setLoading(false);
-    console.log(error);
   }
 };

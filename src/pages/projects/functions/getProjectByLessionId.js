@@ -5,7 +5,5 @@ export const getProjectByLessionId = async (id, setStateProjectByLessionId) => {
     const { data } = await api.get(`/project/${id}`);
 
     setStateProjectByLessionId(data);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };

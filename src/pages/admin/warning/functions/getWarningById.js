@@ -10,6 +10,5 @@ export const getWarningById = async (id, setLoading, setWarning) => {
     setWarning(data);
   } catch (error) {
     setLoading(false);
-    console.log(error);
   }
 };

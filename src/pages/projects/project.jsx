@@ -123,8 +123,6 @@ const Project = () => {
               <ProjectVideoContainer>
                 <ProjectTitle>{activeLession?.name}</ProjectTitle>
 
-                {console.log("activeLession", activeLession)}
-
                 {activeLession?.video !== null &&
                 activeLession?.video !== undefined &&
                 activeLession?.video !== "" ? (

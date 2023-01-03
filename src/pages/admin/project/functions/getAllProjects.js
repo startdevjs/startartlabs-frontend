@@ -10,6 +10,5 @@ export const getAllProjects = async (setLoading, setProjects, skip, take) => {
     setProjects(data);
   } catch (error) {
     setLoading(false);
-    console.log(error);
   }
 };

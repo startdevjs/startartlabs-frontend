@@ -10,6 +10,5 @@ export const getProjectById = async (id, setLoading, setProject) => {
     setProject(data);
   } catch (error) {
     setLoading(false);
-    console.log(error);
   }
 };

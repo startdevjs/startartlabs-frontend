@@ -10,6 +10,5 @@ export const getLessionById = async (id, setLoading, setLession) => {
     setLession(data);
   } catch (error) {
     setLoading(false);
-    console.log(error);
   }
 };
