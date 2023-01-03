@@ -22,7 +22,7 @@ const ProjectCard = ({ key, id, name, description, image }) => {
         </ProjectCardDescription>
       </ProjectCardInfo>
 
-      <Link to={`/projects?challenges=${true}&activeProjectId=${id}`}>
+      <Link to={`/project/${id}`}>
         <ProjectCardButton>Acessar</ProjectCardButton>
       </Link>
     </Container>

@@ -5,6 +5,7 @@ import Autocomplete from "../../../components/autocomplete";
 import Input from "../../../components/input";
 import Loading from "../../../components/loading";
 import Select from "../../../components/select";
+import Textarea from "../../../components/textarea";
 import Toast from "../../../components/toast";
 import { getAllProjects } from "../project/functions/getAllProjects";
 import { getLessionById } from "./functions/getLessionById";
@@ -93,7 +94,7 @@ const UpdateLession = () => {
             error={errors.name}
           />
 
-          <Input
+          <Textarea
             text="Descrição"
             name="description"
             type="description"

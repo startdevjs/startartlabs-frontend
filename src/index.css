@@ -35,6 +35,11 @@ input {
   border: 1px solid #373535 !important;
 }
 
+textarea {
+  background-color: #000 !important;
+  border: 1px solid #373535 !important;
+}
+
 select {
   background-color: #000 !important;
   border: 1px solid #373535 !important;

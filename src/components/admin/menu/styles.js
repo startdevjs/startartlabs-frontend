@@ -3,6 +3,7 @@ import { AiOutlineHome, AiOutlineComment } from "react-icons/ai";
 import { BsCodeSlash, BsPerson } from "react-icons/bs";
 import { MdPlayLesson } from "react-icons/md";
 import { RiFolderWarningLine } from "react-icons/ri";
+import { BiCodeCurly } from "react-icons/bi";
 
 export const Menu = styled.div`
   position: fixed;
@@ -60,6 +61,10 @@ export const IconWarning = styled(RiFolderWarningLine)`
 `;
 
 export const IconLession = styled(MdPlayLesson)`
+  ${ICON}
+`;
+
+export const IconExercise = styled(BiCodeCurly)`
   ${ICON}
 `;
 

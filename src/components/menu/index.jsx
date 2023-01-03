@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import api from "../../services/api";
 import {
   Menu,
@@ -17,35 +17,29 @@ import {
 const MenuComponent = ({ children }) => {
   const [avatar, setAvatar] = useState();
   const session = JSON.parse(localStorage.getItem("startdev-labs"));
-  const userId = session?.id
+  const userId = session?.id;
 
   const handleAvatar = async (id) => {
-    const data = await api.get(`/user/${id}`)
-    return `https://api-labs-dev.startdevjs.com.br/public/images/${data?.data?.avatar}`
-  }
+    const data = await api.get(`/user/${id}`);
+    return `https://api-labs-dev.startdevjs.com.br/public/images/${data?.data?.avatar}`;
+  };
 
   useEffect(() => {
-    handleAvatar(userId)
-    .then((response) => setAvatar(response))
-  }, [userId])
+    handleAvatar(userId).then((response) => setAvatar(response));
+  }, [userId]);
+
+  const location = useLocation();
 
   return (
     <>
       <Header>
         <div className="tile m-0 level">
           <div className="tile__icon">
-          {
-                  avatar ? (
-                    <img 
-                    className="avatar avatar--md" 
-                    src={avatar}
-                    />
-                  ) : (
-                    <figure 
-                    className="avatar avatar--md" 
-                    />
-                  )
-                }
+            {avatar ? (
+              <img className="avatar avatar--md" src={avatar} />
+            ) : (
+              <figure className="avatar avatar--md" />
+            )}
           </div>
           <div className="tile__container">
             <p className="tile__title m-0" style={{ color: "#dcdcdc" }}>
@@ -61,7 +55,7 @@ const MenuComponent = ({ children }) => {
       </Header>
       <Menu>
         <Link to="/">
-          <Option>
+          <Option active={location.pathname === "/" ? "true" : "false"}>
             <div className="tooltip tooltip--right" data-tooltip="Início">
               <IconHome />
             </div>
@@ -69,7 +63,7 @@ const MenuComponent = ({ children }) => {
         </Link>
 
         <Link to="/projects?video=true">
-          <Option active={window.location.pathname === "/projects" ? "true" : "false"}>
+          <Option active={location.pathname === "/projects" ? "true" : "false"}>
             <div className="tooltip tooltip--right" data-tooltip="Projetos">
               <IconProjects />
             </div>
@@ -82,15 +76,15 @@ const MenuComponent = ({ children }) => {
           </div>
         </Option>
         <Link to="/profile">
-        <Option active={window.location.pathname === "/profile" ? "true" : "false"}>
-          <div className="tooltip tooltip--right" data-tooltip="Minha Conta">
-            <IconMyAccount />
-          </div>
-        </Option>
+          <Option active={location.pathname === "/profile" ? "true" : "false"}>
+            <div className="tooltip tooltip--right" data-tooltip="Minha Conta">
+              <IconMyAccount />
+            </div>
+          </Option>
         </Link>
         {session?.admin && (
           <Link to="/admin">
-            <Option active={window.location.pathname === "/admin" ? "true" : "false"}>
+            <Option active={location.pathname === "/admin" ? "true" : "false"}>
               <div className="tooltip tooltip--right" data-tooltip="Administração">
                 <IconAdmin />
               </div>

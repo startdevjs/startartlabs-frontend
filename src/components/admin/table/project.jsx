@@ -43,7 +43,7 @@ const TableProjectComponent = ({
               <Tr key={i}>
                 <Td>{project?.id}</Td>
                 <Td>{project?.name}</Td>
-                <Td>{project?.description}</Td>
+                <Td>{project?.description?.substring(0, 100)}...</Td>
                 <Td>
                   <Toggle
                     value={project?.status}

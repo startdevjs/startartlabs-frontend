@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Form } from "../../../components/admin/form/styles";
 import Input from "../../../components/input";
 import Loading from "../../../components/loading";
+import Textarea from "../../../components/textarea";
 import Toast from "../../../components/toast";
 import { getProjectById } from "./functions/getProjectById";
 import { onUpdate } from "./functions/onUpdate";
@@ -74,7 +75,7 @@ const UpdateProject = () => {
             error={errors.name}
           />
 
-          <Input
+          <Textarea
             text="Descrição"
             name="description"
             type="description"
