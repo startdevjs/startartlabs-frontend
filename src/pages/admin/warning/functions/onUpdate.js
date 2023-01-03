@@ -11,8 +11,25 @@ export const onUpdate = async (
 ) => {
   setLoading(true);
 
+  const formData = new FormData();
+  formData.append("file", data?.image);
+
   try {
-    await api.put(`/warning/${id}`, data);
+    await api.put(`/warning/${id}`, {
+      title: data.title,
+      description: data.description,
+      action: data.action,
+      background: data.background,
+      image: null,
+    });
+
+    if ((data?.image !== null) | (data?.image !== undefined)) {
+      await api.post(`/warning/${id}/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    }
 
     setTimeout(() => {
       navigate("/admin/warning");

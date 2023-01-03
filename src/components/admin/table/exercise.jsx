@@ -72,7 +72,7 @@ const TableExerciseComponent = ({
                         ? "#ccc"
                         : exercise?.status === 2
                         ? "#ffcc00"
-                        : "#ff4d4d"
+                        : "#57c957"
                     }
                   >
                     {exercise?.status === 1 && "Não corrigida"}

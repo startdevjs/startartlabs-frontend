@@ -61,7 +61,7 @@ const TableMobileExerciseComponent = ({
                 <Corrected
                   style={{ marginTop: "10px" }}
                   background={
-                    exercise?.status === 1 ? "#ccc" : exercise?.status === 2 ? "#ffcc00" : "#ff4d4d"
+                    exercise?.status === 1 ? "#ccc" : exercise?.status === 2 ? "#ffcc00" : "#57c957"
                   }
                 >
                   {exercise?.status === 1 && "Não corrigida"}

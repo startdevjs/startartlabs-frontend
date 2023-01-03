@@ -13,6 +13,7 @@ const UpdateWarning = () => {
   const [description, setDescription] = useState(null);
   const [action, setAction] = useState(null);
   const [background, setBackground] = useState(null);
+  const [image, setImage] = useState("");
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -32,6 +33,7 @@ const UpdateWarning = () => {
     setDescription(warning?.description);
     setAction(warning?.action);
     setBackground(warning?.background);
+    setImage(warning?.image);
   }, [warning]);
 
   const onChange = (e) => {
@@ -61,6 +63,7 @@ const UpdateWarning = () => {
       description,
       action,
       background,
+      image,
     };
 
     onUpdate(id, data, setLoading, setSuccess, setError, setMessage, navigate);
@@ -102,6 +105,18 @@ const UpdateWarning = () => {
             value={background}
             onChange={onChange}
             error={errors?.background}
+          />
+
+          <Input
+            text="Imagem"
+            name="image"
+            type="file"
+            placeholder="Selecione a imagem"
+            accept="image/*"
+            onChange={(event) => {
+              setImage(event.target.files[0]);
+            }}
+            error={errors.image}
           />
 
           <ContainerButtons>
