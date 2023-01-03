@@ -38,7 +38,15 @@ const TableExerciseComponent = ({
               <Th>Email</Th>
               <Th>Link</Th>
               <Th>Branch</Th>
-              <Th>Corrigida</Th>
+              <Th
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                Corrigida
+              </Th>
               <Th>Ações</Th>
             </Tr>
           </Thead>
