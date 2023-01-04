@@ -7,7 +7,7 @@ import Textarea from "../../../components/textarea";
 import Toast from "../../../components/toast";
 import { getProjectById } from "./functions/getProjectById";
 import { onUpdate } from "./functions/onUpdate";
-import { ButtonGoBack, ButtonSubmit, ContainerButtons } from "./styles";
+import { ButtonGoBack, ButtonSubmit, ContainerButtons, RichText } from "./styles";
 
 const UpdateProject = () => {
   const { id } = useParams();
@@ -20,6 +20,7 @@ const UpdateProject = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [progress, setProgress] = useState(0);
   const [project, setProject] = useState({});
 
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const UpdateProject = () => {
       image,
     };
 
-    onUpdate(id, data, setLoading, setSuccess, setError, setMessage, navigate);
+    onUpdate(id, data, setLoading, setSuccess, setError, setMessage, setProgress, navigate);
   };
 
   return (
@@ -85,6 +86,8 @@ const UpdateProject = () => {
             error={errors.description}
           />
 
+          {/* <RichText value={description} onChange={setDescription} /> */}
+
           <Input
             text="Imagem"
             name="image"
@@ -96,6 +99,9 @@ const UpdateProject = () => {
             }}
             error={errors.image}
           />
+          {progress > 0 && (
+            <progress class="progress progress--success" value={progress} max="100"></progress>
+          )}
 
           <ContainerButtons>
             <ButtonGoBack type="button" onClick={() => navigate("/admin/project")}>

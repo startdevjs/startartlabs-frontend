@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 export const ContainerButtons = styled.div`
   width: 30%;
@@ -76,5 +78,33 @@ export const ButtonCreateLession = styled(Button)`
     a {
       color: #fff;
     }
+  }
+`;
+
+export const RichText = styled(ReactQuill)`
+  border-radius: 5px;
+  margin-top: 2.5rem;
+
+  background-color: #000 !important;
+  border: 1px solid #373535 !important;
+  color: #fff !important;
+
+  .ql-toolbar {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .ql-formats {
+    button {
+      margin-top: 1rem !important;
+    }
+  }
+
+  button {
+    width: 10% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 `;

@@ -10,7 +10,7 @@ import Toast from "../../../components/toast";
 import { getAllProjects } from "../project/functions/getAllProjects";
 import { getLessionById } from "./functions/getLessionById";
 import { onUpdate } from "./functions/onUpdate";
-import { ButtonGoBack, ButtonSubmit, ContainerButtons } from "./styles";
+import { ButtonGoBack, ButtonSubmit, ContainerButtons, RichText } from "./styles";
 
 const UpdateLession = () => {
   const [name, setName] = useState("");
@@ -25,6 +25,8 @@ const UpdateLession = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [lession, setLession] = useState({});
+  const [progress, setProgress] = useState(0);
+  const [progressVideo, setProgressVideo] = useState(0);
   const [projects, setProjects] = useState({});
 
   const { id } = useParams();
@@ -75,7 +77,17 @@ const UpdateLession = () => {
       projectId,
     };
 
-    onUpdate(id, data, setLoading, setSuccess, setError, setMessage, navigate);
+    onUpdate(
+      id,
+      data,
+      setLoading,
+      setSuccess,
+      setError,
+      setMessage,
+      setProgress,
+      setProgressVideo,
+      navigate,
+    );
   };
 
   return (
@@ -93,7 +105,7 @@ const UpdateLession = () => {
             onChange={onChange}
             error={errors.name}
           />
-
+          {/* 
           <Textarea
             text="Descrição"
             name="description"
@@ -102,7 +114,9 @@ const UpdateLession = () => {
             value={description}
             onChange={onChange}
             error={errors.description}
-          />
+          /> */}
+
+          <RichText value={description} onChange={setDescription} />
 
           <Select text="Tipo" name="type" value={type} onChange={onChange} error={errors.type}>
             <option value={null}>Selecione o tipo</option>
@@ -130,6 +144,9 @@ const UpdateLession = () => {
             }}
             error={errors.image}
           />
+          {progress > 0 && (
+            <progress class="progress progress--success" value={progress} max="100"></progress>
+          )}
 
           <Input
             text="Vídeo"
@@ -143,6 +160,9 @@ const UpdateLession = () => {
             }}
             error={errors.video}
           />
+          {progressVideo > 0 && (
+            <progress class="progress progress--success" value={progressVideo} max="100"></progress>
+          )}
 
           <ContainerButtons>
             <ButtonGoBack type="button" onClick={() => navigate("/admin/lession")}>

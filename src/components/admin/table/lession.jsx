@@ -44,7 +44,7 @@ const TableLessionComponent = ({
               <Tr key={i}>
                 <Td>{lession?.id}</Td>
                 <Td>{lession?.name}</Td>
-                <Td>{lession?.description?.substring(0, 100)}...</Td>
+                <Td>{lession?.description?.substring(0, 50)}...</Td>
                 <Td>{lession?.type == 1 ? "Video" : "Desafio"}</Td>
                 <Td>{lession?.projectId}</Td>
                 <Td>

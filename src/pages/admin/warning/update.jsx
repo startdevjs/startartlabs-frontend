@@ -19,6 +19,7 @@ const UpdateWarning = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [progress, setProgress] = useState(0);
   const [warning, setWarning] = useState([]);
 
   const { id } = useParams();
@@ -66,7 +67,7 @@ const UpdateWarning = () => {
       image,
     };
 
-    onUpdate(id, data, setLoading, setSuccess, setError, setMessage, navigate);
+    onUpdate(id, data, setLoading, setSuccess, setError, setMessage, setProgress, navigate);
   };
 
   return (
@@ -118,6 +119,9 @@ const UpdateWarning = () => {
             }}
             error={errors.image}
           />
+          {progress > 0 && (
+            <progress class="progress progress--success" value={progress} max="100"></progress>
+          )}
 
           <ContainerButtons>
             <ButtonGoBack type="button" onClick={() => navigate("/admin/warning")}>

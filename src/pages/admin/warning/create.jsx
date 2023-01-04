@@ -17,6 +17,7 @@ const CreateWarning = () => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ const CreateWarning = () => {
       image,
     };
 
-    onCreate(data, setLoading, setSuccess, setError, setMessage, navigate);
+    onCreate(data, setLoading, setSuccess, setError, setMessage, setProgress, navigate);
   };
 
   return (
@@ -103,6 +104,9 @@ const CreateWarning = () => {
             }}
             error={errors.image}
           />
+          {progress > 0 && (
+            <progress class="progress progress--success" value={progress} max="100"></progress>
+          )}
 
           <ContainerButtons>
             <ButtonGoBack type="button" onClick={() => navigate("/admin/warning")}>

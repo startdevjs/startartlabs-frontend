@@ -1,6 +1,14 @@
 import api from "../../../../services/api";
 
-export const onCreate = async (data, setLoading, setSuccess, setError, setMessage, navigate) => {
+export const onCreate = async (
+  data,
+  setLoading,
+  setSuccess,
+  setError,
+  setMessage,
+  setProgress,
+  navigate,
+) => {
   setLoading(true);
 
   try {
@@ -17,6 +25,10 @@ export const onCreate = async (data, setLoading, setSuccess, setError, setMessag
       formData.append("file", data?.image);
 
       await api.post(`/warning/${res.data.id}/upload`, formData, {
+        onUploadProgress: (progressEvent) => {
+          setProgress(progressEvent.loaded);
+        },
+
         headers: {
           "Content-Type": "multipart/form-data",
         },
