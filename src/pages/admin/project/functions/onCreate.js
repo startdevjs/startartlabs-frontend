@@ -1,6 +1,14 @@
 import api from "../../../../services/api";
 
-export const onCreate = async (data, setLoading, setSuccess, setError, setMessage, navigate) => {
+export const onCreate = async (
+  data,
+  setLoading,
+  setSuccess,
+  setError,
+  setMessage,
+  setProgress,
+  navigate,
+) => {
   setLoading(true);
 
   try {
@@ -8,6 +16,7 @@ export const onCreate = async (data, setLoading, setSuccess, setError, setMessag
       name: data.name,
       description: data.description,
       image: null,
+      status: true,
     });
 
     if (data?.image !== null) {
@@ -15,6 +24,10 @@ export const onCreate = async (data, setLoading, setSuccess, setError, setMessag
       formData.append("file", data?.image);
 
       await api.post(`/project/${res.data.id}/upload`, formData, {
+        onUploadProgress: (progressEvent) => {
+          setProgress(progressEvent.loaded);
+        },
+
         headers: {
           "Content-Type": "multipart/form-data",
         },

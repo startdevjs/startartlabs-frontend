@@ -7,6 +7,8 @@ export const onUpdate = async (
   setSuccess,
   setError,
   setMessage,
+  setProgress,
+  setProgressVideo,
   navigate,
 ) => {
   setLoading(true);
@@ -26,6 +28,10 @@ export const onUpdate = async (
       formData.append("file", data.image[0]);
 
       await api.patch(`/lession/upload/image/${id}`, formData, {
+        onUploadProgress: (progressEvent) => {
+          setProgress(progressEvent.loaded);
+        },
+
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -37,6 +43,10 @@ export const onUpdate = async (
       formData.append("file", data.video[0]);
 
       await api.patch(`/lession/upload/video/${id}`, formData, {
+        onUploadProgress: (progressEvent) => {
+          setProgressVideo(progressEvent.loaded);
+        },
+
         headers: {
           "Content-Type": "multipart/form-data",
         },

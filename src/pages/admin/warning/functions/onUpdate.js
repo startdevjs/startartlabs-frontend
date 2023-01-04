@@ -7,6 +7,7 @@ export const onUpdate = async (
   setSuccess,
   setError,
   setMessage,
+  setProgress,
   navigate,
 ) => {
   setLoading(true);
@@ -25,6 +26,10 @@ export const onUpdate = async (
 
     if ((data?.image !== null) | (data?.image !== undefined)) {
       await api.post(`/warning/${id}/upload`, formData, {
+        onUploadProgress: (progressEvent) => {
+          setProgress(progressEvent.loaded);
+        },
+
         headers: {
           "Content-Type": "multipart/form-data",
         },

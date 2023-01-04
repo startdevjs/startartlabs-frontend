@@ -17,7 +17,7 @@ const ProjectCard = ({ key, id, name, description, image }) => {
         <ProjectCardTitle>{name}</ProjectCardTitle>
 
         <ProjectCardDescription>
-          {description?.slice(0, 100)}
+          {description?.slice(0, 60)}
           {description?.length > 100 && "..."}
         </ProjectCardDescription>
       </ProjectCardInfo>

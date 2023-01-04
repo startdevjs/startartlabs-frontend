@@ -170,7 +170,9 @@ const Project = () => {
                   <> </>
                 )}
 
-                <ProjectDescription>{activeLession?.description}</ProjectDescription>
+                <ProjectDescription
+                  dangerouslySetInnerHTML={{ __html: activeLession?.description }}
+                ></ProjectDescription>
 
                 <SendProjectFooter>
                   {activeLession?.type === 2 ? (
