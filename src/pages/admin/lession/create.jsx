@@ -143,7 +143,7 @@ const CreateLession = () => {
           accept="video/*"
           // value={video}
           onChange={(e) => {
-            setImage(e.target.files);
+            setVideo(e.target.files);
           }}
           error={errors.video}
         />
