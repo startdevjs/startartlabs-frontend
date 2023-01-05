@@ -1,6 +1,15 @@
 import api from "../../../../services/api";
 
-export const onCreate = async (data, setLoading, setSuccess, setError, setMessage, navigate) => {
+export const onCreate = async (
+  data,
+  setLoading,
+  setSuccess,
+  setError,
+  setMessage,
+  setProgress,
+  setProgressVideo,
+  navigate,
+) => {
   setLoading(true);
 
   try {
@@ -13,13 +22,15 @@ export const onCreate = async (data, setLoading, setSuccess, setError, setMessag
       projectId: Number(data.projectId),
     });
 
-    console.log(res);
-
     if (data?.image !== null) {
       const formData = new FormData();
       formData.append("file", data.image[0]);
 
       await api.patch(`/lession/upload/image/${res?.data?.id}`, formData, {
+        onUploadProgress: (progressEvent) => {
+          setProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+        },
+
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -31,6 +42,10 @@ export const onCreate = async (data, setLoading, setSuccess, setError, setMessag
       formData.append("file", data.video[0]);
 
       await api.patch(`/lession/upload/video/${res?.data?.id}`, formData, {
+        onUploadProgress: (progressEvent) => {
+          setProgressVideo(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+        },
+
         headers: {
           "Content-Type": "multipart/form-data",
         },

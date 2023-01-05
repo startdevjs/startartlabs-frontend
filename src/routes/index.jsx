@@ -18,7 +18,11 @@ import UpdateLession from "../pages/admin/lession/update";
 import UpdateWarning from "../pages/admin/warning/update";
 import CreateWarning from "../pages/admin/warning/create";
 import AdminWarning from "../pages/admin/warning";
+import AdminExercise from "../pages/admin/exercise";
+import UpdateExercise from "../pages/admin/exercise/update";
+import Project from "../pages/projects/project";
 import Profile from "../pages/profile";
+import Projects from "../pages/projects";
 
 const RoutesComponent = () => {
   return (
@@ -29,6 +33,8 @@ const RoutesComponent = () => {
       <Route path="/code" element={<Code />} />
       <Route path="/profile" element={<Private Component={Profile} />} />
       <Route path="/" element={<Private Component={Home} />} />
+      <Route path="/projects" element={<Private Component={Projects} />} />
+      <Route path="/project/:projectId" element={<Private Component={Project} />} />
       <Route path="/admin" element={<PrivateAdmin Component={AdminUser} />} />
       <Route path="/admin/user/update/:id" element={<PrivateAdmin Component={UpdateUser} />} />
       <Route path="/admin/project" element={<PrivateAdmin Component={AdminProject} />} />
@@ -48,6 +54,11 @@ const RoutesComponent = () => {
       <Route
         path="/admin/warning/update/:id"
         element={<PrivateAdmin Component={UpdateWarning} />}
+      />
+      <Route path="/admin/exercise" element={<PrivateAdmin Component={AdminExercise} />} />
+      <Route
+        path="/admin/exercise/update/:id"
+        element={<PrivateAdmin Component={UpdateExercise} />}
       />
     </Routes>
   );

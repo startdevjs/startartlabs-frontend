@@ -30,7 +30,7 @@ import {
     SearchIcon,
     MyInvitations,
     MyFriends,
-    CardsContainer,
+    CardsContainer
 } from "./styles";
 import { getUserById } from "../admin/user/functions/getUserById";
 
@@ -59,10 +59,10 @@ const Profile = () => {
     const session = JSON.parse(localStorage.getItem("startdev-labs"));
     const userId = session?.id
     const uploadInputRef = useRef(null);
-  
+    
   useEffect(() => {
-    setName(session?.name)
-    setEmail(session?.email)
+    setName(session?.name);
+    setEmail(session?.email);
   }, [session?.name, session?.email]);
 
   useEffect(() => {
@@ -80,9 +80,8 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    handleAvatar(userId)
-    .then((response) => setAvatar(response))
-  }, [userId])
+    handleAvatar(userId).then((response) => setAvatar(response));
+  }, [userId]);
 
   useMemo(() => {
     getAllMyFriends(setAllMyFriends)
@@ -104,13 +103,13 @@ const handleOpenAndCloseModalRequests = () => {
 
   const schema = yup.object({
     password: yup
-        .string()
-        .required("É obrigatório informar sua nova senha!")
-        .min(6, "Mínimo de 6 caracteres!"),
-      passwordConfirm: yup
-        .string()
-        .required("É obrigatório confirmar senha!")
-        .min(6, "Mínimo de 6 caracteres!"),
+      .string()
+      .required("É obrigatório informar sua nova senha!")
+      .min(6, "Mínimo de 6 caracteres!"),
+    passwordConfirm: yup
+      .string()
+      .required("É obrigatório confirmar senha!")
+      .min(6, "Mínimo de 6 caracteres!"),
   });
 
   const {
@@ -136,17 +135,20 @@ const handleOpenAndCloseModalRequests = () => {
   const save = async (data) => {
     setLoading(true);
     if (data.password === data.passwordConfirm) {
-    try {
-     await api.put(`auth/alterPass/${userId}`, data);
-      setLoading(false);
-      setSuccess(true);
-      setMessage("Senha alterada com sucesso");
-    } catch (e) {
-      setLoading(false);
-      setError(true);
-      setMessage(e.response?.data?.message || "Erro, tente novamente mais tarde");
+      try {
+        await api.put(`auth/alterPass/${userId}`, data);
+        setLoading(false);
+        setSuccess(true);
+        setMessage("Senha alterada com sucesso");
+      } catch (e) {
+        setLoading(false);
+        setError(true);
+        setMessage(e.response?.data?.message || "Erro, tente novamente mais tarde");
+      }
+    } else {
+      setMessage(e.response?.data?.message || "As senhas precisam ser idênticas!");
     }
-  } else {setMessage(e.response?.data?.message || "As senhas precisam ser idênticas!");}}
+  };
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -170,14 +172,14 @@ const handleOpenAndCloseModalRequests = () => {
     };
 
     onUpdate(userId, data, setLoading, setSuccess, setError, setMessage);
-    let currentSession = {...session};
-    if(currentSession?.name &&  data.name) {
-        currentSession.name = data.name;
+    let currentSession = { ...session };
+    if (currentSession?.name && data.name) {
+      currentSession.name = data.name;
     }
-    if(currentSession.email &&  data.email){
-        currentSession.email = data.email;
+    if (currentSession.email && data.email) {
+      currentSession.email = data.email;
     }
-    localStorage.setItem("startdev-labs", JSON.stringify(currentSession))
+    localStorage.setItem("startdev-labs", JSON.stringify(currentSession));
   };
 
   setTimeout(() => {
@@ -188,9 +190,9 @@ const handleOpenAndCloseModalRequests = () => {
 
   return(
     <>
-    <Main>
+      <Main>
         <Body>
-        {loading && <Loading />}
+          {loading && <Loading />}
           {!loading && (
             <form onSubmit={handleSubmitUpdate}>
             <Logo>Configurações do meu perfil</Logo>  
@@ -266,22 +268,21 @@ const handleOpenAndCloseModalRequests = () => {
           role="document" 
           style={{width: "500px", backgroundColor: "#1d1933", border: "1px solid #03357b"}}
           >
-          <ModalHeader 
-          className="modal-header">
-            <a href="#components" 
-            className="u-pull-right" 
-            aria-label="Close">
-                <span className="icon">
-                    <svg aria-hidden="true" 
-                    focusable="false" 
-                    data-prefix="fas" 
-                    data-icon="times" 
-                    className="svg-inline--fa fa-times fa-w-11 fa-wrapper" 
-                    role="img" 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    viewBox="0 0 352 512">
-                        <path 
-                        fill="currentColor" 
+              <ModalHeader className="modal-header">
+                <a href="#components" className="u-pull-right" aria-label="Close">
+                  <span className="icon">
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      data-prefix="fas"
+                      data-icon="times"
+                      className="svg-inline--fa fa-times fa-w-11 fa-wrapper"
+                      role="img"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 352 512"
+                    >
+                      <path
+                        fill="currentColor"
                         d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 
                         0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 
                         189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 
@@ -289,45 +290,48 @@ const handleOpenAndCloseModalRequests = () => {
                         356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 
                         12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 
                         12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 
-                        0-44.48L242.72 256z"></path></svg></span></a>
-           </ModalHeader>
-        <form onSubmit={handleSubmit(save)}>
-           <ModalBody className="modal-body">
-                <h3 className="font-alt font-light u-text-center" 
-                style={{color: "#a9a9a9"}}>Alterar minha senha</h3>
-            <div className="divider"></div>
-            <Input 
-            text="Nova senha"
-            id="password"
-            name="password"
-            {...register("password")}
-            style={{color: "#fff"}}
-            />
-            {errors.password && <ErrorMessage>{errors.password?.message}</ErrorMessage>}
-            <Input 
-            text="Confirme sua nova senha"
-            id="inputPasswordConfirm"
-            {...register("passwordConfirm")}
-            style={{color: "#fff"}}
-            />
-            {!validPassword && (
-            <p style={{color: "#ff6d6dba"}}>As senhas inseridas são diferentes!</p>
-            )}
-           </ModalBody>
-          <ModalFooter className="modal-footer">
-          <a href='#' className="close-btn" aria-label="Close" ref={uploadInputRef}/>
-               <Button 
-                label="Salvar" 
-                variant="info" 
-                type="submit" 
-                onClick={() =>
-              uploadInputRef.current && uploadInputRef.current.click()
-            }
-                />
-          </ModalFooter>
-        </form>
-          </ModalContent>
-        </AlterPasswordModal>
+                        0-44.48L242.72 256z"
+                      ></path>
+                    </svg>
+                  </span>
+                </a>
+              </ModalHeader>
+              <form onSubmit={handleSubmit(save)}>
+                <ModalBody className="modal-body">
+                  <h3 className="font-alt font-light u-text-center" style={{ color: "#a9a9a9" }}>
+                    Alterar minha senha
+                  </h3>
+                  <div className="divider"></div>
+                  <Input
+                    text="Nova senha"
+                    id="password"
+                    name="password"
+                    {...register("password")}
+                    style={{ color: "#fff" }}
+                  />
+                  {errors.password && <ErrorMessage>{errors.password?.message}</ErrorMessage>}
+                  <Input
+                    text="Confirme sua nova senha"
+                    id="inputPasswordConfirm"
+                    {...register("passwordConfirm")}
+                    style={{ color: "#fff" }}
+                  />
+                  {!validPassword && (
+                    <p style={{ color: "#ff6d6dba" }}>As senhas inseridas são diferentes!</p>
+                  )}
+                </ModalBody>
+                <ModalFooter className="modal-footer">
+                  <a href="#" className="close-btn" aria-label="Close" ref={uploadInputRef} />
+                  <Button
+                    label="Salvar"
+                    variant="info"
+                    type="submit"
+                    onClick={() => uploadInputRef.current && uploadInputRef.current.click()}
+                  />
+                </ModalFooter>
+              </form>
+            </ModalContent>
+          </AlterPasswordModal>
         </Body>
       <Body> 
         <Logo>Meus amigos</Logo>  
@@ -392,7 +396,7 @@ const handleOpenAndCloseModalRequests = () => {
     {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
       {success && <Toast message={message} close={() => setSuccess(false)} variant="success" />}
     </>
-  )
+  );
 };
 
 export default Profile;

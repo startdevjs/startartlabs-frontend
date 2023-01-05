@@ -7,12 +7,13 @@ export const onUpdate = async (
   setSuccess,
   setError,
   setMessage,
+  setProgress,
   navigate,
 ) => {
   setLoading(true);
 
   const formData = new FormData();
-  formData.append("file", data?.image[0]);
+  formData.append("file", data?.image);
 
   try {
     await api.put(`/project/${id}`, {
@@ -21,8 +22,12 @@ export const onUpdate = async (
       image: null,
     });
 
-    if ((data?.image[0] !== null) | (data?.image[0] !== undefined)) {
-      await api.patch(`/project/${id}`, formData, {
+    if ((data?.image !== null) | (data?.image !== undefined)) {
+      await api.post(`/project/${id}/upload`, formData, {
+        onUploadProgress: (progressEvent) => {
+          setProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+        },
+
         headers: {
           "Content-Type": "multipart/form-data",
         },

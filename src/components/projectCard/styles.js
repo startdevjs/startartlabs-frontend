@@ -44,7 +44,9 @@ export const ProjectCardTitle = styled.h1`
   line-height: 1.6;
 `;
 
-export const ProjectCardDescription = styled.p``;
+export const ProjectCardDescription = styled.p`
+  word-wrap: break-word;
+`;
 
 export const Button = styled.button`
   padding: 0.8em;
@@ -60,7 +62,7 @@ export const Button = styled.button`
 `;
 
 export const ProjectCardButton = styled(Button)`
-  background-color: #6f4ef2;
+  background-color: #2a7ae9;
   transition: background-color 0.2s;
 
   a {

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Container,
   ProjectCardInfo,
@@ -8,8 +9,6 @@ import {
 } from "./styles";
 
 const ProjectCard = ({ key, id, name, description, image }) => {
-  console.log("image", image);
-
   return (
     <Container key={key}>
       <ProjectCardImage image={image} />
@@ -17,13 +16,17 @@ const ProjectCard = ({ key, id, name, description, image }) => {
       <ProjectCardInfo>
         <ProjectCardTitle>{name}</ProjectCardTitle>
 
-        <ProjectCardDescription>
-          {description?.slice(0, 100)}
-          {description?.length > 100 && "..."}
+        <ProjectCardDescription
+          dangerouslySetInnerHTML={{ __html: description?.slice(0, 110) + "..." }}
+        >
+          {/* {description?.slice(0, 60)}
+          {description?.length > 100 && "..."} */}
         </ProjectCardDescription>
       </ProjectCardInfo>
 
-      <ProjectCardButton>Entrar</ProjectCardButton>
+      <Link to={`/project/${id}`}>
+        <ProjectCardButton>Acessar</ProjectCardButton>
+      </Link>
     </Container>
   );
 };

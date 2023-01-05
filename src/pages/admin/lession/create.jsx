@@ -5,10 +5,11 @@ import Autocomplete from "../../../components/autocomplete";
 import Input from "../../../components/input";
 import Loading from "../../../components/loading";
 import Select from "../../../components/select";
+import Textarea from "../../../components/textarea";
 import Toast from "../../../components/toast";
 import { getAllProjects } from "../project/functions/getAllProjects";
 import { onCreate } from "./functions/onCreate";
-import { ButtonGoBack, ButtonSubmit, ContainerButtons } from "./styles";
+import { ButtonGoBack, ButtonSubmit, ContainerButtons, RichText } from "./styles";
 
 const CreateLession = () => {
   const [name, setName] = useState("");
@@ -22,6 +23,8 @@ const CreateLession = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [progressVideo, setProgressVideo] = useState(0);
   const [projects, setProjects] = useState({});
 
   const navigate = useNavigate();
@@ -51,7 +54,9 @@ const CreateLession = () => {
     getAllProjects(setLoading, setProjects);
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     const data = {
       name,
       description,
@@ -61,26 +66,35 @@ const CreateLession = () => {
       projectId,
     };
 
-    onCreate(data, setLoading, setSuccess, setError, setMessage, navigate);
+    onCreate(
+      data,
+      setLoading,
+      setSuccess,
+      setError,
+      setMessage,
+      setProgress,
+      setProgressVideo,
+      navigate,
+    );
   };
 
   return (
     <>
-      {loading && <Loading />}
+      {/* {loading && <Loading />} */}
 
-      {!loading && (
-        <Form onSubmit={handleSubmit}>
-          <Input
-            text="Nome"
-            name="name"
-            type="text"
-            placeholder="Digite o nome"
-            value={name}
-            onChange={onChange}
-            error={errors.name}
-          />
+      {/* {!loading && ( */}
+      <Form onSubmit={handleSubmit}>
+        <Input
+          text="Nome"
+          name="name"
+          type="text"
+          placeholder="Digite o nome"
+          value={name}
+          onChange={onChange}
+          error={errors.name}
+        />
 
-          <Input
+        {/* <Textarea
             text="Descrição"
             name="description"
             type="description"
@@ -88,55 +102,63 @@ const CreateLession = () => {
             value={description}
             onChange={onChange}
             error={errors.description}
-          />
+          /> */}
 
-          <Select text="Tipo" name="type" value={type} onChange={onChange} error={errors.type}>
-            <option value={null}>Selecione o tipo</option>
-            <option value={1}>Vídeo</option>
-            <option value={2}>Desafio</option>
-          </Select>
+        <RichText value={description} onChange={setDescription} />
 
-          <Autocomplete
-            text="Projeto"
-            items={projects?.projects}
-            setDataId={setProjectId}
-            placeholder="Digite o nome do projeto"
-          />
+        <Select text="Tipo" name="type" value={type} onChange={onChange} error={errors.type}>
+          <option value={null}>Selecione o tipo</option>
+          <option value={1}>Vídeo</option>
+          <option value={2}>Desafio</option>
+        </Select>
 
-          <Input
-            text="Imagem"
-            name="image"
-            type="file"
-            placeholder="Selecione a imagem"
-            accept="image/*"
-            // value={image}
-            onChange={(e) => {
-              setImage(e.target.files);
-            }}
-            error={errors.image}
-          />
+        <Autocomplete
+          text="Projeto"
+          items={projects?.projects}
+          setDataId={setProjectId}
+          placeholder="Digite o nome do projeto"
+        />
 
-          <Input
-            text="Vídeo"
-            name="video"
-            type="file"
-            placeholder="Selecione o vídeo"
-            accept="video/*"
-            // value={video}
-            onChange={(e) => {
-              setImage(e.target.files);
-            }}
-            error={errors.video}
-          />
+        <Input
+          text="Imagem"
+          name="image"
+          type="file"
+          placeholder="Selecione a imagem"
+          accept="image/*"
+          // value={image}
+          onChange={(e) => {
+            setImage(e.target.files);
+          }}
+          error={errors.image}
+        />
+        {progress > 0 && (
+          <progress class="progress progress--success" value={progress} max="100"></progress>
+        )}
 
-          <ContainerButtons>
-            <ButtonGoBack type="button" onClick={() => navigate("/admin/lession")}>
-              Voltar
-            </ButtonGoBack>
-            <ButtonSubmit type="submit">Salvar</ButtonSubmit>
-          </ContainerButtons>
-        </Form>
-      )}
+        <Input
+          text="Vídeo"
+          name="video"
+          type="file"
+          placeholder="Selecione o vídeo"
+          accept="video/*"
+          // value={video}
+          onChange={(e) => {
+            setImage(e.target.files);
+          }}
+          error={errors.video}
+        />
+        {progressVideo > 0 && (
+          <progress class="progress progress--success" value={progressVideo} max="100"></progress>
+        )}
+
+        <ContainerButtons>
+          <ButtonGoBack type="button" onClick={() => navigate("/admin/lession")}>
+            Voltar
+          </ButtonGoBack>
+          <ButtonSubmit type="submit">Salvar</ButtonSubmit>
+        </ContainerButtons>
+      </Form>
+      {/* )} */}
 
       {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
       {success && <Toast message={message} close={() => setSuccess(false)} variant="success" />}

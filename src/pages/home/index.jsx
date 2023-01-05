@@ -16,8 +16,10 @@ import {
   ProjectTitle,
   ProjectContent,
 } from "./styles";
+import Pagination from "../../components/pagination";
 
 const Home = () => {
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [loadingWarning, setLoadingWarning] = useState([]);
   const [warnings, setWarnings] = useState([]);
@@ -25,15 +27,25 @@ const Home = () => {
 
   useEffect(() => {
     getAllWarnings(setLoadingWarning, setWarnings);
-    getAllProjects(setLoading, setProjects);
   }, []);
+
+  useEffect(() => {
+    const skip = (page - 1) * 20;
+    const take = 20;
+
+    getAllProjects(setLoading, setProjects, skip, take);
+  }, [page]);
 
   return (
     <>
       <Container>
         {loadingWarning && <Loading />}
         {!loadingWarning && (
-          <WarningContainer>
+          <WarningContainer
+            image={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/warnings/${
+              warnings?.warnings?.[0]?.image
+            }`}
+          >
             <WarningOverlay background={warnings?.warnings?.[0]?.background ?? "#6f4ef2"} />
 
             <WarningContainerInfo>
@@ -52,21 +64,38 @@ const Home = () => {
 
         {loading && <Loading />}
         {!loading && (
-          <ProjectContainer>
-            <ProjectTitle>Projetos</ProjectTitle>
+          <>
+            <ProjectContainer>
+              <ProjectTitle>Projetos</ProjectTitle>
 
-            <ProjectContent>
-              {projects?.projects?.map((project) => (
-                <ProjectCard
-                  key={project?.id}
-                  id={project?.id}
-                  name={project?.name}
-                  description={project?.description}
-                  image={project?.image}
-                />
-              ))}
-            </ProjectContent>
-          </ProjectContainer>
+              <ProjectContent>
+                {projects?.projects?.map((project) => (
+                  <ProjectCard
+                    key={project?.id}
+                    id={project?.id}
+                    name={project?.name}
+                    description={project?.description}
+                    image={
+                      project?.image !== null &&
+                      project?.image !== undefined &&
+                      project?.image !== ""
+                        ? `${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${project?.image}`
+                        : ""
+                    }
+                  />
+                ))}
+              </ProjectContent>
+            </ProjectContainer>
+
+            {projects?.projects?.length >= 4 && (
+              <Pagination
+                onPageChange={setPage}
+                totalCountOfRegisters={projects?.total}
+                currentPage={page}
+                registersPerPage={20}
+              />
+            )}
+          </>
         )}
       </Container>
     </>

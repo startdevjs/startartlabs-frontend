@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import AvatarImg from "../../assets/bighead.svg"
+import { Link, useLocation } from "react-router-dom";
 import api from "../../services/api";
 import {
   Menu,
@@ -19,7 +19,7 @@ import {
 const MenuComponent = ({ children }) => {
   const [avatar, setAvatar] = useState();
   const session = JSON.parse(localStorage.getItem("startdev-labs"));
-  const userId = session?.id
+  const userId = session?.id;
 
   const handleAvatar = async (id) => {
     const { data } = await api.get(`/user/${id}`)
@@ -39,6 +39,7 @@ const MenuComponent = ({ children }) => {
       document.querySelector("#avatar-temp").display = "flex";
     }
   }, 800)
+
 
   return (
     <>
@@ -76,32 +77,36 @@ const MenuComponent = ({ children }) => {
       </Header>
       <Menu>
         <Link to="/">
-          <Option>
+          <Option active={location.pathname === "/" ? "true" : "false"}>
             <div className="tooltip tooltip--right" data-tooltip="Início">
               <IconHome />
             </div>
           </Option>
         </Link>
-        <Option>
-          <div className="tooltip tooltip--right" data-tooltip="Projetos">
-            <IconProjects />
-          </div>
-        </Option>
+
+        <Link to="/projects?video=true">
+          <Option active={location.pathname === "/projects" ? "true" : "false"}>
+            <div className="tooltip tooltip--right" data-tooltip="Projetos">
+              <IconProjects />
+            </div>
+          </Option>
+        </Link>
+
         <Option>
           <div className="tooltip tooltip--right" data-tooltip="Comunidade">
             <IconCommunity />
           </div>
         </Option>
         <Link to="/profile">
-        <Option active={window.location.pathname === "/profile" ? "true" : "false"}>
-          <div className="tooltip tooltip--right" data-tooltip="Minha Conta">
-            <IconMyAccount />
-          </div>
-        </Option>
+          <Option active={location.pathname === "/profile" ? "true" : "false"}>
+            <div className="tooltip tooltip--right" data-tooltip="Minha Conta">
+              <IconMyAccount />
+            </div>
+          </Option>
         </Link>
         {session?.admin && (
           <Link to="/admin">
-            <Option active={window.location.pathname === "/admin" ? "true" : "false"}>
+            <Option active={location.pathname === "/admin" ? "true" : "false"}>
               <div className="tooltip tooltip--right" data-tooltip="Administração">
                 <IconAdmin />
               </div>

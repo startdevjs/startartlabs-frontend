@@ -12,10 +12,12 @@ const CreateWarning = () => {
   const [description, setDescription] = useState(null);
   const [action, setAction] = useState(null);
   const [background, setBackground] = useState(null);
+  const [image, setImage] = useState("");
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
@@ -41,63 +43,76 @@ const CreateWarning = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+
     const data = {
       title,
       description,
       action,
       background,
+      image,
     };
 
-    onCreate(data, setLoading, setSuccess, setError, setMessage, navigate);
+    onCreate(data, setLoading, setSuccess, setError, setMessage, setProgress, navigate);
   };
 
   return (
     <>
-      {loading && <Loading />}
+      {/* {loading && <Loading />} */}
 
-      {!loading && (
-        <Form onSubmit={handleSubmit}>
-          <Input
-            text="Titulo"
-            name="title"
-            value={title}
-            onChange={onChange}
-            error={errors?.title}
-          />
+      {/* {!loading && ( */}
+      <Form onSubmit={handleSubmit}>
+        <Input text="Titulo" name="title" value={title} onChange={onChange} error={errors?.title} />
 
-          <Input
-            text="Descrição"
-            name="description"
-            value={description}
-            onChange={onChange}
-            error={errors?.description}
-          />
+        <Input
+          text="Descrição"
+          name="description"
+          value={description}
+          onChange={onChange}
+          error={errors?.description}
+        />
 
-          <Input
-            text="Ação"
-            name="action"
-            value={action}
-            onChange={onChange}
-            error={errors?.action}
-          />
+        <Input
+          text="Ação"
+          name="action"
+          value={action}
+          onChange={onChange}
+          error={errors?.action}
+        />
 
-          <Input
-            text="Background"
-            name="background"
-            value={background}
-            onChange={onChange}
-            error={errors?.background}
-          />
+        <Input
+          text="Background"
+          name="background"
+          value={background}
+          onChange={onChange}
+          error={errors?.background}
+        />
 
-          <ContainerButtons>
-            <ButtonGoBack type="button" onClick={() => navigate("/admin/warning")}>
-              Voltar
-            </ButtonGoBack>
-            <ButtonSubmit type="submit">Salvar</ButtonSubmit>
-          </ContainerButtons>
-        </Form>
-      )}
+        <Input
+          text="Imagem"
+          name="image"
+          type="file"
+          required
+          placeholder="Selecione a imagem"
+          accept="image/*"
+          onChange={(event) => {
+            setImage(event.target.files[0]);
+          }}
+          error={errors.image}
+        />
+        {progress > 0 && (
+          <progress class="progress progress--success" value={progress} max="100"></progress>
+        )}
+
+        <ContainerButtons>
+          <ButtonGoBack type="button" onClick={() => navigate("/admin/warning")}>
+            Voltar
+          </ButtonGoBack>
+          <ButtonSubmit type="submit">Salvar</ButtonSubmit>
+        </ContainerButtons>
+      </Form>
+      {/* )} */}
 
       {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
       {success && <Toast message={message} close={() => setSuccess(false)} variant="success" />}
