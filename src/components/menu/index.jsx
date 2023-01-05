@@ -50,6 +50,7 @@ const MenuComponent = ({ children }) => {
                     avatar ? (
                       <img 
                       className="avatar avatar--md" 
+                      id="avatar-header"
                       src={avatar}
                       style={{backgroundColor: "transparent"}}
                       />
@@ -64,7 +65,7 @@ const MenuComponent = ({ children }) => {
                   }
             </div>
             <div className="tile__container">
-              <p className="tile__title m-0" style={{ color: "#dcdcdc" }}>
+              <p className="tile__title m-0" style={{ color: "#dcdcdc" }} id="name-header">
                 {session?.name}
               </p>
               <p className="tile__subtitle m-0">
