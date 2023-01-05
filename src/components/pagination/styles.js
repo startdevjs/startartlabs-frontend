@@ -18,4 +18,8 @@ export const Container = styled.div`
     font-weight: 500 !important;
     cursor: pointer !important;
   }
+
+  a {
+    color: #fff !important;
+  }
 `;

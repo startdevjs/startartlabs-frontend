@@ -58,7 +58,9 @@ const UpdateWarning = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+
     const data = {
       title,
       description,
@@ -72,65 +74,60 @@ const UpdateWarning = () => {
 
   return (
     <>
-      {loading && <Loading />}
+      {/* {loading && <Loading />} */}
 
-      {!loading && (
-        <Form onSubmit={handleSubmit}>
-          <Input
-            text="Titulo"
-            name="title"
-            value={title}
-            onChange={onChange}
-            error={errors?.title}
-          />
+      {/* {!loading && ( */}
+      <Form onSubmit={handleSubmit}>
+        <Input text="Titulo" name="title" value={title} onChange={onChange} error={errors?.title} />
 
-          <Input
-            text="Descrição"
-            name="description"
-            value={description}
-            onChange={onChange}
-            error={errors?.description}
-          />
+        <Input
+          text="Descrição"
+          name="description"
+          value={description}
+          onChange={onChange}
+          error={errors?.description}
+        />
 
-          <Input
-            text="Ação"
-            name="action"
-            value={action}
-            onChange={onChange}
-            error={errors?.action}
-          />
+        <Input
+          text="Ação"
+          name="action"
+          value={action}
+          onChange={onChange}
+          error={errors?.action}
+        />
 
-          <Input
-            text="Background"
-            name="background"
-            value={background}
-            onChange={onChange}
-            error={errors?.background}
-          />
+        <Input
+          text="Background"
+          name="background"
+          value={background}
+          onChange={onChange}
+          error={errors?.background}
+        />
 
-          <Input
-            text="Imagem"
-            name="image"
-            type="file"
-            placeholder="Selecione a imagem"
-            accept="image/*"
-            onChange={(event) => {
-              setImage(event.target.files[0]);
-            }}
-            error={errors.image}
-          />
-          {progress > 0 && (
-            <progress class="progress progress--success" value={progress} max="100"></progress>
-          )}
+        <Input
+          text="Imagem"
+          name="image"
+          type="file"
+          required
+          placeholder="Selecione a imagem"
+          accept="image/*"
+          onChange={(event) => {
+            setImage(event.target.files[0]);
+          }}
+          error={errors.image}
+        />
+        {progress > 0 && (
+          <progress class="progress progress--success" value={progress} max="100"></progress>
+        )}
 
-          <ContainerButtons>
-            <ButtonGoBack type="button" onClick={() => navigate("/admin/warning")}>
-              Voltar
-            </ButtonGoBack>
-            <ButtonSubmit type="submit">Atualizar</ButtonSubmit>
-          </ContainerButtons>
-        </Form>
-      )}
+        <ContainerButtons>
+          <ButtonGoBack type="button" onClick={() => navigate("/admin/warning")}>
+            Voltar
+          </ButtonGoBack>
+          <ButtonSubmit type="submit">Atualizar</ButtonSubmit>
+        </ContainerButtons>
+      </Form>
+      {/* )} */}
 
       {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
       {success && <Toast message={message} close={() => setSuccess(false)} variant="success" />}

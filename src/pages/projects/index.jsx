@@ -33,7 +33,13 @@ const Projects = () => {
                     id={project?.id}
                     name={project?.name}
                     description={project?.description}
-                    image={project?.image}
+                    image={
+                      project?.image !== null &&
+                      project?.image !== undefined &&
+                      project?.image !== ""
+                        ? `https://api-labs-dev.startdevjs.com.br /public/images/${project?.image}`
+                        : ""
+                    }
                   />
                 ))}
               </ProjectContent>
