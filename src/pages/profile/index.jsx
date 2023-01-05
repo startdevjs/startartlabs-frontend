@@ -32,7 +32,6 @@ import {
     MyFriends,
     CardsContainer
 } from "./styles";
-import { getUserById } from "../admin/user/functions/getUserById";
 
 const Profile = () => {
     const [loading, setLoading] = useState(false);
@@ -54,7 +53,6 @@ const Profile = () => {
     const [receivedFriendshipRequests, setReceivedFriendshipRequests] = useState([]);
     const [sentFriendshipRequests, setSentFriendshipRequests] = useState([]);
     const [revalidate, setRevalidate] = useState();
-    const [user, setUser] = useState([]);
 
     const session = JSON.parse(localStorage.getItem("startdev-labs"));
     const userId = session?.id
@@ -184,7 +182,7 @@ const handleOpenAndCloseModalRequests = () => {
 
   setTimeout(() => {
     if(document) {
-      document.querySelector("#avatar-temp").display = "flex";
+      document.querySelector("#avatar-temp").style.display = "flex";
     }
   }, 800)
 

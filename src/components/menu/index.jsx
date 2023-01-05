@@ -36,7 +36,7 @@ const MenuComponent = ({ children }) => {
 
   setTimeout(() => {
     if(document) {
-      document.querySelector("#avatar-temp").display = "flex";
+      document.querySelector("#avatar-temp-profile").style.display = "flex";
     }
   }, 800)
 
@@ -56,7 +56,7 @@ const MenuComponent = ({ children }) => {
                     ) : (
                       <img 
                       className="avatar avatar--md" 
-                      id="avatar-temp"
+                      id="avatar-temp-profile"
                       src={AvatarImg}
                       style={{backgroundColor: "transparent", display: "none"}}
                       />
