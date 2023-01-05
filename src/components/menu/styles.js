@@ -15,6 +15,7 @@ export const Header = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding-right: 40px;
+  z-index: 1;
 `;
 
 export const Menu = styled.div`
@@ -74,4 +75,8 @@ export const IconExit = styled(RxExit)`
 export const Content = styled.div`
   margin: 90px 20px 0 100px;
   color: #dcdcdc !important;
+`;
+
+export const AvatarArea = styled.div`
+  background-color: transparent !important;
 `;
