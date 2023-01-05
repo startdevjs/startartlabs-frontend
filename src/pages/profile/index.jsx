@@ -41,7 +41,7 @@ const Profile = () => {
 
   const handleAvatar = async (id) => {
     const data = await api.get(`/user/${id}`);
-    return `https://api-labs-dev.startdevjs.com.br /public/images/${data?.data?.avatar}`;
+    return `${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${data?.data?.avatar}`;
   };
 
   useEffect(() => {

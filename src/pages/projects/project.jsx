@@ -128,7 +128,9 @@ const Project = () => {
                 activeLession?.video !== "" ? (
                   <ProjectVideo>
                     <ProjectVideoPlayer
-                      src={`https://api-labs-dev.startdevjs.com.br /public/videos/${activeLession?.video}`}
+                      src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/videos/${
+                        activeLession?.video
+                      }`}
                       controls
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     />
@@ -142,7 +144,9 @@ const Project = () => {
                 activeLession?.image !== "" ? (
                   <ProjectVideo>
                     <ProjectImg
-                      src={`https://api-labs-dev.startdevjs.com.br /public/images/${activeLession?.image}`}
+                      src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${
+                        activeLession?.image
+                      }`}
                       alt="Imagem do projeto"
                     />
 

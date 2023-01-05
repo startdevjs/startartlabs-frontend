@@ -42,7 +42,9 @@ const Home = () => {
         {loadingWarning && <Loading />}
         {!loadingWarning && (
           <WarningContainer
-            image={`https://api-labs-dev.startdevjs.com.br /public/warnings/${warnings?.warnings?.[0]?.image}`}
+            image={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/warnings/${
+              warnings?.warnings?.[0]?.image
+            }`}
           >
             <WarningOverlay background={warnings?.warnings?.[0]?.background ?? "#6f4ef2"} />
 
@@ -77,7 +79,7 @@ const Home = () => {
                       project?.image !== null &&
                       project?.image !== undefined &&
                       project?.image !== ""
-                        ? `https://api-labs-dev.startdevjs.com.br /public/images/${project?.image}`
+                        ? `${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${project?.image}`
                         : ""
                     }
                   />

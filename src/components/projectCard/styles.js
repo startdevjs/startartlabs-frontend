@@ -44,7 +44,9 @@ export const ProjectCardTitle = styled.h1`
   line-height: 1.6;
 `;
 
-export const ProjectCardDescription = styled.p``;
+export const ProjectCardDescription = styled.p`
+  word-wrap: break-word;
+`;
 
 export const Button = styled.button`
   padding: 0.8em;

@@ -16,9 +16,11 @@ const ProjectCard = ({ key, id, name, description, image }) => {
       <ProjectCardInfo>
         <ProjectCardTitle>{name}</ProjectCardTitle>
 
-        <ProjectCardDescription>
-          {description?.slice(0, 60)}
-          {description?.length > 100 && "..."}
+        <ProjectCardDescription
+          dangerouslySetInnerHTML={{ __html: description?.slice(0, 110) + "..." }}
+        >
+          {/* {description?.slice(0, 60)}
+          {description?.length > 100 && "..."} */}
         </ProjectCardDescription>
       </ProjectCardInfo>
 

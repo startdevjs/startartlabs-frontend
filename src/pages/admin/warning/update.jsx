@@ -108,7 +108,6 @@ const UpdateWarning = () => {
           text="Imagem"
           name="image"
           type="file"
-          required
           placeholder="Selecione a imagem"
           accept="image/*"
           onChange={(event) => {
