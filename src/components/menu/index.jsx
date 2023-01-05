@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import AvatarImg from "../../assets/bighead.svg"
 import { Link, useLocation } from "react-router-dom";
 import io from "socket.io-client";
 import api from "../../services/api";
@@ -20,6 +21,7 @@ import {
   ModalNotification,
   Notification,
   TitleModalNotification,
+  AvatarArea
 } from "./styles";
 
 // const notificationMessages = [];
@@ -50,15 +52,24 @@ const MenuComponent = ({ children }) => {
   const userId = session?.id;
 
   const handleAvatar = async (id) => {
-    const data = await api.get(`/user/${id}`);
-    return `${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${data?.data?.avatar}`;
-  };
+    const { data } = await api.get(`/user/${id}`)
+    if(data?.avatar){
+      return `${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${data?.avatar}`
+    } 
+    return;
+  }
 
   useEffect(() => {
-    handleAvatar(userId).then((response) => setAvatar(response));
+    handleAvatar(userId)
+    .then((response) => setAvatar(response))
   }, [userId]);
 
-  const location = useLocation();
+  setTimeout(() => {
+    if(document) {
+      document.querySelector("#avatar-temp-profile").style.display = "flex";
+    }
+  }, 800)
+
 
   return (
     <>
@@ -111,25 +122,36 @@ const MenuComponent = ({ children }) => {
           )}
         </NotificationContainer>
 
-        <div className="tile m-0 level">
-          <div className="tile__icon">
-            {avatar ? (
-              <img className="avatar avatar--md" src={avatar} />
-            ) : (
-              <figure className="avatar avatar--md" />
-            )}
-          </div>
-          <div className="tile__container">
-            <p className="tile__title m-0" style={{ color: "#dcdcdc" }}>
-              {session?.name}
-            </p>
-            <p className="tile__subtitle m-0">
-              <a href="!#" style={{ color: "#80adea" }}>
-                @{session?.username}
-              </a>
-            </p>
-          </div>
-        </div>
+            <AvatarArea className="tile m-0 level">
+            <div className="tile__icon">
+            {
+                    avatar ? (
+                      <img 
+                      className="avatar avatar--md" 
+                      src={avatar}
+                      style={{backgroundColor: "transparent"}}
+                      />
+                    ) : (
+                      <img 
+                      className="avatar avatar--md" 
+                      id="avatar-temp-profile"
+                      src={AvatarImg}
+                      style={{backgroundColor: "transparent", display: "none"}}
+                      />
+                    )
+                  }
+            </div>
+            <div className="tile__container">
+              <p className="tile__title m-0" style={{ color: "#dcdcdc" }}>
+                {session?.name}
+              </p>
+              <p className="tile__subtitle m-0">
+                <a href="!#" style={{ color: "#80adea" }}>
+                  @{session?.username}
+                </a>
+              </p>
+            </div>
+          </AvatarArea>
       </Header>
 
       <Menu>
