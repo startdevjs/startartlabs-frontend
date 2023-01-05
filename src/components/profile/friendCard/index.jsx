@@ -38,7 +38,6 @@ import {
     }
 
     const handleFriendshipExists = (userId) => {
-      console.log(allMyFriends)
       const isFriendshipAlreadyExists = allMyFriends?.data?.friends.find((user) => user.friendId === userId);
       setRevalidate(prev => !prev)
       if(isFriendshipAlreadyExists) {
