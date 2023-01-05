@@ -75,6 +75,7 @@ export const ProjectVideo = styled.div`
   border-radius: 18px;
 
   padding: 20px 0;
+  margin-top: 20px;
 
   display: flex;
   align-items: center;
