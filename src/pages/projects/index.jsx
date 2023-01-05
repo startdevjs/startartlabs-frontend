@@ -37,7 +37,7 @@ const Projects = () => {
                       project?.image !== null &&
                       project?.image !== undefined &&
                       project?.image !== ""
-                        ? `https://api-labs-dev.startdevjs.com.br/public/images/${project?.image}`
+                        ? `${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${project?.image}`
                         : ""
                     }
                   />
