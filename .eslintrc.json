@@ -29,7 +29,11 @@
       "no-unused-vars": 1,
       "import/no-unresolved": 2,
       "no-undefined": 2,
-      "react/jsx-uses-vars": 2
+      "react/jsx-uses-vars": 2,
+      "react/function-component-definition": [true, {
+        "namedComponents":  "arrow-function",
+        "unnamedComponents":  "arrow-function"
+      }]
       // add more rules here...
     }
   }
