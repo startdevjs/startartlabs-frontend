@@ -67,7 +67,9 @@ const UpdateLession = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     const data = {
       name,
       description,
@@ -92,20 +94,20 @@ const UpdateLession = () => {
 
   return (
     <>
-      {loading && <Loading />}
+      {/* {loading && <Loading />} */}
 
-      {!loading && (
-        <Form onSubmit={handleSubmit}>
-          <Input
-            text="Nome"
-            name="name"
-            type="text"
-            placeholder="Digite o nome"
-            value={name}
-            onChange={onChange}
-            error={errors.name}
-          />
-          {/* 
+      {/* {!loading && ( */}
+      <Form onSubmit={handleSubmit}>
+        <Input
+          text="Nome"
+          name="name"
+          type="text"
+          placeholder="Digite o nome"
+          value={name}
+          onChange={onChange}
+          error={errors.name}
+        />
+        {/* 
           <Textarea
             text="Descrição"
             name="description"
@@ -116,62 +118,62 @@ const UpdateLession = () => {
             error={errors.description}
           /> */}
 
-          <RichText value={description} onChange={setDescription} />
+        <RichText value={description} onChange={setDescription} />
 
-          <Select text="Tipo" name="type" value={type} onChange={onChange} error={errors.type}>
-            <option value={null}>Selecione o tipo</option>
-            <option value={1}>Vídeo</option>
-            <option value={2}>Desafio</option>
-          </Select>
+        <Select text="Tipo" name="type" value={type} onChange={onChange} error={errors.type}>
+          <option value={null}>Selecione o tipo</option>
+          <option value={1}>Vídeo</option>
+          <option value={2}>Desafio</option>
+        </Select>
 
-          <Autocomplete
-            text="Projeto"
-            items={projects?.projects}
-            setDataId={setProjectId}
-            valueIsUpdate={projectId}
-            placeholder="Digite o nome do projeto"
-          />
+        <Autocomplete
+          text="Projeto"
+          items={projects?.projects}
+          setDataId={setProjectId}
+          valueIsUpdate={projectId}
+          placeholder="Digite o nome do projeto"
+        />
 
-          <Input
-            text="Imagem"
-            name="image"
-            type="file"
-            placeholder="Selecione a imagem"
-            accept="image/*"
-            // value={image}
-            onChange={(e) => {
-              setImage(e.target.files);
-            }}
-            error={errors.image}
-          />
-          {progress > 0 && (
-            <progress class="progress progress--success" value={progress} max="100"></progress>
-          )}
+        <Input
+          text="Imagem"
+          name="image"
+          type="file"
+          placeholder="Selecione a imagem"
+          accept="image/*"
+          // value={image}
+          onChange={(e) => {
+            setImage(e.target.files);
+          }}
+          error={errors.image}
+        />
+        {progress > 0 && (
+          <progress class="progress progress--success" value={progress} max="100"></progress>
+        )}
 
-          <Input
-            text="Vídeo"
-            name="video"
-            type="file"
-            placeholder="Selecione o vídeo"
-            accept="video/*"
-            // value={video}
-            onChange={(e) => {
-              setVideo(e.target.files);
-            }}
-            error={errors.video}
-          />
-          {progressVideo > 0 && (
-            <progress class="progress progress--success" value={progressVideo} max="100"></progress>
-          )}
+        <Input
+          text="Vídeo"
+          name="video"
+          type="file"
+          placeholder="Selecione o vídeo"
+          accept="video/*"
+          // value={video}
+          onChange={(e) => {
+            setVideo(e.target.files);
+          }}
+          error={errors.video}
+        />
+        {progressVideo > 0 && (
+          <progress class="progress progress--success" value={progressVideo} max="100"></progress>
+        )}
 
-          <ContainerButtons>
-            <ButtonGoBack type="button" onClick={() => navigate("/admin/lession")}>
-              Voltar
-            </ButtonGoBack>
-            <ButtonSubmit type="submit">Salvar</ButtonSubmit>
-          </ContainerButtons>
-        </Form>
-      )}
+        <ContainerButtons>
+          <ButtonGoBack type="button" onClick={() => navigate("/admin/lession")}>
+            Voltar
+          </ButtonGoBack>
+          <ButtonSubmit type="submit">Salvar</ButtonSubmit>
+        </ContainerButtons>
+      </Form>
+      {/* )} */}
 
       {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
       {success && <Toast message={message} close={() => setSuccess(false)} variant="success" />}

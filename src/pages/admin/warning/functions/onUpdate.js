@@ -1,4 +1,5 @@
 import api from "../../../../services/api";
+import { onUploadForUpdate } from "./onUploadForUpdate";
 
 export const onUpdate = async (
   id,
@@ -10,7 +11,7 @@ export const onUpdate = async (
   setProgress,
   navigate,
 ) => {
-  setLoading(true);
+  // setLoading(true);
 
   const formData = new FormData();
   formData.append("file", data?.image);
@@ -24,28 +25,28 @@ export const onUpdate = async (
       image: null,
     });
 
-    if ((data?.image !== null) | (data?.image !== undefined)) {
-      await api.post(`/warning/${id}/upload`, formData, {
-        onUploadProgress: (progressEvent) => {
-          setProgress(progressEvent.loaded);
-        },
+    // await api.post(`/warning/${id}/upload`, formData, {
+    //   onUploadProgress: (progressEvent) => {
+    //     setProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+    //   },
 
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-    }
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // });
+
+    await onUploadForUpdate(id, data, setProgress);
 
     setTimeout(() => {
       navigate("/admin/warning");
     }, 1000);
 
-    setLoading(false);
+    // setLoading(false);
     setSuccess(true);
-    setMessage("Usuário atualizado com sucesso");
+    setMessage("Aviso atualizado com sucesso");
   } catch (error) {
-    setLoading(false);
+    // setLoading(false);
     setError(true);
-    setMessage("Erro ao atualizar usuário");
+    setMessage("Erro ao atualizar aviso");
   }
 };

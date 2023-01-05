@@ -25,7 +25,7 @@ export const onUpdate = async (
     if ((data?.image !== null) | (data?.image !== undefined)) {
       await api.post(`/project/${id}/upload`, formData, {
         onUploadProgress: (progressEvent) => {
-          setProgress(progressEvent.loaded);
+          setProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
         },
 
         headers: {

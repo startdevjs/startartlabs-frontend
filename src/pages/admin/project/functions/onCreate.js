@@ -11,6 +11,9 @@ export const onCreate = async (
 ) => {
   setLoading(true);
 
+  const formData = new FormData();
+  formData.append("file", data?.image);
+
   try {
     const res = await api.post(`/project`, {
       name: data.name,
@@ -19,20 +22,15 @@ export const onCreate = async (
       status: true,
     });
 
-    if (data?.image !== null) {
-      const formData = new FormData();
-      formData.append("file", data?.image);
+    await api.post(`/project/${res.data.id}/upload`, formData, {
+      onUploadProgress: (progressEvent) => {
+        setProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+      },
 
-      await api.post(`/project/${res.data.id}/upload`, formData, {
-        onUploadProgress: (progressEvent) => {
-          setProgress(progressEvent.loaded);
-        },
-
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-    }
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
     setTimeout(() => {
       navigate("/admin/project");

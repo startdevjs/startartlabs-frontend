@@ -28,7 +28,7 @@ export const onCreate = async (
 
       await api.patch(`/lession/upload/image/${res?.data?.id}`, formData, {
         onUploadProgress: (progressEvent) => {
-          setProgress(progressEvent.loaded);
+          setProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
         },
 
         headers: {
@@ -43,7 +43,7 @@ export const onCreate = async (
 
       await api.patch(`/lession/upload/video/${res?.data?.id}`, formData, {
         onUploadProgress: (progressEvent) => {
-          setProgressVideo(progressEvent.loaded);
+          setProgressVideo(Math.round((progressEvent.loaded * 100) / progressEvent.total));
         },
 
         headers: {

@@ -9,7 +9,7 @@ export const onCreate = async (
   setProgress,
   navigate,
 ) => {
-  setLoading(true);
+  // setLoading(true);
 
   try {
     const res = await api.post(`/warning`, {
@@ -26,7 +26,7 @@ export const onCreate = async (
 
       await api.post(`/warning/${res.data.id}/upload`, formData, {
         onUploadProgress: (progressEvent) => {
-          setProgress(progressEvent.loaded);
+          setProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
         },
 
         headers: {
@@ -39,11 +39,11 @@ export const onCreate = async (
       navigate("/admin/warning");
     }, 1000);
 
-    setLoading(false);
+    // setLoading(false);
     setSuccess(true);
     setMessage("Aviso criado com sucesso");
   } catch (error) {
-    setLoading(false);
+    // setLoading(false);
     setError(true);
     setMessage("Erro ao criar aviso");
   }
