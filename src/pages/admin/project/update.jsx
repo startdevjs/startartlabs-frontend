@@ -96,7 +96,6 @@ const UpdateProject = () => {
           type="file"
           placeholder="Selecione a imagem"
           accept="image/*"
-          required
           onChange={(event) => {
             setImage(event.target.files[0]);
           }}
