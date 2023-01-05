@@ -16,8 +16,8 @@ export const sendProject = async (
 
     setLoading(false);
 
-    setLinkProject({});
-    setBranchProject({});
+    setLinkProject(null);
+    setBranchProject(null);
 
     setSuccess(true);
     setError(false);
