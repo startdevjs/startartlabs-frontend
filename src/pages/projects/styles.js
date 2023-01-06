@@ -41,7 +41,10 @@ export const ProjectTitle = styled.h1`
 export const Container = styled.div`
   width: 100%;
   height: 100%;
-  padding: 0 20px;
+
+  @media (min-width: 500px) {
+    padding: 0 20px;
+  }
 `;
 
 export const Content = styled.div`
@@ -61,7 +64,10 @@ export const Content = styled.div`
 export const ProjectVideoContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding: 0 20px;
+
+  @media (min-width: 500px) {
+    padding: 0 20px;
+  }
 
   @media (min-width: 1150px) {
     width: 70%;
@@ -286,16 +292,19 @@ export const ButtonSendProject = styled.button`
 export const ContainerEmpty = styled.div`
   width: 100%;
   height: 100%;
-  padding: 0 20px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (min-width: 780px) {
+    padding: 0 20px;
+  }
 `;
 
 export const TitleEmpty = styled.h1`
-  font-size: 1rem !important;
+  font-size: 2rem !important;
   font-weight: 500 !important;
   margin-bottom: 30px;
   margin-top: 30px;
@@ -303,12 +312,12 @@ export const TitleEmpty = styled.h1`
   margin-left: 4px !important;
 
   text-align: center !important;
-  line-height: 2.4 !important;
+  line-height: 1.4 !important;
 
   color: #dadada !important;
 
   @media (min-width: 1150px) {
-    font-size: 1rem !important;
+    font-size: 4rem !important;
   }
 `;
 

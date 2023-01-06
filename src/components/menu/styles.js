@@ -3,25 +3,32 @@ import { AiOutlineHome, AiOutlineComment } from "react-icons/ai";
 import { BsCodeSlash, BsPerson } from "react-icons/bs";
 import { MdOutlineAdminPanelSettings, MdOutlineNotificationsNone } from "react-icons/md";
 import { RxExit } from "react-icons/rx";
+import { BiMenu } from "react-icons/bi";
 
 export const Header = styled.div`
   background-color: #131129;
   position: fixed;
   top: 0;
-  left: 81px;
+  left: 10px;
   right: 0;
   height: 70px;
+
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding-right: 40px;
-  z-index: 1;
+  z-index: 999;
+
+  @media (min-width: 560px) {
+    justify-content: flex-end;
+    left: 81px;
+  }
 `;
 
 export const Menu = styled.div`
   position: fixed;
   left: 0;
-  top: 0;
+  top: 70px;
   bottom: 0;
   width: 80px;
   background-color: #1d1933;
@@ -30,6 +37,10 @@ export const Menu = styled.div`
   align-items: center;
 
   z-index: 999;
+
+  @media (min-width: 560px) {
+    top: 0;
+  }
 `;
 
 export const Option = styled.div`
@@ -77,9 +88,22 @@ export const IconNotification = styled(MdOutlineNotificationsNone)`
   color: #fff !important;
 `;
 
+export const IconMenu = styled(BiMenu)`
+  font-size: 30px;
+  color: #fff !important;
+
+  @media (min-width: 560px) {
+    display: none;
+  }
+`;
+
 export const Content = styled.div`
-  margin: 90px 20px 0 100px;
+  margin: 90px 20px 0 20px;
   color: #dcdcdc !important;
+
+  @media (min-width: 560px) {
+    margin: 90px 20px 0 100px;
+  }
 `;
 
 export const NotificationContent = styled.div`

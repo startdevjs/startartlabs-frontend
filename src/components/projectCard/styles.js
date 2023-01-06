@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  min-height: 600px;
+  min-height: 200px;
 
   background: #1d1933;
-  padding: 30px;
+  padding: 10px;
   border-radius: 16px;
   box-shadow: 0 0 20px rgb(89 102 122 / 5%);
 
@@ -15,8 +15,18 @@ export const Container = styled.div`
 
   margin-bottom: 3em;
 
+  @media (min-width: 500px) {
+    padding: 30px;
+    min-height: 600px;
+  }
+
   @media (min-width: 780px) {
-    width: 48%;
+    width: 45%;
+  }
+
+  @media (min-width: 1080px) {
+    width: 30%;
+    min-height: 550px;
   }
 
   @media (min-width: 1400px) {
@@ -92,6 +102,19 @@ export const ProjectCardImage = styled.div`
   width: 100%;
   min-height: 250px;
   height: auto;
+
+  @media (max-width: 460px) {
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+  }
+
+  @media (min-width: 1080px) {
+    min-height: 150px;
+  }
+
+  /* @media (min-width: 1400px) {
+    min-height: 250px;
+  } */
 
   @media (min-width: 1400px) {
     min-height: 200px;
