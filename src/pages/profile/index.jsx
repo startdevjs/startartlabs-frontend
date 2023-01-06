@@ -52,7 +52,7 @@ const Profile = () => {
     const [allMyFriends, setAllMyFriends] = useState("");
     const [receivedFriendshipRequests, setReceivedFriendshipRequests] = useState([]);
     const [sentFriendshipRequests, setSentFriendshipRequests] = useState([]);
-    const [revalidate, setRevalidate] = useState();
+    const [revalidate, setRevalidate] = useState(false);
 
     const session = JSON.parse(localStorage.getItem("startdev-labs"));
     const userId = session?.id
@@ -78,7 +78,7 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    handleAvatar(userId).then((response) => setAvatar(response));
+    handleAvatar(userId).then((response) => {setAvatar(response)});
   }, [userId]);
 
   useMemo(() => {
@@ -162,17 +162,18 @@ const handleOpenAndCloseModalRequests = () => {
     }
   };
 
-  const handleSubmitUpdate = () => {
+  const handleSubmitUpdate = async () => {
     const data = {
       image,
       name,
       email,
     };
 
-    onUpdate(userId, data, setLoading, setSuccess, setError, setMessage);
+     onUpdate({userId, data, setLoading, setSuccess, setError, setMessage, handleAvatar, setAvatar});
     let currentSession = { ...session };
     if (currentSession?.name && data.name) {
       currentSession.name = data.name;
+      document.querySelector("#name-header").innerText = data.name;
     }
     if (currentSession.email && data.email) {
       currentSession.email = data.email;
@@ -387,6 +388,7 @@ const handleOpenAndCloseModalRequests = () => {
         sentFriendshipRequests={sentFriendshipRequests}
         setSentFriendshipRequests={setSentFriendshipRequests}
         setRevalidate={setRevalidate}
+        allMyFriends={allMyFriends}
         />}
         </CardsContainer>
       </Body>

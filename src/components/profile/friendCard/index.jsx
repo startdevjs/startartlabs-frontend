@@ -6,7 +6,7 @@ import {
     Button
   } from "./styles";
   
-  const FriendCard = ({ usersBySearch, sentFriendshipRequests,setSentFriendshipRequests, setRevalidate }) => {
+  const FriendCard = ({ usersBySearch, sentFriendshipRequests,setSentFriendshipRequests, setRevalidate, allMyFriends }) => {
 
     const handleAskFriendship = async (userId) => {
       const data = {
@@ -37,8 +37,19 @@ import {
         }
     }
 
+    const handleFriendshipExists = (userId) => {
+      const isFriendshipAlreadyExists = allMyFriends?.data?.friends.find((user) => user.friendId === userId);
+      setRevalidate(prev => !prev)
+      if(isFriendshipAlreadyExists) {
+        return true;
+      } else {
+        return false;
+      }
+  }
+
     const handleFriendshipId = (userId) => {
       const isFriendshipAlreadyExists = sentFriendshipRequests.find((user) => user.friendId === userId);
+      setRevalidate(prev => !prev)
       if(isFriendshipAlreadyExists) {
         return isFriendshipAlreadyExists.id;
       } else {
@@ -74,7 +85,13 @@ import {
               </div>    
               </div>
               {
-               handleRequestExists(user?.id) ? (
+                handleFriendshipExists(user?.id) ? (
+                  <Button
+                  id="button"
+                  style={{backgroundColor: "rgba(247, 49, 100, 0.3)"}}
+                  disabled={true}
+                  >{"Amigos"}</Button>
+                ) : handleRequestExists(user?.id) ? (
                   <Button
                   id="button"
                   style={{backgroundColor: "rgba(247, 49, 100, 0.3)"}}
