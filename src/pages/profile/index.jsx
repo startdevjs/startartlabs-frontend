@@ -182,7 +182,7 @@ const handleOpenAndCloseModalRequests = () => {
   };
 
   setTimeout(() => {
-    if(document) {
+    if(document.querySelector("#avatar-temp")) {
       document.querySelector("#avatar-temp").style.display = "flex";
     }
   }, 800)
@@ -202,7 +202,11 @@ const handleOpenAndCloseModalRequests = () => {
                     <img 
                     className="avatar avatar--lg" 
                     src={avatar}
-                    style={{backgroundColor: "transparent"}}
+                    style={{
+                      width: "100%",
+                      backgroundColor: "transparent", backgroundRepeat: "no-repeat",
+                    backgroundposition: "center",
+                    backgroundSize: "cover"}}
                     />
                   ) : (
                     <img 

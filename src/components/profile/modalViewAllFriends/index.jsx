@@ -71,6 +71,7 @@ const ModalViewAllFriends = ({ isOpen, onClose, allMyFriends, setMessage, setSuc
                     <img 
                     className="avatar avatar--sm" 
                     src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${friend.avatar}`}
+                    style={{backgroundColor: "transparent"}}
                     />
                   ) : (
                     <img 

@@ -103,6 +103,7 @@ import {
                     <img 
                     className="avatar avatar--md" 
                     src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${avatar}`}
+                    style={{backgroundColor: "transparent"}}
                     />
                   ) : (
                     <img 
