@@ -90,9 +90,7 @@ const Project = () => {
   if (lessions?.lessions?.length === 0) {
     return (
       <ContainerEmpty>
-        <TitleEmpty>
-          <h1>Nenhuma aula ou desafio foi encontrada</h1>
-        </TitleEmpty>
+        <TitleEmpty>Nenhuma aula ou desafio foi encontrada</TitleEmpty>
 
         <DescriptionEmpty>
           <p>
