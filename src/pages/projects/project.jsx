@@ -209,7 +209,15 @@ const Project = () => {
                             lessionId: Number(activeLessionId),
                           };
 
-                          sendProject(data, setLoading, setSuccess, setError, setMessage);
+                          sendProject(
+                            data,
+                            setLoading,
+                            setSuccess,
+                            setError,
+                            setMessage,
+                            setLinkProject,
+                            setBranchProject,
+                          );
                         }}
                       >
                         {loading ? <Loading /> : "Enviar"}

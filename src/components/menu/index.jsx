@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+
+import { useEffect, useMemo, useState } from "react";
 import AvatarImg from "../../assets/bighead.svg"
 import { Link, useLocation } from "react-router-dom";
+import io from "socket.io-client";
 import api from "../../services/api";
+import { ImNotification } from "react-icons/im";
 import {
   Menu,
   Header,
@@ -12,12 +15,37 @@ import {
   IconMyAccount,
   IconAdmin,
   IconExit,
+  IconNotification,
   Content,
+  NotificationContainer,
+  NotificationContent,
+  ModalNotification,
+  Notification,
+  TitleModalNotification,
   AvatarArea
 } from "./styles";
 
+// const notificationMessages = [];
+
+// const socket = io(import.meta.env.VITE_BASE_URL_SOCKET);
+
+// socket.on("notification_friendship", (message) => {
+//   console.log(message);
+// });
+
+// socket.on("notification_exercice", (message) => {
+//   console.log(message);
+// });
+
+// socket.on("notification_topic", (message) => {
+//   console.log(message);
+// });
+
 const MenuComponent = ({ children }) => {
   const [avatar, setAvatar] = useState();
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notification, setNotification] = useState([]);
+
   const session = JSON.parse(localStorage.getItem("startdev-labs"));
   const userId = session?.id;
 
@@ -44,6 +72,54 @@ const MenuComponent = ({ children }) => {
   return (
     <>
       <Header>
+        <NotificationContainer>
+          <div
+            className="tile m-0 mr-3 level"
+            onClick={() => setNotificationOpen(!notificationOpen)}
+          >
+            <NotificationContent className="tile__icon">
+              <IconNotification />
+              <span>{notification?.length}</span>
+            </NotificationContent>
+          </div>
+          {/* 
+          <RiArrowUpSFill
+            style={{
+              top: "43.3px",
+              right: "235px",
+              position: "absolute",
+              fontSize: "4.5rem",
+              color: "#1d1933",
+            }}
+          /> */}
+
+          {notificationOpen && (
+            <ModalNotification>
+              <TitleModalNotification>
+                <h2>Notificações</h2>
+              </TitleModalNotification>
+
+              {notification?.map((item) => (
+                <Notification>
+                  <ImNotification />
+                  <span>{item?.message}</span>
+                </Notification>
+              ))}
+
+              {/* <Notification>
+                <ImNotification />
+                <span>Notificação 2</span>
+              </Notification>
+
+              <Notification>
+                <ImNotification />
+                <span>Notificação 3</span>
+              </Notification> */}
+            </ModalNotification>
+          )}
+        </NotificationContainer>
+
+  
             <AvatarArea className="tile m-0 level">
             <div className="tile__icon">
             {
@@ -76,6 +152,7 @@ const MenuComponent = ({ children }) => {
             </div>
           </AvatarArea>
       </Header>
+
       <Menu>
         <Link to="/">
           <Option active={location.pathname === "/" ? "true" : "false"}>
