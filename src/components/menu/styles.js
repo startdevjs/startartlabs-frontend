@@ -3,6 +3,9 @@ import { AiOutlineHome, AiOutlineComment } from "react-icons/ai";
 import { BsCodeSlash, BsPerson } from "react-icons/bs";
 import { MdOutlineAdminPanelSettings, MdOutlineNotificationsNone } from "react-icons/md";
 import { RxExit } from "react-icons/rx";
+import { BsInstagram, BsYoutube } from "react-icons/bs";
+import { FaTiktok } from "react-icons/fa";
+import { AiFillFacebook } from "react-icons/ai";
 
 export const Header = styled.div`
   background-color: #131129;
@@ -167,9 +170,32 @@ export const Notification = styled.div`
   svg {
     font-size: 20px;
     /* color: #f73164; */
-  } 
+  }
 `;
 
 export const AvatarArea = styled.div`
   background-color: transparent !important;
+`;
+export const SocialMediaContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 1.5rem;
+`;
+export const IconInstagram = styled(BsInstagram)`
+  color: #fff;
+  font-size: 1.3em;
+`;
+export const IconYoutube = styled(BsYoutube)`
+  color: #fff;
+  font-size: 1.3em;
+`;
+export const IconTiktok = styled(FaTiktok)`
+  color: #fff;
+  font-size: 1.3em;
+`;
+export const IconFacebook = styled(AiFillFacebook)`
+  color: #fff;
+  font-size: 1.3em;
 `;

@@ -22,7 +22,12 @@ import {
   ModalNotification,
   Notification,
   TitleModalNotification,
-  AvatarArea
+  AvatarArea,
+  SocialMediaContainer,
+  IconInstagram,
+  IconYoutube,
+  IconTiktok,
+  IconFacebook
 } from "./styles";
 
 // const notificationMessages = [];
@@ -63,15 +68,28 @@ const MenuComponent = ({ children }) => {
   }, [userId]);
 
   setTimeout(() => {
-    if(document) {
+    if(document.querySelector("#avatar-temp-profile")) {
       document.querySelector("#avatar-temp-profile").style.display = "flex";
     }
   }, 800)
 
-
   return (
     <>
       <Header>
+      <SocialMediaContainer>
+              <a href="https://www.youtube.com/@startdevjs" target="_blank">
+                <IconYoutube/>
+              </a>
+              <a href="https://www.instagram.com/startdevjs/" target="_blank">
+                <IconInstagram/>
+              </a>
+              <a href="https://www.tiktok.com/@startdevjs?is_from_webapp=1&sender_device=pc" target="_blank">
+                <IconTiktok/>
+              </a>
+              <a href="https://www.facebook.com/startdevjs" target="_blank">
+                <IconFacebook/>
+              </a>
+            </SocialMediaContainer>
         <NotificationContainer>
           <div
             className="tile m-0 mr-3 level"
@@ -118,7 +136,7 @@ const MenuComponent = ({ children }) => {
             </ModalNotification>
           )}
         </NotificationContainer>
-
+            
   
             <AvatarArea className="tile m-0 level">
             <div className="tile__icon">

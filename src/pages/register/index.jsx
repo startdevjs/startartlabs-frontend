@@ -102,7 +102,7 @@ const Register = () => {
                 </div>
               </div>
               <div style={{ marginTop: "40px" }} />
-              <Button label="Entrar" variant="info" type="submit" />
+              <Button label="Criar" variant="info" type="submit" />
               <Account onClick={() => navigate("/login")}>Já possui uma conta?</Account>
             </form>
           )}

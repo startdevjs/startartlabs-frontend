@@ -70,11 +70,13 @@ import {
                     <img 
                     className="avatar avatar--md" 
                     src={`https://api-labs-dev.startdevjs.com.br/public/images/${user.avatar}`}
+                    alt="avatar"
                     />
                   ) : (
                     <img 
                     className="avatar avatar--md" 
                     src={AvatarImg}
+                    alt="avatar"
                     style={{backgroundColor: "transparent"}}
                     />
                   )
