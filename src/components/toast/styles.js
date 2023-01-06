@@ -9,6 +9,8 @@ export const Main = styled.div`
   height: 100px;
   justify-content: center;
   align-items: center;
+
+  z-index: 99999999;
 `;
 
 export const Body = styled.div`

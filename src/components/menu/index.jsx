@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import io from "socket.io-client";
 import api from "../../services/api";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { ImNotification } from "react-icons/im";
 import {
   Menu,
@@ -14,6 +15,7 @@ import {
   IconAdmin,
   IconExit,
   IconNotification,
+  IconMenu,
   Content,
   NotificationContainer,
   NotificationContent,
@@ -42,6 +44,9 @@ const MenuComponent = ({ children }) => {
   const [avatar, setAvatar] = useState();
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notification, setNotification] = useState([]);
+  const [menuActive, setMenuActive] = useState(false);
+
+  const { width } = useWindowDimensions();
 
   const session = JSON.parse(localStorage.getItem("startdev-labs"));
   const userId = session?.id;
@@ -60,6 +65,8 @@ const MenuComponent = ({ children }) => {
   return (
     <>
       <Header>
+        <IconMenu onClick={() => setMenuActive(!menuActive)} />
+
         <NotificationContainer>
           <div
             className="tile m-0 mr-3 level"
@@ -128,57 +135,115 @@ const MenuComponent = ({ children }) => {
         </div>
       </Header>
 
-      <Menu>
-        <Link to="/">
-          <Option active={location.pathname === "/" ? "true" : "false"}>
-            <div className="tooltip tooltip--right" data-tooltip="Início">
-              <IconHome />
-            </div>
-          </Option>
-        </Link>
+      {width < 560 ? (
+        <>
+          {menuActive && (
+            <Menu>
+              <Link to="/">
+                <Option active={location.pathname === "/" ? "true" : "false"}>
+                  <div className="tooltip tooltip--right" data-tooltip="Início">
+                    <IconHome />
+                  </div>
+                </Option>
+              </Link>
 
-        <Link to="/projects?video=true">
-          <Option active={location.pathname === "/projects" ? "true" : "false"}>
-            <div className="tooltip tooltip--right" data-tooltip="Projetos">
-              <IconProjects />
-            </div>
-          </Option>
-        </Link>
+              <Link to="/projects?video=true">
+                <Option active={location.pathname === "/projects" ? "true" : "false"}>
+                  <div className="tooltip tooltip--right" data-tooltip="Projetos">
+                    <IconProjects />
+                  </div>
+                </Option>
+              </Link>
 
-        <Option>
-          <div className="tooltip tooltip--right" data-tooltip="Comunidade">
-            <IconCommunity />
-          </div>
-        </Option>
-        <Link to="/profile">
-          <Option active={location.pathname === "/profile" ? "true" : "false"}>
-            <div className="tooltip tooltip--right" data-tooltip="Minha Conta">
-              <IconMyAccount />
-            </div>
-          </Option>
-        </Link>
-        {session?.admin && (
-          <Link to="/admin">
-            <Option active={location.pathname === "/admin" ? "true" : "false"}>
-              <div className="tooltip tooltip--right" data-tooltip="Administração">
-                <IconAdmin />
+              <Option>
+                <div className="tooltip tooltip--right" data-tooltip="Comunidade">
+                  <IconCommunity />
+                </div>
+              </Option>
+              <Link to="/profile">
+                <Option active={location.pathname === "/profile" ? "true" : "false"}>
+                  <div className="tooltip tooltip--right" data-tooltip="Minha Conta">
+                    <IconMyAccount />
+                  </div>
+                </Option>
+              </Link>
+              {session?.admin && (
+                <Link to="/admin">
+                  <Option active={location.pathname === "/admin" ? "true" : "false"}>
+                    <div className="tooltip tooltip--right" data-tooltip="Administração">
+                      <IconAdmin />
+                    </div>
+                  </Option>
+                </Link>
+              )}
+              <Option>
+                <div
+                  className="tooltip tooltip--right"
+                  data-tooltip="Sair"
+                  onClick={() => {
+                    localStorage.removeItem("startdev-labs");
+                    window.location.href = "/";
+                  }}
+                >
+                  <IconExit />
+                </div>
+              </Option>
+            </Menu>
+          )}
+        </>
+      ) : (
+        <Menu>
+          <Link to="/">
+            <Option active={location.pathname === "/" ? "true" : "false"}>
+              <div className="tooltip tooltip--right" data-tooltip="Início">
+                <IconHome />
               </div>
             </Option>
           </Link>
-        )}
-        <Option>
-          <div
-            className="tooltip tooltip--right"
-            data-tooltip="Sair"
-            onClick={() => {
-              localStorage.removeItem("startdev-labs");
-              window.location.href = "/";
-            }}
-          >
-            <IconExit />
-          </div>
-        </Option>
-      </Menu>
+
+          <Link to="/projects?video=true">
+            <Option active={location.pathname === "/projects" ? "true" : "false"}>
+              <div className="tooltip tooltip--right" data-tooltip="Projetos">
+                <IconProjects />
+              </div>
+            </Option>
+          </Link>
+
+          <Option>
+            <div className="tooltip tooltip--right" data-tooltip="Comunidade">
+              <IconCommunity />
+            </div>
+          </Option>
+          <Link to="/profile">
+            <Option active={location.pathname === "/profile" ? "true" : "false"}>
+              <div className="tooltip tooltip--right" data-tooltip="Minha Conta">
+                <IconMyAccount />
+              </div>
+            </Option>
+          </Link>
+          {session?.admin && (
+            <Link to="/admin">
+              <Option active={location.pathname === "/admin" ? "true" : "false"}>
+                <div className="tooltip tooltip--right" data-tooltip="Administração">
+                  <IconAdmin />
+                </div>
+              </Option>
+            </Link>
+          )}
+          <Option>
+            <div
+              className="tooltip tooltip--right"
+              data-tooltip="Sair"
+              onClick={() => {
+                localStorage.removeItem("startdev-labs");
+                window.location.href = "/";
+              }}
+            >
+              <IconExit />
+            </div>
+          </Option>
+        </Menu>
+      )}
       <Content>{children}</Content>
     </>
   );
