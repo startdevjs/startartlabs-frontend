@@ -186,6 +186,7 @@ const Project = () => {
                         placeholder="Digite o link do projeto"
                         value={linkProject}
                         onChange={onChange}
+                        required
                       />
 
                       <Input
@@ -195,11 +196,22 @@ const Project = () => {
                         placeholder="Digite a branch do projeto"
                         value={branchProject}
                         onChange={onChange}
+                        required
                       />
 
                       <ButtonSendProject
                         text="Enviar"
                         type="button"
+                        disabled={
+                          linkProject === "" ||
+                          linkProject === null ||
+                          linkProject === undefined ||
+                          branchProject === "" ||
+                          branchProject === null ||
+                          branchProject === undefined
+                            ? true
+                            : false
+                        }
                         onClick={() => {
                           const data = {
                             link: linkProject,
