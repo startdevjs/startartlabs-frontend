@@ -15,6 +15,7 @@ export const Header = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding-right: 40px;
+  z-index: 1;
 `;
 
 export const Menu = styled.div`
@@ -166,5 +167,9 @@ export const Notification = styled.div`
   svg {
     font-size: 20px;
     /* color: #f73164; */
-  }
+  } 
+`;
+
+export const AvatarArea = styled.div`
+  background-color: transparent !important;
 `;
