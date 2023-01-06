@@ -132,7 +132,7 @@ import {
               />
               </ButtonsDiv>
               </Card>
-            ))) : (<p style={{color: "#fff"}}>Não há solicitações no momento.</p>)}        
+            ))) : (<p style={{color: "#fff"}}>Não há solicitações no momento.</p>)}    
              </CardsArea>
             </Container>
           </ModalContent>

@@ -15,13 +15,16 @@ export const Modal = styled(ReactModal)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  @media (max-width: 1440px) {
+    height: 85%;
+  }
   @media (max-width: 1080px) {
     width: 80%;
     height: 80%;
   }
   @media (max-width: 680px) {
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
   }
 `;
 export const ModalContent = styled.div`
@@ -69,6 +72,9 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 80%;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 export const Card = styled.div`
   width: 100%;
@@ -86,6 +92,10 @@ export const Card = styled.div`
   box-shadow: 0px 0px 5px 1px rgba(171, 152, 171, 1);
   gap: 1em;
   margin-bottom: 1.5em;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    height: 170px;
+  }
 `;
 export const Separator = styled.div`
   background-color: #7e7e7e;
@@ -109,6 +119,9 @@ export const CardsArea = styled.div`
     background-color: #7e7e7e;
     border-radius: 20px;
     border: 3px solid #7e7e7e;
+  }
+  @media (max-width: 1440px) {
+    max-height: 70vh !important;
   }
 `;
 export const ButtonsDiv = styled.div`
