@@ -26,19 +26,16 @@ import {
 
 // const socket = io(import.meta.env.VITE_BASE_URL_SOCKET);
 
-// socket.on("notification_friendship", (newMessage) => {
-//   console.log(newMessage);
-//   notificationMessages.push(newMessage);
+// socket.on("notification_friendship", (message) => {
+//   console.log(message);
 // });
 
-// socket.on("notification_exercice", (newMessage) => {
-//   console.log(newMessage);
-//   notificationMessages.push(newMessage);
+// socket.on("notification_exercice", (message) => {
+//   console.log(message);
 // });
 
-// socket.on("notification_topic", (newMessage) => {
-//   console.log(newMessage);
-//   notificationMessages.push(newMessage);
+// socket.on("notification_topic", (message) => {
+//   console.log(message);
 // });
 
 const MenuComponent = ({ children }) => {
@@ -92,7 +89,6 @@ const MenuComponent = ({ children }) => {
 
               {notification?.map((item) => (
                 <Notification>
-                  {console.log(item)}
                   <ImNotification />
                   <span>{item?.message}</span>
                 </Notification>
