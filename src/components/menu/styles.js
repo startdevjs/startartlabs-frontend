@@ -17,7 +17,6 @@ export const Header = styled.div`
   align-items: center;
   justify-content: space-between;
   padding-right: 40px;
-
   z-index: 999;
 
   @media (min-width: 560px) {
@@ -192,5 +191,9 @@ export const Notification = styled.div`
   svg {
     font-size: 20px;
     /* color: #f73164; */
-  }
+  } 
+`;
+
+export const AvatarArea = styled.div`
+  background-color: transparent !important;
 `;

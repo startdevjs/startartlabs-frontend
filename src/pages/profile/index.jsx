@@ -1,52 +1,103 @@
 import api from "../../services/api";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { onUpdate } from "./onUpdate";
-import { Input, Loading, Button, ErrorMessage, Toast } from "../../components";
-import {
-  Body,
-  Logo,
-  Main,
-  AlterPassword,
-  AlterPasswordModal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  ModalContent,
-  AvatarArea,
+import FriendCard from "../../components/profile/friendCard";
+import { getUsersBySearch } from "./functions/getUsersBySearch";
+import AvatarImg from "../../assets/bighead.svg"
+import { getAllMyFriends } from "./functions/getAllMyFriends";
+import ModalViewAllFriends from "../../components/profile/modalViewAllFriends";
+import {Input, Loading, Button, ErrorMessage, Toast} from "../../components"
+import ModalViewRequests from "../../components/profile/modalViewRequests";
+import { getFriendshipRequests } from "./functions/getFriendshipRequests";
+import { getAllMySentRequests } from "./functions/getAllMySentRequests";
+import { 
+    Body, 
+    Logo, 
+    Main, 
+    AlterPassword, 
+    AlterPasswordModal, 
+    ModalHeader, 
+    ModalBody, 
+    ModalFooter, 
+    ModalContent,
+    AvatarArea,
+    Container,
+    SearchInput,
+    LabelSearch,
+    SearchIcon,
+    MyInvitations,
+    MyFriends,
+    CardsContainer
 } from "./styles";
 
 const Profile = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState(null);
-  const [success, setSuccess] = useState(false);
-  const [validPassword, setValidPassword] = useState(true);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [image, setImage] = useState("");
-  const [avatar, setAvatar] = useState();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState(null);
+    const [success, setSuccess] = useState(false);
+    const [validPassword, setValidPassword] = useState(true);
+    const [isOpenModalFriends, setIsOpenModalFriends] = useState(false);
+    const [closeModalFriends, setCloseModalFriends] = useState(false);
+    const [isOpenModalRequests, setIsOpenModalRequests] = useState(false);
+    const [closeModalRequests, setCloseModalRequests] = useState(false);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [image, setImage] = useState("");
+    const [avatar, setAvatar] = useState();
+    const [usersBySearch, setUsersBySearch] = useState("");
+    const [nameToSearch, setNameToSearch] = useState("");
+    const [allMyFriends, setAllMyFriends] = useState("");
+    const [receivedFriendshipRequests, setReceivedFriendshipRequests] = useState([]);
+    const [sentFriendshipRequests, setSentFriendshipRequests] = useState([]);
+    const [revalidate, setRevalidate] = useState(false);
 
-  const session = JSON.parse(localStorage.getItem("startdev-labs"));
-  const userId = session?.id;
-
-  const uploadInputRef = useRef(null);
-
+    const session = JSON.parse(localStorage.getItem("startdev-labs"));
+    const userId = session?.id
+    const uploadInputRef = useRef(null);
+    
   useEffect(() => {
     setName(session?.name);
     setEmail(session?.email);
   }, [session?.name, session?.email]);
 
+  useEffect(() => {
+    if(nameToSearch && nameToSearch.length > 2) {
+      getUsersBySearch(setUsersBySearch, nameToSearch);
+    }
+  }, [nameToSearch]);
+
   const handleAvatar = async (id) => {
-    const data = await api.get(`/user/${id}`);
-    return `${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${data?.data?.avatar}`;
-  };
+    const { data }= await api.get(`/user/${id}`)
+    if(data?.avatar){
+      return `${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${data?.avatar}`
+    } 
+    return;
+  }
 
   useEffect(() => {
-    handleAvatar(userId).then((response) => setAvatar(response));
+    handleAvatar(userId).then((response) => {setAvatar(response)});
   }, [userId]);
+
+  useMemo(() => {
+    getAllMyFriends(setAllMyFriends)
+    getFriendshipRequests(setReceivedFriendshipRequests)
+    getAllMySentRequests(setSentFriendshipRequests)
+}, [userId, revalidate]);
+
+
+
+const handleOpenAndCloseModalFriends = () => {
+  setIsOpenModalFriends(!isOpenModalFriends);
+  setCloseModalFriends(!closeModalFriends);
+};
+
+const handleOpenAndCloseModalRequests = () => {
+  setIsOpenModalRequests(!isOpenModalRequests);
+  setCloseModalRequests(!closeModalRequests);
+};
 
   const schema = yup.object({
     password: yup
@@ -111,17 +162,18 @@ const Profile = () => {
     }
   };
 
-  const handleSubmitUpdate = () => {
+  const handleSubmitUpdate = async () => {
     const data = {
       image,
       name,
       email,
     };
 
-    onUpdate(userId, data, setLoading, setSuccess, setError, setMessage);
+     onUpdate({userId, data, setLoading, setSuccess, setError, setMessage, handleAvatar, setAvatar});
     let currentSession = { ...session };
     if (currentSession?.name && data.name) {
       currentSession.name = data.name;
+      document.querySelector("#name-header").innerText = data.name;
     }
     if (currentSession.email && data.email) {
       currentSession.email = data.email;
@@ -129,75 +181,92 @@ const Profile = () => {
     localStorage.setItem("startdev-labs", JSON.stringify(currentSession));
   };
 
-  return (
+  setTimeout(() => {
+    if(document) {
+      document.querySelector("#avatar-temp").style.display = "flex";
+    }
+  }, 800)
+
+  return(
     <>
       <Main>
         <Body>
           {loading && <Loading />}
           {!loading && (
             <form onSubmit={handleSubmitUpdate}>
-              <Logo>Meu Perfil</Logo>
+            <Logo>Configurações do meu perfil</Logo>  
               <AvatarArea className="tile m-0 level">
-                <div className="tile__icon">
-                  {avatar ? (
-                    <img className="avatar avatar--lg" src={avatar} />
+              <div className="tile__icon">
+                {
+                  avatar ? (
+                    <img 
+                    className="avatar avatar--lg" 
+                    src={avatar}
+                    style={{backgroundColor: "transparent"}}
+                    />
                   ) : (
-                    <figure className="avatar avatar--lg" />
-                  )}
-                </div>
-                <div className="tile__container">
-                  <p className="tile__title m-0">{session?.name}</p>
-                  <p className="tile__subtitle m-0">
-                    <span>@{session?.username}</span>
-                  </p>
-                </div>
-              </AvatarArea>
-              <div style={{ marginTop: "30px" }} />
-              <Input
-                text="Foto"
-                name="image"
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  setImage(e.target.files[0]);
-                }}
-              />
-              <div style={{ marginTop: "30px" }} />
-              <Input
-                text="Nome completo"
-                name="name"
-                type="text"
-                value={name}
-                onChange={onChange}
-                style={{ color: "#fff" }}
-              />
-              <div style={{ marginTop: "30px" }} />
-              <Input
-                text="E-mail"
-                name="email"
-                value={email}
-                onChange={onChange}
-                style={{ color: "#fff" }}
-              />
-              <div style={{ marginTop: "30px" }} />
-              <AlterPassword>
-                <a href="#alterPassword">Alterar minha senha</a>
-              </AlterPassword>
-              <div style={{ marginTop: "40px" }} />
-              <Button label="Salvar alterações" variant="info" type="submit" />
-            </form>
+                    <img 
+                    className="avatar avatar--lg" 
+                    id="avatar-temp"
+                    src={AvatarImg}
+                    style={{backgroundColor: "transparent", display: "none"}}
+                    />
+                  )
+                }
+              </div>           
+              <div className="tile__container">
+                <p className="tile__title m-0">{session?.name}</p>
+                <p className="tile__subtitle m-0"><span>@{session?.username}</span></p>
+              </div>
+              </AvatarArea> 
+        <div style={{ marginTop: "1rem" }} />  
+        <Input
+            text="Foto"
+            name="image"
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+            }} 
+          />
+        <div style={{ marginTop: "1rem" }} />  
+        <Input 
+            text="Nome completo" 
+            name="name"
+            type="text"
+            value={name}
+            onChange={onChange}
+            style={{color: "#fff"}}
+            />  
+            <div style={{ marginTop: "1rem" }} /> 
+        <Input 
+            text="E-mail" 
+            name="email"
+            value={email}
+            onChange={onChange}
+            style={{color: "#fff"}}
+            />  
+        <div style={{ marginTop: "1rem" }} />
+        <AlterPassword><a href="#alterPassword" >Alterar minha senha</a></AlterPassword>
+        <div style={{ marginTop: "1rem" }} />
+        <Button 
+        label="Salvar alterações" 
+        variant="info" 
+        type="submit" 
+        />
+        </form>
           )}
-          <AlterPasswordModal
-            className="modal normal modal-animated--zoom-in"
-            id="alterPassword"
-            style={{ inset: 0, background: "rgba(0, 0, 0, 0.75)" }}
+        <AlterPasswordModal 
+        className="modal normal modal-animated--zoom-in" 
+        id="alterPassword"
+        style={{  inset: 0,
+        background: "rgba(0, 0, 0, 0.75)",}}>
+        <a href="#searchModalDialog" className="modal-overlay close-btn" aria-label="Close"></a>
+          <ModalContent 
+          className="modal-content" 
+          role="document" 
+          style={{width: "500px", backgroundColor: "#1d1933", border: "1px solid #03357b"}}
           >
-            <a href="#searchModalDialog" className="modal-overlay close-btn" aria-label="Close"></a>
-            <ModalContent
-              className="modal-content"
-              role="document"
-              style={{ width: "500px", backgroundColor: "#1d1933", border: "1px solid #03357b" }}
-            >
               <ModalHeader className="modal-header">
                 <a href="#components" className="u-pull-right" aria-label="Close">
                   <span className="icon">
@@ -263,8 +332,68 @@ const Profile = () => {
             </ModalContent>
           </AlterPasswordModal>
         </Body>
-      </Main>
-      {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
+      <Body> 
+        <Logo>Meus amigos</Logo>  
+        <div style={{display: "flex", flexDirection: "row", gap:"2em", marginBottom: "4em", 
+         justifyContent: "center"}}>
+          <MyInvitations>
+            <Button
+            label="Solicitações recebidas"
+            variant="light"
+            onClick={handleOpenAndCloseModalRequests}
+            />
+          </MyInvitations>
+          <MyFriends>
+            <Button
+            label="Ver todos"
+            variant="link"
+            onClick={handleOpenAndCloseModalFriends}
+            />
+          </MyFriends>
+        </div>
+        <ModalViewAllFriends
+            isOpen={isOpenModalFriends}
+            onClose={handleOpenAndCloseModalFriends}
+            allMyFriends={allMyFriends}
+            setMessage={setMessage}
+            setSuccess={setSuccess}
+            setError={setError}
+            setAllMyFriends={setAllMyFriends}
+            setRevalidate={setRevalidate}
+          />
+          <ModalViewRequests
+            isOpen={isOpenModalRequests}
+            onClose={handleOpenAndCloseModalRequests}
+            receivedFriendshipRequests={receivedFriendshipRequests}
+            setReceivedFriendshipRequests={setReceivedFriendshipRequests}
+            setError={setError}
+            setSuccess={setSuccess}
+            setRevalidate={setRevalidate}
+            setMessage={setMessage}
+          />
+        <Logo>Encontrar mais pessoas</Logo> 
+        <LabelSearch>
+          <SearchIcon/>
+        <SearchInput 
+        placeholder="Procurar"
+        value={nameToSearch}
+        onChange={(e) => setNameToSearch(e.target.value)}
+        />
+        </LabelSearch>
+        <div style={{ marginTop: "40px" }} />
+        <CardsContainer>
+        {usersBySearch && receivedFriendshipRequests && 
+        <FriendCard 
+        usersBySearch={usersBySearch}
+        sentFriendshipRequests={sentFriendshipRequests}
+        setSentFriendshipRequests={setSentFriendshipRequests}
+        setRevalidate={setRevalidate}
+        allMyFriends={allMyFriends}
+        />}
+        </CardsContainer>
+      </Body>
+    </Main>
+    {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
       {success && <Toast message={message} close={() => setSuccess(false)} variant="success" />}
     </>
   );
