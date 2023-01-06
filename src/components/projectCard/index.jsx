@@ -17,11 +17,8 @@ const ProjectCard = ({ key, id, name, description, image }) => {
         <ProjectCardTitle>{name}</ProjectCardTitle>
 
         <ProjectCardDescription
-          dangerouslySetInnerHTML={{ __html: description?.slice(0, 110) + "..." }}
-        >
-          {/* {description?.slice(0, 60)}
-          {description?.length > 100 && "..."} */}
-        </ProjectCardDescription>
+          dangerouslySetInnerHTML={{ __html: description?.slice(0, 200) }}
+        ></ProjectCardDescription>
       </ProjectCardInfo>
 
       <Link to={`/project/${id}`}>

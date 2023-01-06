@@ -1,6 +1,5 @@
-
 import { useEffect, useMemo, useState } from "react";
-import AvatarImg from "../../assets/bighead.svg"
+import AvatarImg from "../../assets/bighead.svg";
 import { Link, useLocation } from "react-router-dom";
 import io from "socket.io-client";
 import api from "../../services/api";
@@ -29,7 +28,7 @@ import {
   IconInstagram,
   IconYoutube,
   IconTiktok,
-  IconFacebook
+  IconFacebook,
 } from "./styles";
 
 // const notificationMessages = [];
@@ -60,45 +59,45 @@ const MenuComponent = ({ children }) => {
   const userId = session?.id;
 
   const handleAvatar = async (id) => {
-    const { data } = await api.get(`/user/${id}`)
-    if(data?.avatar){
-      return `${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${data?.avatar}`
-    } 
+    const { data } = await api.get(`/user/${id}`);
+    if (data?.avatar) {
+      return `${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${data?.avatar}`;
+    }
     return;
-  }
+  };
 
   useEffect(() => {
-    handleAvatar(userId)
-    .then((response) => setAvatar(response))
+    handleAvatar(userId).then((response) => setAvatar(response));
   }, [userId]);
 
   setTimeout(() => {
-    if(document.querySelector("#avatar-temp-profile")) {
+    if (document.querySelector("#avatar-temp-profile")) {
       document.querySelector("#avatar-temp-profile").style.display = "flex";
     }
-  }, 800)
+  }, 800);
 
   return (
     <>
       <Header>
-
-      <SocialMediaContainer>
-              <a href="https://www.youtube.com/@startdevjs" target="_blank">
-                <IconYoutube/>
-              </a>
-              <a href="https://www.instagram.com/startdevjs/" target="_blank">
-                <IconInstagram/>
-              </a>
-              <a href="https://www.tiktok.com/@startdevjs?is_from_webapp=1&sender_device=pc" target="_blank">
-                <IconTiktok/>
-              </a>
-              <a href="https://www.facebook.com/startdevjs" target="_blank">
-                <IconFacebook/>
-              </a>
-            </SocialMediaContainer>
-
         <IconMenu onClick={() => setMenuActive(!menuActive)} />
 
+        <SocialMediaContainer>
+          <a href="https://www.youtube.com/@startdevjs" target="_blank">
+            <IconYoutube />
+          </a>
+          <a href="https://www.instagram.com/startdevjs/" target="_blank">
+            <IconInstagram />
+          </a>
+          <a
+            href="https://www.tiktok.com/@startdevjs?is_from_webapp=1&sender_device=pc"
+            target="_blank"
+          >
+            <IconTiktok />
+          </a>
+          <a href="https://www.facebook.com/startdevjs" target="_blank">
+            <IconFacebook />
+          </a>
+        </SocialMediaContainer>
 
         <NotificationContainer>
           <div
@@ -146,39 +145,36 @@ const MenuComponent = ({ children }) => {
             </ModalNotification>
           )}
         </NotificationContainer>
-            
-  
-            <AvatarArea className="tile m-0 level">
-            <div className="tile__icon">
-            {
-                    avatar ? (
-                      <img 
-                      className="avatar avatar--md" 
-                      id="avatar-header"
-                      src={avatar}
-                      style={{backgroundColor: "transparent"}}
-                      />
-                    ) : (
-                      <img 
-                      className="avatar avatar--md" 
-                      id="avatar-temp-profile"
-                      src={AvatarImg}
-                      style={{backgroundColor: "transparent", display: "none"}}
-                      />
-                    )
-                  }
-            </div>
-            <div className="tile__container">
-              <p className="tile__title m-0" style={{ color: "#dcdcdc" }} id="name-header">
-                {session?.name}
-              </p>
-              <p className="tile__subtitle m-0">
-                <a href="!#" style={{ color: "#80adea" }}>
-                  @{session?.username}
-                </a>
-              </p>
-            </div>
-          </AvatarArea>
+
+        <AvatarArea className="tile m-0 level">
+          <div className="tile__icon">
+            {avatar ? (
+              <img
+                className="avatar avatar--md"
+                id="avatar-header"
+                src={avatar}
+                style={{ backgroundColor: "transparent" }}
+              />
+            ) : (
+              <img
+                className="avatar avatar--md"
+                id="avatar-temp-profile"
+                src={AvatarImg}
+                style={{ backgroundColor: "transparent", display: "none" }}
+              />
+            )}
+          </div>
+          <div className="tile__container">
+            <p className="tile__title m-0" style={{ color: "#dcdcdc" }} id="name-header">
+              {session?.name}
+            </p>
+            <p className="tile__subtitle m-0">
+              <a href="!#" style={{ color: "#80adea" }}>
+                @{session?.username}
+              </a>
+            </p>
+          </div>
+        </AvatarArea>
       </Header>
 
       {width < 560 ? (
