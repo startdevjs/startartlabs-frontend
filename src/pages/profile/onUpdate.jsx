@@ -13,7 +13,7 @@ export const onUpdate = async (
 ) => {
 setLoading(true);
   try {
-    if ((data?.image !== null) | (data?.image !== undefined)) {
+    if (data?.image) {
       const formData = new FormData();
 
       formData.append("file", data.image);
@@ -33,13 +33,12 @@ setLoading(true);
       name: data.name,
       email: data.email
     });
-
  
- setLoading(false);
+    setLoading(false);
     setSuccess(true);
     setMessage("Informações alteradas com sucesso");
   } catch (error) {
-setLoading(false);
+    setLoading(false);
     setError(true);
     setMessage("Erro, tente novamente mais tarde");
   }

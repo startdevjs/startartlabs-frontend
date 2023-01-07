@@ -202,11 +202,7 @@ const handleOpenAndCloseModalRequests = () => {
                     <img 
                     className="avatar avatar--lg" 
                     src={avatar}
-                    style={{
-                      width: "100%",
-                      backgroundColor: "transparent", backgroundRepeat: "no-repeat",
-                    backgroundposition: "center",
-                    backgroundSize: "cover"}}
+                    style={{backgroundColor: "transparent"}}
                     />
                   ) : (
                     <img 
