@@ -8,7 +8,6 @@ import { FaTiktok } from "react-icons/fa";
 import { AiFillFacebook } from "react-icons/ai";
 import { BiMenu } from "react-icons/bi";
 
-
 export const Header = styled.div`
   background-color: #131129;
   position: fixed;
@@ -207,7 +206,12 @@ export const SocialMediaContainer = styled.div`
   align-items: center;
   gap: 1rem;
   margin-right: 1.5rem;
+
+  @media (max-width: 560px) {
+    display: none;
+  }
 `;
+
 export const IconInstagram = styled(BsInstagram)`
   color: #fff;
   font-size: 1.3em;
