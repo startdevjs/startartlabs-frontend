@@ -10,7 +10,7 @@ export const ProjectContainer = styled.div`
 export const ProjectContent = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-start;
   flex-wrap: wrap;
 

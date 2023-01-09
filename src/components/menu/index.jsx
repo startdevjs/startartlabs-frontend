@@ -137,7 +137,6 @@ const MenuComponent = ({ children }) => {
                 <ImNotification />
                 <span>Notificação 2</span>
               </Notification>
-
               <Notification>
                 <ImNotification />
                 <span>Notificação 3</span>
@@ -197,12 +196,12 @@ const MenuComponent = ({ children }) => {
                 </Option>
               </Link>
 
-             <Link to="/community">
-               <Option active={location.pathname === "/community" ? "true" : "false"}>
-                <div className="tooltip tooltip--right" data-tooltip="Comunidade">
-                  <IconCommunity />
-                </div>
-               </Option>
+              <Link to="/community">
+                <Option active={location.pathname === "/community" ? "true" : "false"}>
+                  <div className="tooltip tooltip--right" data-tooltip="Comunidade">
+                    <IconCommunity />
+                  </div>
+                </Option>
               </Link>
 
               <Link to="/profile">
@@ -256,9 +255,9 @@ const MenuComponent = ({ children }) => {
 
           <Link to="/community">
             <Option active={location.pathname === "/community" ? "true" : "false"}>
-            <div className="tooltip tooltip--right" data-tooltip="Comunidade">
-              <IconCommunity />
-            </div>
+              <div className="tooltip tooltip--right" data-tooltip="Comunidade">
+                <IconCommunity />
+              </div>
             </Option>
           </Link>
 
