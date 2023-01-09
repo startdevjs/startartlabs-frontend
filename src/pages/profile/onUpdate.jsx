@@ -25,7 +25,12 @@ setLoading(true);
 
       await handleAvatar(userId).then((response) => {
         setAvatar(response)
-        document.querySelector("#avatar-header").src = response;
+        const avatar = document.querySelector("#avatar-header"); //;
+        if(avatar) {
+          avatar.src = response;
+        } else {
+          document.querySelector("#avatar-temp-profile").src = response;
+        }
       });
     }
    

@@ -169,9 +169,9 @@ const MenuComponent = ({ children }) => {
               {session?.name}
             </p>
             <p className="tile__subtitle m-0">
-              <a href="!#" style={{ color: "#80adea" }}>
+              <p href="!#" style={{ color: "#80adea" }}>
                 @{session?.username}
-              </a>
+              </p>
             </p>
           </div>
         </AvatarArea>
@@ -197,11 +197,14 @@ const MenuComponent = ({ children }) => {
                 </Option>
               </Link>
 
-              <Option>
+             <Link to="/community">
+               <Option active={location.pathname === "/community" ? "true" : "false"}>
                 <div className="tooltip tooltip--right" data-tooltip="Comunidade">
                   <IconCommunity />
                 </div>
-              </Option>
+               </Option>
+              </Link>
+
               <Link to="/profile">
                 <Option active={location.pathname === "/profile" ? "true" : "false"}>
                   <div className="tooltip tooltip--right" data-tooltip="Minha Conta">
@@ -251,11 +254,14 @@ const MenuComponent = ({ children }) => {
             </Option>
           </Link>
 
-          <Option>
+          <Link to="/community">
+            <Option active={location.pathname === "/community" ? "true" : "false"}>
             <div className="tooltip tooltip--right" data-tooltip="Comunidade">
               <IconCommunity />
             </div>
-          </Option>
+            </Option>
+          </Link>
+
           <Link to="/profile">
             <Option active={location.pathname === "/profile" ? "true" : "false"}>
               <div className="tooltip tooltip--right" data-tooltip="Minha Conta">
