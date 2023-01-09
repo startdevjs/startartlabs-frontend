@@ -19,19 +19,20 @@ export const onUpdate = async (
     await api.put(`/project/${id}`, {
       name: data.name,
       description: data.description,
-      image: null,
     });
 
-    if ((data?.image !== null) | (data?.image !== undefined)) {
-      await api.post(`/project/${id}/upload`, formData, {
-        onUploadProgress: (progressEvent) => {
-          setProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
-        },
+    if (data?.image !== String(data?.image)) {
+      if ((data?.image !== null) | (data?.image !== undefined)) {
+        await api.post(`/project/${id}/upload`, formData, {
+          onUploadProgress: (progressEvent) => {
+            setProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+          },
 
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
     }
 
     setTimeout(() => {

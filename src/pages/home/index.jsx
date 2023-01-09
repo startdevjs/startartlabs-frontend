@@ -54,9 +54,9 @@ const Home = () => {
               <WarningDescription>{warnings?.warnings?.[0]?.description}</WarningDescription>
 
               <WarningContainerButton>
-                <WarningButton onClick={() => window.open(warnings?.warnings?.[0]?.link, "_blank")}>
-                  Continue
-                </WarningButton>
+                <a target="_blank" href={warnings?.warnings?.[0]?.action}>
+                  <WarningButton>Continue</WarningButton>
+                </a>
               </WarningContainerButton>
             </WarningContainerInfo>
           </WarningContainer>

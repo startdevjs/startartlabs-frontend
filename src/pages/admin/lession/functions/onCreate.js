@@ -22,7 +22,7 @@ export const onCreate = async (
       projectId: Number(data.projectId),
     });
 
-    if (data?.image !== null) {
+    if (data?.image !== null && data?.image !== "" && data?.image !== undefined) {
       const formData = new FormData();
       formData.append("file", data.image[0]);
 
@@ -37,7 +37,7 @@ export const onCreate = async (
       });
     }
 
-    if (data?.video !== null) {
+    if (data?.video !== null && data?.video !== "" && data?.video !== undefined) {
       const formData = new FormData();
       formData.append("file", data.video[0]);
 

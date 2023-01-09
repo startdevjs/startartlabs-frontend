@@ -6,10 +6,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { onUpdate } from "./onUpdate";
 import FriendCard from "../../components/profile/friendCard";
 import { getUsersBySearch } from "./functions/getUsersBySearch";
-import AvatarImg from "../../assets/bighead.svg"
+import AvatarImg from "../../assets/bighead.svg";
 import { getAllMyFriends } from "./functions/getAllMyFriends";
 import ModalViewAllFriends from "../../components/profile/modalViewAllFriends";
-import {Input, Loading, Button, ErrorMessage, Toast} from "../../components"
+import { Input, Loading, Button, ErrorMessage, Toast } from "../../components";
 import ModalViewRequests from "../../components/profile/modalViewRequests";
 import { getFriendshipRequests } from "./functions/getFriendshipRequests";
 import { getAllMySentRequests } from "./functions/getAllMySentRequests";
@@ -36,70 +36,70 @@ import {
 } from "./styles";
 
 const Profile = () => {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [message, setMessage] = useState(null);
-    const [success, setSuccess] = useState(false);
-    const [validPassword, setValidPassword] = useState(true);
-    const [isOpenModalFriends, setIsOpenModalFriends] = useState(false);
-    const [closeModalFriends, setCloseModalFriends] = useState(false);
-    const [isOpenModalRequests, setIsOpenModalRequests] = useState(false);
-    const [closeModalRequests, setCloseModalRequests] = useState(false);
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [image, setImage] = useState("");
-    const [avatar, setAvatar] = useState();
-    const [usersBySearch, setUsersBySearch] = useState("");
-    const [nameToSearch, setNameToSearch] = useState("");
-    const [allMyFriends, setAllMyFriends] = useState("");
-    const [receivedFriendshipRequests, setReceivedFriendshipRequests] = useState([]);
-    const [sentFriendshipRequests, setSentFriendshipRequests] = useState([]);
-    const [revalidate, setRevalidate] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [validPassword, setValidPassword] = useState(true);
+  const [isOpenModalFriends, setIsOpenModalFriends] = useState(false);
+  const [closeModalFriends, setCloseModalFriends] = useState(false);
+  const [isOpenModalRequests, setIsOpenModalRequests] = useState(false);
+  const [closeModalRequests, setCloseModalRequests] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [image, setImage] = useState("");
+  const [avatar, setAvatar] = useState();
+  const [usersBySearch, setUsersBySearch] = useState("");
+  const [nameToSearch, setNameToSearch] = useState("");
+  const [allMyFriends, setAllMyFriends] = useState("");
+  const [receivedFriendshipRequests, setReceivedFriendshipRequests] = useState([]);
+  const [sentFriendshipRequests, setSentFriendshipRequests] = useState([]);
+  const [revalidate, setRevalidate] = useState(false);
 
-    const session = JSON.parse(localStorage.getItem("startdev-labs"));
-    const userId = session?.id
-    const uploadInputRef = useRef(null);
-    
+  const session = JSON.parse(localStorage.getItem("startdev-labs"));
+  const userId = session?.id;
+  const uploadInputRef = useRef(null);
+
   useEffect(() => {
     setName(session?.name);
     setEmail(session?.email);
   }, [session?.name, session?.email]);
 
   useEffect(() => {
-    if(nameToSearch && nameToSearch.length > 2) {
+    if (nameToSearch && nameToSearch.length > 2) {
       getUsersBySearch(setUsersBySearch, nameToSearch);
     }
   }, [nameToSearch]);
 
   const handleAvatar = async (id) => {
-    const { data }= await api.get(`/user/${id}`)
-    if(data?.avatar){
-      return `${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${data?.avatar}`
-    } 
+    const { data } = await api.get(`/user/${id}`);
+    if (data?.avatar) {
+      return `${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${data?.avatar}`;
+    }
     return;
-  }
+  };
 
   useEffect(() => {
-    handleAvatar(userId).then((response) => {setAvatar(response)});
+    handleAvatar(userId).then((response) => {
+      setAvatar(response);
+    });
   }, [userId]);
 
   useMemo(() => {
-    getAllMyFriends(setAllMyFriends)
-    getFriendshipRequests(setReceivedFriendshipRequests)
-    getAllMySentRequests(setSentFriendshipRequests)
-}, [userId, revalidate]);
+    getAllMyFriends(setAllMyFriends);
+    getFriendshipRequests(setReceivedFriendshipRequests);
+    getAllMySentRequests(setSentFriendshipRequests);
+  }, [userId, revalidate]);
 
+  const handleOpenAndCloseModalFriends = () => {
+    setIsOpenModalFriends(!isOpenModalFriends);
+    setCloseModalFriends(!closeModalFriends);
+  };
 
-
-const handleOpenAndCloseModalFriends = () => {
-  setIsOpenModalFriends(!isOpenModalFriends);
-  setCloseModalFriends(!closeModalFriends);
-};
-
-const handleOpenAndCloseModalRequests = () => {
-  setIsOpenModalRequests(!isOpenModalRequests);
-  setCloseModalRequests(!closeModalRequests);
-};
+  const handleOpenAndCloseModalRequests = () => {
+    setIsOpenModalRequests(!isOpenModalRequests);
+    setCloseModalRequests(!closeModalRequests);
+  };
 
   const schema = yup.object({
     password: yup
@@ -171,7 +171,17 @@ const handleOpenAndCloseModalRequests = () => {
       email,
     };
 
-     onUpdate({userId, data, setLoading, setSuccess, setError, setMessage, handleAvatar, setAvatar});
+    onUpdate({
+      userId,
+      data,
+      setLoading,
+      setSuccess,
+      setError,
+      setMessage,
+      handleAvatar,
+      setAvatar,
+    });
+
     let currentSession = { ...session };
     if (currentSession?.name && data.name) {
       currentSession.name = data.name;
@@ -184,19 +194,19 @@ const handleOpenAndCloseModalRequests = () => {
   };
 
   setTimeout(() => {
-    if(document.querySelector("#avatar-temp")) {
+    if (document.querySelector("#avatar-temp")) {
       document.querySelector("#avatar-temp").style.display = "flex";
     }
-  }, 800)
+  }, 800);
 
-  return(
+  return (
     <>
       <Main>
         <Body>
           {loading && <Loading />}
           {!loading && (
             <form onSubmit={handleSubmitUpdate}>
-            <Logo>Configurações do meu perfil</Logo>  
+              <Logo>Configurações do meu perfil</Logo>
               <AvatarArea className="tile m-0 level">
               <div className="tile__icon">
                 {
@@ -207,68 +217,67 @@ const handleOpenAndCloseModalRequests = () => {
                     style={{backgroundColor: "transparent"}}
                     />
                   ) : (
-                    <img 
-                    className="avatar avatar--lg" 
-                    id="avatar-temp"
-                    src={AvatarImg}
-                    style={{backgroundColor: "transparent", display: "none"}}
+                    <img
+                      className="avatar avatar--lg"
+                      id="avatar-temp"
+                      src={AvatarImg}
+                      style={{ backgroundColor: "transparent", display: "none" }}
                     />
-                  )
-                }
-              </div>           
-              <div className="tile__container">
-                <p className="tile__title m-0">{session?.name}</p>
-                <p className="tile__subtitle m-0"><span>@{session?.username}</span></p>
-              </div>
-              </AvatarArea> 
-        <div style={{ marginTop: "1rem" }} />  
-        <Input
-            text="Foto"
-            name="image"
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              setImage(e.target.files[0]);
-            }} 
-          />
-        <div style={{ marginTop: "1rem" }} />  
-        <Input 
-            text="Nome completo" 
-            name="name"
-            type="text"
-            value={name}
-            onChange={onChange}
-            style={{color: "#fff"}}
-            />  
-            <div style={{ marginTop: "1rem" }} /> 
-        <Input 
-            text="E-mail" 
-            name="email"
-            value={email}
-            onChange={onChange}
-            style={{color: "#fff"}}
-            />  
-        <div style={{ marginTop: "1rem" }} />
-        <AlterPassword><a href="#alterPassword" >Alterar minha senha</a></AlterPassword>
-        <div style={{ marginTop: "1rem" }} />
-        <Button 
-        label="Salvar alterações" 
-        variant="info" 
-        type="submit" 
-        />
-        </form>
+                  )}
+                </div>
+                <div className="tile__container">
+                  <p className="tile__title m-0">{session?.name}</p>
+                  <p className="tile__subtitle m-0">
+                    <span>@{session?.username}</span>
+                  </p>
+                </div>
+              </AvatarArea>
+              <div style={{ marginTop: "1rem" }} />
+              <Input
+                text="Foto"
+                name="image"
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  setImage(e.target.files[0]);
+                }}
+              />
+              <div style={{ marginTop: "1rem" }} />
+              <Input
+                text="Nome completo"
+                name="name"
+                type="text"
+                value={name}
+                onChange={onChange}
+                style={{ color: "#fff" }}
+              />
+              <div style={{ marginTop: "1rem" }} />
+              <Input
+                text="E-mail"
+                name="email"
+                value={email}
+                onChange={onChange}
+                style={{ color: "#fff" }}
+              />
+              <div style={{ marginTop: "1rem" }} />
+              <AlterPassword>
+                <a href="#alterPassword">Alterar minha senha</a>
+              </AlterPassword>
+              <div style={{ marginTop: "1rem" }} />
+              <Button label="Salvar alterações" variant="info" type="submit" />
+            </form>
           )}
-        <AlterPasswordModal 
-        className="modal normal modal-animated--zoom-in" 
-        id="alterPassword"
-        style={{  inset: 0,
-        background: "rgba(0, 0, 0, 0.75)",}}>
-        <a href="#searchModalDialog" className="modal-overlay close-btn" aria-label="Close"></a>
-          <ModalContent 
-          className="modal-content" 
-          role="document" 
-          style={{width: "500px", backgroundColor: "#1d1933", border: "1px solid #03357b"}}
+          <AlterPasswordModal
+            className="modal normal modal-animated--zoom-in"
+            id="alterPassword"
+            style={{ inset: 0, background: "rgba(0, 0, 0, 0.75)" }}
           >
+            <a href="#searchModalDialog" className="modal-overlay close-btn" aria-label="Close"></a>
+            <ModalContent
+              className="modal-content"
+              role="document"
+              style={{ width: "500px", backgroundColor: "#1d1933", border: "1px solid #03357b" }}
+            >
               <ModalHeader className="modal-header">
                 <a href="#components" className="u-pull-right" aria-label="Close">
                   <span className="icon">
@@ -334,6 +343,7 @@ const handleOpenAndCloseModalRequests = () => {
             </ModalContent>
           </AlterPasswordModal>
         </Body>
+
         <MessageBody>
         <Logo>Meus amigos</Logo>
         <Description>
