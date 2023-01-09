@@ -17,13 +17,16 @@ export const Modal = styled(ReactModal)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  @media (max-width: 1440px) {
+    height: 85%;
+  }
   @media (max-width: 1080px) {
     width: 80%;
     height: 80%;
   }
   @media (max-width: 680px) {
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
   }
 `;
 export const ModalContent = styled.div`
@@ -73,6 +76,9 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 80%;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 export const Card = styled.div`
   width: 100%;
@@ -90,6 +96,10 @@ export const Card = styled.div`
   box-shadow: 0px 0px 5px 1px rgba(171, 152, 171, 1);
   gap: 1em;
   margin-bottom: 1.5em;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    height: 150px;
+  }
 `;
 export const Separator = styled.div`
   background-color: #7e7e7e;
@@ -101,8 +111,8 @@ export const CardsArea = styled.div`
   width: 100%;
   padding: 1rem;
   margin-bottom: 1rem;
-  max-height: 450px !important;
   color: #131129;
+  max-height: 50vh !important;
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 5px;
@@ -113,7 +123,10 @@ export const CardsArea = styled.div`
   &::-webkit-scrollbar-thumb {
     background-color: #7e7e7e;
     border-radius: 20px;
-    border: px solid #7e7e7e;
+    border: 1px solid #7e7e7e;
+  }
+  @media (max-width: 500px) {
+    max-height: 70vh !important;
   }
 `;
 export const Button = styled.button`
@@ -134,5 +147,17 @@ export const Button = styled.button`
   &:hover {
     filter: brightness(0.8);
     color: #fff;
+  }
+  @media (max-width: 500px) {
+    width: 60%;
+    max-width: 40%;
+  }
+`;
+export const PaginationContainer = styled.div`
+  display: flex;
+  width: 80%;
+  justify-content: flex-end;
+  @media (max-width: 500px) {
+    justify-content: center;
   }
 `;

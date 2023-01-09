@@ -13,24 +13,26 @@ import { Input, Loading, Button, ErrorMessage, Toast } from "../../components";
 import ModalViewRequests from "../../components/profile/modalViewRequests";
 import { getFriendshipRequests } from "./functions/getFriendshipRequests";
 import { getAllMySentRequests } from "./functions/getAllMySentRequests";
-import {
-  Body,
-  Logo,
-  Main,
-  AlterPassword,
-  AlterPasswordModal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  ModalContent,
-  AvatarArea,
-  Container,
-  SearchInput,
-  LabelSearch,
-  SearchIcon,
-  MyInvitations,
-  MyFriends,
-  CardsContainer,
+import { 
+    Body, 
+    Logo, 
+    Main, 
+    AlterPassword, 
+    AlterPasswordModal, 
+    ModalHeader, 
+    ModalBody, 
+    ModalFooter, 
+    ModalContent,
+    AvatarArea,
+    Container,
+    SearchInput,
+    LabelSearch,
+    SearchIcon,
+    MyInvitations,
+    MyFriends,
+    CardsContainer,
+    Description,
+    MessageBody
 } from "./styles";
 
 const Profile = () => {
@@ -206,18 +208,13 @@ const Profile = () => {
             <form onSubmit={handleSubmitUpdate}>
               <Logo>Configurações do meu perfil</Logo>
               <AvatarArea className="tile m-0 level">
-                <div className="tile__icon">
-                  {avatar ? (
-                    <img
-                      className="avatar avatar--lg"
-                      src={avatar}
-                      style={{
-                        width: "100%",
-                        backgroundColor: "transparent",
-                        backgroundRepeat: "no-repeat",
-                        backgroundposition: "center",
-                        backgroundSize: "cover",
-                      }}
+              <div className="tile__icon">
+                {
+                  avatar ? (
+                    <img 
+                    className="avatar avatar--lg" 
+                    src={avatar}
+                    style={{backgroundColor: "transparent"}}
                     />
                   ) : (
                     <img
@@ -346,29 +343,33 @@ const Profile = () => {
             </ModalContent>
           </AlterPasswordModal>
         </Body>
-        <Body>
-          <Logo>Meus amigos</Logo>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "2em",
-              marginBottom: "4em",
-              justifyContent: "center",
-            }}
-          >
-            <MyInvitations>
-              <Button
-                label="Solicitações recebidas"
-                variant="light"
-                onClick={handleOpenAndCloseModalRequests}
-              />
-            </MyInvitations>
-            <MyFriends>
-              <Button label="Ver todos" variant="link" onClick={handleOpenAndCloseModalFriends} />
-            </MyFriends>
-          </div>
-          <ModalViewAllFriends
+
+        <MessageBody>
+        <Logo>Meus amigos</Logo>
+        <Description>
+            <p>Em breve... Você poderá se conectar com outros programadores, para ampliar sua rede de contatos!</p>
+        </Description>
+        </MessageBody>
+      {/* <Body> 
+        <Logo>Meus amigos</Logo>  
+        <div style={{display: "flex", flexDirection: "row", gap:"2em", marginBottom: "4em", 
+         justifyContent: "center"}}>
+          <MyInvitations>
+            <Button
+            label="Solicitações recebidas"
+            variant="light"
+            onClick={handleOpenAndCloseModalRequests}
+            />
+          </MyInvitations>
+          <MyFriends>
+            <Button
+            label="Ver todos"
+            variant="link"
+            onClick={handleOpenAndCloseModalFriends}
+            />
+          </MyFriends>
+        </div>
+        <ModalViewAllFriends
             isOpen={isOpenModalFriends}
             onClose={handleOpenAndCloseModalFriends}
             allMyFriends={allMyFriends}
@@ -388,30 +389,29 @@ const Profile = () => {
             setRevalidate={setRevalidate}
             setMessage={setMessage}
           />
-          <Logo>Encontrar mais pessoas</Logo>
-          <LabelSearch>
-            <SearchIcon />
-            <SearchInput
-              placeholder="Procurar"
-              value={nameToSearch}
-              onChange={(e) => setNameToSearch(e.target.value)}
-            />
-          </LabelSearch>
-          <div style={{ marginTop: "40px" }} />
-          <CardsContainer>
-            {usersBySearch && receivedFriendshipRequests && (
-              <FriendCard
-                usersBySearch={usersBySearch}
-                sentFriendshipRequests={sentFriendshipRequests}
-                setSentFriendshipRequests={setSentFriendshipRequests}
-                setRevalidate={setRevalidate}
-                allMyFriends={allMyFriends}
-              />
-            )}
-          </CardsContainer>
-        </Body>
-      </Main>
-      {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
+        <Logo>Encontrar mais pessoas</Logo> 
+        <LabelSearch>
+          <SearchIcon/>
+        <SearchInput 
+        placeholder="Procurar"
+        value={nameToSearch}
+        onChange={(e) => setNameToSearch(e.target.value)}
+        />
+        </LabelSearch>
+        <div style={{ marginTop: "40px" }} />
+        <CardsContainer>
+        {usersBySearch && receivedFriendshipRequests && 
+        <FriendCard 
+        usersBySearch={usersBySearch}
+        sentFriendshipRequests={sentFriendshipRequests}
+        setSentFriendshipRequests={setSentFriendshipRequests}
+        setRevalidate={setRevalidate}
+        allMyFriends={allMyFriends}
+        />}
+        </CardsContainer>
+      </Body> */}
+    </Main>
+    {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
       {success && <Toast message={message} close={() => setSuccess(false)} variant="success" />}
     </>
   );
