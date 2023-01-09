@@ -151,7 +151,6 @@ const MenuComponent = ({ children }) => {
             {avatar ? (
               <img
                 className="avatar avatar--md"
-                id="avatar-header"
                 src={avatar}
                 style={{ backgroundColor: "transparent" }}
               />
@@ -165,13 +164,11 @@ const MenuComponent = ({ children }) => {
             )}
           </div>
           <div className="tile__container">
-            <p className="tile__title m-0" style={{ color: "#dcdcdc" }} id="name-header">
+            <p className="tile__title m-0" style={{ color: "#dcdcdc" }}>
               {session?.name}
             </p>
             <p className="tile__subtitle m-0">
-              <p href="!#" style={{ color: "#80adea" }}>
-                @{session?.username}
-              </p>
+              <span style={{ color: "#80adea" }}>@{session?.username}</span>
             </p>
           </div>
         </AvatarArea>
@@ -197,12 +194,12 @@ const MenuComponent = ({ children }) => {
                 </Option>
               </Link>
 
-             <Link to="/community">
-               <Option active={location.pathname === "/community" ? "true" : "false"}>
-                <div className="tooltip tooltip--right" data-tooltip="Comunidade">
-                  <IconCommunity />
-                </div>
-               </Option>
+              <Link to="/community">
+                <Option active={location.pathname === "/community" ? "true" : "false"}>
+                  <div className="tooltip tooltip--right" data-tooltip="Comunidade">
+                    <IconCommunity />
+                  </div>
+                </Option>
               </Link>
 
               <Link to="/profile">
@@ -256,9 +253,9 @@ const MenuComponent = ({ children }) => {
 
           <Link to="/community">
             <Option active={location.pathname === "/community" ? "true" : "false"}>
-            <div className="tooltip tooltip--right" data-tooltip="Comunidade">
-              <IconCommunity />
-            </div>
+              <div className="tooltip tooltip--right" data-tooltip="Comunidade">
+                <IconCommunity />
+              </div>
             </Option>
           </Link>
 

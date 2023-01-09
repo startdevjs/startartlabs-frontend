@@ -45,6 +45,10 @@ export const Container = styled.div`
 
 export const ProjectCardInfo = styled.div`
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `;
 
 export const ProjectCardTitle = styled.h1`
