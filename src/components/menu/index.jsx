@@ -169,9 +169,9 @@ const MenuComponent = ({ children }) => {
               {session?.name}
             </p>
             <p className="tile__subtitle m-0">
-              <p href="!#" style={{ color: "#80adea" }}>
+              <a disable={true} style={{ color: "#80adea" }}>
                 @{session?.username}
-              </p>
+              </a>
             </p>
           </div>
         </AvatarArea>
