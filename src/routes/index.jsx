@@ -23,6 +23,7 @@ import UpdateExercise from "../pages/admin/exercise/update";
 import Project from "../pages/projects/project";
 import Profile from "../pages/profile";
 import Projects from "../pages/projects";
+import Community from "../pages/community";
 
 const RoutesComponent = () => {
   return (
@@ -35,6 +36,7 @@ const RoutesComponent = () => {
       <Route path="/" element={<Private Component={Home} />} />
       <Route path="/projects" element={<Private Component={Projects} />} />
       <Route path="/project/:projectId" element={<Private Component={Project} />} />
+      <Route path="/community" element={<Private Component={Community} />} />
       <Route path="/admin" element={<PrivateAdmin Component={AdminUser} />} />
       <Route path="/admin/user/update/:id" element={<PrivateAdmin Component={UpdateUser} />} />
       <Route path="/admin/project" element={<PrivateAdmin Component={AdminProject} />} />

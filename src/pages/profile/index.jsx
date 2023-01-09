@@ -30,7 +30,9 @@ import {
     SearchIcon,
     MyInvitations,
     MyFriends,
-    CardsContainer
+    CardsContainer,
+    Description,
+    MessageBody
 } from "./styles";
 
 const Profile = () => {
@@ -332,7 +334,13 @@ const handleOpenAndCloseModalRequests = () => {
             </ModalContent>
           </AlterPasswordModal>
         </Body>
-      <Body> 
+        <MessageBody>
+        <Logo>Meus amigos</Logo>
+        <Description>
+            <p>Em breve... Você poderá se conectar com outros programadores, para ampliar sua rede de contatos!</p>
+        </Description>
+        </MessageBody>
+      {/* <Body> 
         <Logo>Meus amigos</Logo>  
         <div style={{display: "flex", flexDirection: "row", gap:"2em", marginBottom: "4em", 
          justifyContent: "center"}}>
@@ -391,7 +399,7 @@ const handleOpenAndCloseModalRequests = () => {
         allMyFriends={allMyFriends}
         />}
         </CardsContainer>
-      </Body>
+      </Body> */}
     </Main>
     {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
       {success && <Toast message={message} close={() => setSuccess(false)} variant="success" />}

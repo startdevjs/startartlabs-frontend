@@ -109,3 +109,26 @@ export const CardsContainer = styled.div`
     border: 3px solid #7e7e7e;
   }
 `;
+export const Description = styled.p`
+  font-size: 1.4rem !important;
+  font-weight: 400 !important;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  margin-left: 4px !important;
+  text-align: center !important;
+  line-height: 2.4 !important;
+  @media (min-width: 1150px) {
+    font-size: 1.4rem !important;
+  }
+`;
+export const MessageBody = styled.div`
+  background-color: #1d1933;
+  min-width: 400px;
+  width: 35%;
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  margin: auto;
+  @media (max-width: 468px) {
+    min-width: 300px;
+  }
+`;
