@@ -22,7 +22,6 @@ export const onUpdate = async (
       description: data.description,
       action: data.action,
       background: data.background,
-      image: null,
     });
 
     // await api.post(`/warning/${id}/upload`, formData, {
@@ -35,7 +34,9 @@ export const onUpdate = async (
     //   },
     // });
 
-    await onUploadForUpdate(id, data, setProgress);
+    if (data?.image !== String(data?.image)) {
+      await onUploadForUpdate(id, data, setProgress);
+    }
 
     setTimeout(() => {
       navigate("/admin/warning");

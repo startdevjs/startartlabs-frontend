@@ -17,40 +17,43 @@ export const onUpdate = async (
     await api.put(`/lession/${id}`, {
       name: data.name,
       description: data.description,
-      image: null,
-      video: null,
+
       type: Number(data.type),
       projectId: Number(data.projectId),
     });
 
-    if (data?.image !== null) {
-      const formData = new FormData();
-      formData.append("file", data.image[0]);
+    if (data?.image !== String(data?.image)) {
+      if (data?.image !== null && data?.image !== "" && data?.image !== undefined) {
+        const formData = new FormData();
+        formData.append("file", data.image[0]);
 
-      await api.patch(`/lession/upload/image/${id}`, formData, {
-        onUploadProgress: (progressEvent) => {
-          setProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
-        },
+        await api.patch(`/lession/upload/image/${id}`, formData, {
+          onUploadProgress: (progressEvent) => {
+            setProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+          },
 
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
     }
 
-    if (data?.video !== null) {
-      const formData = new FormData();
-      formData.append("file", data.video[0]);
+    if (data?.video !== String(data?.video)) {
+      if (data?.video !== null && data?.video !== "" && data?.video !== undefined) {
+        const formData = new FormData();
+        formData.append("file", data.video[0]);
 
-      await api.patch(`/lession/upload/video/${id}`, formData, {
-        onUploadProgress: (progressEvent) => {
-          setProgressVideo(Math.round((progressEvent.loaded * 100) / progressEvent.total));
-        },
+        await api.patch(`/lession/upload/video/${id}`, formData, {
+          onUploadProgress: (progressEvent) => {
+            setProgressVideo(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+          },
 
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
     }
 
     setTimeout(() => {
