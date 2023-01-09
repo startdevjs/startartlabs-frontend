@@ -16,6 +16,7 @@ export const Menu = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 9999;
 `;
 
 export const Option = styled.div`

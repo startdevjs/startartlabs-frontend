@@ -11,7 +11,8 @@ import {
   Container,
   Separator,
   CardsArea,
-  Button
+  Button,
+  PaginationContainer
 } from "./styles";
 
 const ModalViewAllFriends = ({ isOpen, onClose, allMyFriends, setMessage, setSuccess, 
@@ -71,6 +72,7 @@ const ModalViewAllFriends = ({ isOpen, onClose, allMyFriends, setMessage, setSuc
                     <img 
                     className="avatar avatar--sm" 
                     src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${friend.avatar}`}
+                    style={{backgroundColor: "transparent"}}
                     />
                   ) : (
                     <img 
@@ -98,14 +100,14 @@ const ModalViewAllFriends = ({ isOpen, onClose, allMyFriends, setMessage, setSuc
         </ModalContent>
         {
             allMyFriends && (
-              <div style={{display: "flex", width: "80%", justifyContent: "flex-end"}}>
+              <PaginationContainer>
               <Pagination
               totalCountOfRegisters={allMyFriends.data.friends.length}
               currentPage={page}
               onPageChange={setPage}
               registersPerPage={20}
             /> 
-            </div>
+            </PaginationContainer>
             )
            }
       </Modal>

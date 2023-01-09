@@ -19,8 +19,7 @@ export const Body = styled.div`
   min-width: 500px;
   width: 35%;
   min-height: 100%;
-  border-radius: 3px;
-  border: 1px solid #03357b;
+  border-radius: 16px;
   padding: 1.5rem 2rem;
   margin: 1rem auto;
   @media (max-width: 468px) {

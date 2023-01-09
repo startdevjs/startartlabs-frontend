@@ -103,6 +103,7 @@ import {
                     <img 
                     className="avatar avatar--md" 
                     src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${avatar}`}
+                    style={{backgroundColor: "transparent"}}
                     />
                   ) : (
                     <img 
@@ -131,7 +132,7 @@ import {
               />
               </ButtonsDiv>
               </Card>
-            ))) : (<p style={{color: "#fff"}}>Não há solicitações no momento.</p>)}        
+            ))) : (<p style={{color: "#fff"}}>Não há solicitações no momento.</p>)}    
              </CardsArea>
             </Container>
           </ModalContent>

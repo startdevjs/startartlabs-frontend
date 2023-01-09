@@ -21,7 +21,7 @@ export const WarningContainer = styled.div`
   background-position: 50% !important;
 
   position: relative;
-  z-index: 1;
+  z-index: 1 !important;
 
   @media (max-width: 1200px) {
     width: 80%;
@@ -45,13 +45,13 @@ export const WarningOverlay = styled.div`
   background: ${({ background }) => background};
   opacity: 0.4;
 
-  z-index: 2;
+  z-index: 2 !important;
 `;
 
 export const WarningContainerInfo = styled.div`
   width: 100%;
   position: relative;
-  z-index: 3;
+  z-index: 3 !important;
 `;
 
 export const WarningTitle = styled.h1`
@@ -131,8 +131,10 @@ export const ProjectContainer = styled.div`
 
 export const ProjectContent = styled.div`
   width: 100%;
+
   display: flex;
-  align-items: center;
+  /* align-items: center; */
+  align-items: stretch;
   justify-content: flex-start;
   flex-wrap: wrap;
 

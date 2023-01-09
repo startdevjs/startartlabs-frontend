@@ -1,21 +1,19 @@
 import api from "../../services/api";
 
 export const onUpdate = async (
-  userId,
+{  userId,
   data,
   setLoading,
   setSuccess,
   setError,
   setMessage,
+  handleAvatar, 
+  setAvatar
+}
 ) => {
-  setLoading(true);
+setLoading(true);
   try {
-    await api.put(`/user/${userId}`, {
-      name: data.name,
-      email: data.email
-    });
-
-    if ((data?.image !== null) | (data?.image !== undefined)) {
+    if (data?.image) {
       const formData = new FormData();
 
       formData.append("file", data.image);
@@ -24,7 +22,18 @@ export const onUpdate = async (
         mode: "cors",
         cache: "default"
       });
+
+      await handleAvatar(userId).then((response) => {
+        setAvatar(response)
+        document.querySelector("#avatar-header").src = response;
+      });
     }
+   
+    await api.put(`/user/${userId}`, {
+      name: data.name,
+      email: data.email
+    });
+ 
     setLoading(false);
     setSuccess(true);
     setMessage("Informações alteradas com sucesso");

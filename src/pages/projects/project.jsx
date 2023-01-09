@@ -90,9 +90,7 @@ const Project = () => {
   if (lessions?.lessions?.length === 0) {
     return (
       <ContainerEmpty>
-        <TitleEmpty>
-          <h1>Nenhuma aula ou desafio foi encontrada</h1>
-        </TitleEmpty>
+        <TitleEmpty>Nenhuma aula ou desafio foi encontrada</TitleEmpty>
 
         <DescriptionEmpty>
           <p>
@@ -188,6 +186,7 @@ const Project = () => {
                         placeholder="Digite o link do projeto"
                         value={linkProject}
                         onChange={onChange}
+                        required
                       />
 
                       <Input
@@ -197,11 +196,22 @@ const Project = () => {
                         placeholder="Digite a branch do projeto"
                         value={branchProject}
                         onChange={onChange}
+                        required
                       />
 
                       <ButtonSendProject
                         text="Enviar"
                         type="button"
+                        disabled={
+                          linkProject === "" ||
+                          linkProject === null ||
+                          linkProject === undefined ||
+                          branchProject === "" ||
+                          branchProject === null ||
+                          branchProject === undefined
+                            ? true
+                            : false
+                        }
                         onClick={() => {
                           const data = {
                             link: linkProject,
@@ -209,7 +219,15 @@ const Project = () => {
                             lessionId: Number(activeLessionId),
                           };
 
-                          sendProject(data, setLoading, setSuccess, setError, setMessage);
+                          sendProject(
+                            data,
+                            setLoading,
+                            setSuccess,
+                            setError,
+                            setMessage,
+                            setLinkProject,
+                            setBranchProject,
+                          );
                         }}
                       >
                         {loading ? <Loading /> : "Enviar"}
