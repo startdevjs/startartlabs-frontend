@@ -28,7 +28,7 @@ const AdminLession = () => {
     const take = 20;
 
     getAllLessions(setLoading, setLessions, skip, take);
-  }, []);
+  }, [page]);
 
   const handleOpenAndCloseModalDelete = () => {
     setIsOpenModalDelete(!isOpenModalDelete);
@@ -67,7 +67,7 @@ const AdminLession = () => {
               lessions={lessions}
               actionDelete={handleOpenAndCloseModalDelete}
               setId={setId}
-              onPageChange={setPage}
+              setPage={setPage}
               totalCountOfRegisters={lessions?.total}
               page={page}
               registersPerPage={20}
@@ -77,7 +77,7 @@ const AdminLession = () => {
               lessions={lessions}
               actionDelete={handleOpenAndCloseModalDelete}
               setId={setId}
-              onPageChange={setPage}
+              setPage={setPage}
               totalCountOfRegisters={lessions?.total}
               page={page}
               registersPerPage={20}
