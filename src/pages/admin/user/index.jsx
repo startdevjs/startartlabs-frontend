@@ -26,15 +26,7 @@ const AdminUser = () => {
     const take = 20;
 
     getAllUsers(setLoading, setUsers, skip, take);
-
-    console.log({
-      page: page,
-    });
   }, [page]);
-
-  console.log({
-    page,
-  });
 
   const handleOpenAndCloseModalDelete = () => {
     setIsOpenModalDelete(!isOpenModalDelete);
