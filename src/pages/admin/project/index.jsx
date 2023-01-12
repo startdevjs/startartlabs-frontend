@@ -28,7 +28,7 @@ const AdminProject = () => {
     const take = 20;
 
     getAllProjects(setLoading, setProjects, skip, take);
-  }, []);
+  }, [page]);
 
   const handleOpenAndCloseModalDelete = () => {
     setIsOpenModalDelete(!isOpenModalDelete);
@@ -67,7 +67,7 @@ const AdminProject = () => {
               projects={projects}
               actionDelete={handleOpenAndCloseModalDelete}
               setId={setId}
-              onPageChange={setPage}
+              setPage={setPage}
               totalCountOfRegisters={projects?.total}
               page={page}
               registersPerPage={20}
@@ -77,7 +77,7 @@ const AdminProject = () => {
               projects={projects}
               actionDelete={handleOpenAndCloseModalDelete}
               setId={setId}
-              onPageChange={setPage}
+              setPage={setPage}
               totalCountOfRegisters={projects?.total}
               page={page}
               registersPerPage={20}

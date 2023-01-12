@@ -45,13 +45,15 @@ const Projects = () => {
               </ProjectContent>
             </ProjectContainer>
 
-            {projects?.projects?.length >= 4 && (
+            {projects?.projects?.length >= 20 || page >= 2 ? (
               <Pagination
                 onPageChange={setPage}
                 totalCountOfRegisters={projects?.total}
                 currentPage={page}
                 registersPerPage={20}
               />
+            ) : (
+              <></>
             )}
           </>
         )}
