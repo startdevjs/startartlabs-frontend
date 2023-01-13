@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import AvatarImg from "../../assets/bighead.svg";
+import LogoStartdevLabs from "../../assets/logo-startlabs.png";
 import { Link, useLocation } from "react-router-dom";
 import io from "socket.io-client";
 import api from "../../services/api";
@@ -8,6 +9,9 @@ import { ImNotification } from "react-icons/im";
 import {
   Menu,
   Header,
+  LogoContainer,
+  Logo,
+  ContainerFlexEnd,
   Option,
   IconHome,
   IconProjects,
@@ -79,37 +83,44 @@ const MenuComponent = ({ children }) => {
   return (
     <>
       <Header>
-        <IconMenu onClick={() => setMenuActive(!menuActive)} />
+        <LogoContainer>
+          <Link to="/">
+            <Logo src={LogoStartdevLabs} alt="Logo Startdev Labs" />
+          </Link>
+        </LogoContainer>
 
-        <SocialMediaContainer>
-          <a href="https://www.youtube.com/@startdevjs" target="_blank">
-            <IconYoutube />
-          </a>
-          <a href="https://www.instagram.com/startdevjs/" target="_blank">
-            <IconInstagram />
-          </a>
-          <a
-            href="https://www.tiktok.com/@startdevjs?is_from_webapp=1&sender_device=pc"
-            target="_blank"
-          >
-            <IconTiktok />
-          </a>
-          <a href="https://www.facebook.com/startdevjs" target="_blank">
-            <IconFacebook />
-          </a>
-        </SocialMediaContainer>
+        <ContainerFlexEnd>
+          <IconMenu onClick={() => setMenuActive(!menuActive)} />
 
-        <NotificationContainer>
-          <div
-            className="tile m-0 mr-3 level"
-            onClick={() => setNotificationOpen(!notificationOpen)}
-          >
-            <NotificationContent className="tile__icon">
-              <IconNotification />
-              <span>{notification?.length}</span>
-            </NotificationContent>
-          </div>
-          {/* 
+          <SocialMediaContainer>
+            <a href="https://www.youtube.com/@startdevjs" target="_blank">
+              <IconYoutube />
+            </a>
+            <a href="https://www.instagram.com/startdevjs/" target="_blank">
+              <IconInstagram />
+            </a>
+            <a
+              href="https://www.tiktok.com/@startdevjs?is_from_webapp=1&sender_device=pc"
+              target="_blank"
+            >
+              <IconTiktok />
+            </a>
+            <a href="https://www.facebook.com/startdevjs" target="_blank">
+              <IconFacebook />
+            </a>
+          </SocialMediaContainer>
+
+          <NotificationContainer>
+            <div
+              className="tile m-0 mr-3 level"
+              onClick={() => setNotificationOpen(!notificationOpen)}
+            >
+              <NotificationContent className="tile__icon">
+                <IconNotification />
+                <span>{notification?.length}</span>
+              </NotificationContent>
+            </div>
+            {/* 
           <RiArrowUpSFill
             style={{
               top: "43.3px",
@@ -120,20 +131,20 @@ const MenuComponent = ({ children }) => {
             }}
           /> */}
 
-          {notificationOpen && (
-            <ModalNotification>
-              <TitleModalNotification>
-                <h2>Notificações</h2>
-              </TitleModalNotification>
+            {notificationOpen && (
+              <ModalNotification>
+                <TitleModalNotification>
+                  <h2>Notificações</h2>
+                </TitleModalNotification>
 
-              {notification?.map((item) => (
-                <Notification>
-                  <ImNotification />
-                  <span>{item?.message}</span>
-                </Notification>
-              ))}
+                {notification?.map((item) => (
+                  <Notification>
+                    <ImNotification />
+                    <span>{item?.message}</span>
+                  </Notification>
+                ))}
 
-              {/* <Notification>
+                {/* <Notification>
                 <ImNotification />
                 <span>Notificação 2</span>
               </Notification>
@@ -141,42 +152,43 @@ const MenuComponent = ({ children }) => {
                 <ImNotification />
                 <span>Notificação 3</span>
               </Notification> */}
-            </ModalNotification>
-          )}
-        </NotificationContainer>
-
-        <AvatarArea className="tile m-0 level">
-          <div className="tile__icon">
-            {avatar ? (
-              <img
-                className="avatar avatar--md"
-                id="avatar-header"
-                src={avatar}
-                style={{ backgroundColor: "transparent" }}
-              />
-            ) : (
-              <img
-                className="avatar avatar--md"
-                id="avatar-temp-profile"
-                src={AvatarImg}
-                style={{ backgroundColor: "transparent", display: "none" }}
-              />
+              </ModalNotification>
             )}
-          </div>
-          <div className="tile__container">
-            <p className="tile__title m-0" style={{ color: "#dcdcdc" }} id="name-header">
-              {session?.name}
-            </p>
-            <p className="tile__subtitle m-0">
-              <a disable={true} style={{ color: "#80adea" }}>
-                @{session?.username}
-              </a>
-            </p>
-          </div>
-        </AvatarArea>
+          </NotificationContainer>
+
+          <AvatarArea className="tile m-0 level">
+            <div className="tile__icon">
+              {avatar ? (
+                <img
+                  className="avatar avatar--md"
+                  id="avatar-header"
+                  src={avatar}
+                  style={{ backgroundColor: "transparent" }}
+                />
+              ) : (
+                <img
+                  className="avatar avatar--md"
+                  id="avatar-temp-profile"
+                  src={AvatarImg}
+                  style={{ backgroundColor: "transparent", display: "none" }}
+                />
+              )}
+            </div>
+            <div className="tile__container">
+              <p className="tile__title m-0" style={{ color: "#dcdcdc" }} id="name-header">
+                {session?.name}
+              </p>
+              <p className="tile__subtitle m-0">
+                <a disable={true} style={{ color: "#80adea" }}>
+                  @{session?.username}
+                </a>
+              </p>
+            </div>
+          </AvatarArea>
+        </ContainerFlexEnd>
       </Header>
 
-      {width < 560 ? (
+      {width < 820 ? (
         <>
           {menuActive && (
             <Menu>
