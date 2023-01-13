@@ -14,24 +14,52 @@ export const Header = styled.div`
   top: 0;
   left: 10px;
   right: 0;
-  height: 70px;
+  /* height: 120px; */
+  padding: 1rem 0;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   padding-right: 40px;
   z-index: 999;
 
-  @media (min-width: 560px) {
-    justify-content: flex-end;
+  @media (min-width: 820px) {
+    /* justify-content: flex-end; */
+    flex-direction: row;
     left: 81px;
+    height: 70px;
+  }
+`;
+
+export const LogoContainer = styled.div`
+  width: 250px;
+  padding-left: 2rem;
+
+  @media (max-width: 820px) {
+    width: 220px;
+  }
+`;
+
+export const Logo = styled.img`
+  width: 100%;
+`;
+
+export const ContainerFlexEnd = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  @media (max-width: 820px) {
+    width: 100%;
+    justify-content: space-between;
   }
 `;
 
 export const Menu = styled.div`
   position: fixed;
   left: 0;
-  top: 70px;
+  top: 180px;
   bottom: 0;
   width: 80px;
   background-color: #1d1933;
@@ -41,7 +69,7 @@ export const Menu = styled.div`
 
   z-index: 999;
 
-  @media (min-width: 560px) {
+  @media (min-width: 820px) {
     top: 0;
   }
 `;
@@ -95,17 +123,19 @@ export const IconMenu = styled(BiMenu)`
   font-size: 30px;
   color: #fff !important;
 
-  @media (min-width: 560px) {
+  cursor: pointer;
+
+  @media (min-width: 820px) {
     display: none;
   }
 `;
 
 export const Content = styled.div`
-  margin: 90px 20px 0 20px;
+  margin: 180px 20px 0 20px;
   color: #dcdcdc !important;
 
-  @media (min-width: 560px) {
-    margin: 90px 20px 0 100px;
+  @media (min-width: 820px) {
+    margin: 120px 20px 0 100px;
   }
 `;
 
@@ -207,7 +237,7 @@ export const SocialMediaContainer = styled.div`
   gap: 1rem;
   margin-right: 1.5rem;
 
-  @media (max-width: 560px) {
+  @media (max-width: 820px) {
     display: none;
   }
 `;

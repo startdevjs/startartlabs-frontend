@@ -29,7 +29,7 @@ const RoutesComponent = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      {/* <Route path="/register" element={<Register />} /> */}
       <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path="/code" element={<Code />} />
       <Route path="/profile" element={<Private Component={Profile} />} />

@@ -1,4 +1,5 @@
-import { Main, Body, Logo, Password, Account } from "./styles";
+import { Main, Body, Logo, Password, Account, LogoContainer } from "./styles";
+import LogoStartdevLabs from "../../assets/logo-startlabs.png";
 import { Input, Button, ErrorMessage, Toast, Loading } from "../../components";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -68,7 +69,10 @@ const Login = () => {
           {loading && <Loading />}
           {!loading && (
             <form onSubmit={handleSubmit(save)}>
-              <Logo>Startdev LABS</Logo>
+              {/* <Logo>Startdev LABS</Logo> */}
+              <LogoContainer>
+                <Logo src={LogoStartdevLabs} alt="Logo Startdev Labs" />
+              </LogoContainer>
               <Input text="Email" placeholder="Digite seu email" {...register("email")} />
               {errors.email && <ErrorMessage>{errors.email?.message}</ErrorMessage>}
               <div style={{ marginTop: "45px" }} />
@@ -81,7 +85,7 @@ const Login = () => {
               {errors.password && <ErrorMessage>{errors.password?.message}</ErrorMessage>}
               <Password onClick={() => navigate("/forgotPassword")}>Esqueceu a senha?</Password>
               <Button label="Entrar" variant="info" type="submit" />
-              <Account onClick={() => navigate("/register")}>Criar uma conta</Account>
+              {/* <Account onClick={() => navigate("/register")}>Criar uma conta</Account> */}
             </form>
           )}
         </Body>
