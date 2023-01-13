@@ -28,11 +28,14 @@ export const Description = styled.p`
 
 export const Container = styled.div`
   width: 100%;
+  margin-bottom: 2rem;
+  margin-top: 8rem;
 `;
 
 export const TopicCard = styled.div`
   width: 100%;
-  padding: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 `;
 
 export const CardHeader = styled.div`
@@ -42,10 +45,12 @@ export const CardHeader = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 1rem;
 
   background-color: #21283b;
+
+  border-top-left-radius: ${(props) => props.borderTop};
+  border-top-right-radius: ${(props) => props.borderTop};
 `;
 
 export const CardHeaderDate = styled.div`
@@ -56,24 +61,41 @@ export const CardHeaderDate = styled.div`
 
 export const ContainerButtons = styled.div`
   display: flex;
-  flex-direction: column;
+
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
+
+  a {
+    cursor: pointer;
+
+    &:first-child {
+      color: #9aa4bf;
+    }
+
+    &:last-child {
+      color: #fff;
+    }
+  }
 `;
 
 export const CardContent = styled.div`
+  width: 70%;
+
   width: 100%;
+  padding: 3rem;
 
   display: flex;
   /* align-items: center; */
+  gap: 2rem;
 
-  /* gap: 1rem; */
+  background-color: #1d2333;
 
-  background-color: #161b28;
+  border-bottom-left-radius: ${(props) => props.borderBottom};
+  border-bottom-right-radius: ${(props) => props.borderBottom};
 `;
 
 export const AvatarArea = styled.div`
-  width: 100%;
+  width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -103,14 +125,14 @@ export const AvatarImgContainer = styled.div`
     bottom: 0;
     background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyB3aWR0aD0iMTAwcHgiIGhlaWdodD0iMTEwcHgiIHZpZXdCb3g9IjAgMCAxMDAgMTEwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxnIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIj48cGF0aCBkPSJNOTMuMDEzOTcyMSwyMi42IEw1Ni42ODY2MjY3LDEuOCBDNTQuNTkwODE4NCwwLjYgNTIuMTk1NjA4OCwwIDQ5LjkwMDE5OTYsMCBDNDcuNjA0NzkwNCwwIDQ1LjIwOTU4MDgsMC42IDQzLjExMzc3MjUsMS44IEw2Ljc4NjQyNzE1LDIyLjYgQzIuNTk0ODEwMzgsMjUgMCwyOS40IDAsMzQuMiBMMCw3NS44IEMwLDgwLjYgMi41OTQ4MTAzOCw4NSA2Ljc4NjQyNzE1LDg3LjQgTDQzLjIxMzU3MjksMTA4LjIgQzQ1LjMwOTM4MTIsMTA5LjQgNDcuNjA0NzkwNCwxMTAgNTAsMTEwIEM1Mi4yOTU0MDkyLDExMCA1NC42OTA2MTg4LDEwOS40IDU2Ljc4NjQyNzEsMTA4LjIgTDkzLjIxMzU3MjksODcuNCBDOTcuNDA1MTg5Niw4NSAxMDAsODAuNiAxMDAsNzUuOCBMMTAwLDM0LjIgQzk5LjgwMDM5OTIsMjkuNCA5Ny4yMDU1ODg4LDI1IDkzLjAxMzk3MjEsMjIuNiBMOTMuMDEzOTcyMSwyMi42IFoiPjwvcGF0aD48L2c+PC9zdmc+")
       center center no-repeat;
-    background-size: 100px 107px;
+    background-size: 100px 109px;
   }
 
   img {
     display: block;
     width: 110px;
     height: 110px;
-    margin-left: -5px;
+    margin-left: 0;
   }
 `;
 
@@ -131,7 +153,7 @@ export const AuthorUsername = styled.div`
   font-weight: 500;
 
   &:hover {
-    color: #4ff461;
+    color: #2a7ae9;
     font-weight: 600;
   }
 `;
@@ -142,7 +164,7 @@ export const AuthorShield = styled.div`
   padding: 0 8px;
   border-radius: 200px;
   /* background-color: #7750f8; */
-  background-color: #40d04f;
+  background-color: #2a7ae9;
   color: #fff;
   font-size: 0.75rem;
   font-weight: 700;
@@ -150,4 +172,82 @@ export const AuthorShield = styled.div`
   text-transform: uppercase;
 `;
 
-export const CardTextContent = styled.div``;
+export const CardTextContent = styled.div`
+  padding-top: 2rem;
+`;
+
+export const CommunityTopicContent = styled.div`
+  width: 100%;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: ${(props) => (props.par === true ? "#1d2333" : "#21283b")};
+
+  border-top-left-radius: ${(props) => props.borderTop};
+  border-top-right-radius: ${(props) => props.borderTop};
+  border-bottom-left-radius: ${(props) => props.borderBottom};
+  border-bottom-right-radius: ${(props) => props.borderBottom};
+`;
+
+export const TitleCommunityTopicContainer = styled.div`
+  width: 40%;
+
+  > p {
+    color: #9aa4bf;
+    font-weight: 400;
+  }
+`;
+
+export const TitleCommunityTopic = styled.div`
+  color: #fff;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    color: #2a7ae9;
+  }
+`;
+
+export const TitleCommunityTopicStatic = styled.div`
+  width: 40%;
+
+  color: #fff;
+  font-weight: 700;
+`;
+
+export const NumberReplies = styled.div`
+  width: 20%;
+  color: #fff;
+  font-weight: 700;
+
+  text-align: center;
+`;
+
+export const AvatarCommunityTopic = styled.div`
+  width: 30%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
+
+export const AvatarCommunityTopicStatic = styled.div`
+  width: 30%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  color: #fff;
+  font-weight: 700;
+`;
