@@ -63,12 +63,14 @@ const Community = () => {
             <AvatarCommunityTopic>
               <div className="tile m-0 level">
                 <div className="tile__icon">
-                  <figure className="avatar avatar--sm" data-text="Jz"></figure>
+                  <figure className="avatar avatar--sm" data-text={item?.user?.name}>
+                    {/* <img src={item?.user?.avatar} alt={item?.user?.name} /> */}
+                  </figure>
                 </div>
                 <div className="tile__container">
-                  <p className="tile__title m-0">Jenelle Zaynab</p>
+                  <p className="tile__title m-0">{item?.user?.name}</p>
                   <p className="tile__subtitle m-0">
-                    <a href="!#">@jenelle_zaynab</a>
+                    <a href="!#">@{item?.user?.username}</a>
                   </p>
                 </div>
               </div>
