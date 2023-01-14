@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import AvatarImg from "../../assets/bighead.svg";
+import LogoStartdevLabs from "../../assets/icon-startdevlabs.png";
 import { Link, useLocation } from "react-router-dom";
 import io from "socket.io-client";
 import api from "../../services/api";
@@ -8,6 +9,7 @@ import { ImNotification } from "react-icons/im";
 import {
   Menu,
   Header,
+  Logo,
   Option,
   IconHome,
   IconProjects,
@@ -181,6 +183,12 @@ const MenuComponent = ({ children }) => {
           {menuActive && (
             <Menu>
               <Link to="/">
+                <Option>
+                  <Logo src={LogoStartdevLabs} alt="Logo StartDev Labs" />
+                </Option>
+              </Link>
+
+              <Link to="/">
                 <Option active={location.pathname === "/" ? "true" : "false"}>
                   <div className="tooltip tooltip--right" data-tooltip="Início">
                     <IconHome />
@@ -237,6 +245,12 @@ const MenuComponent = ({ children }) => {
         </>
       ) : (
         <Menu>
+          <Link to="/">
+            <Option>
+              <Logo src={LogoStartdevLabs} alt="Logo StartDev Labs" />
+            </Option>
+          </Link>
+
           <Link to="/">
             <Option active={location.pathname === "/" ? "true" : "false"}>
               <div className="tooltip tooltip--right" data-tooltip="Início">

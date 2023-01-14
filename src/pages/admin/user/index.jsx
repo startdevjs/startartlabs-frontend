@@ -26,7 +26,7 @@ const AdminUser = () => {
     const take = 20;
 
     getAllUsers(setLoading, setUsers, skip, take);
-  }, []);
+  }, [page]);
 
   const handleOpenAndCloseModalDelete = () => {
     setIsOpenModalDelete(!isOpenModalDelete);
@@ -57,7 +57,7 @@ const AdminUser = () => {
               users={users}
               actionDelete={handleOpenAndCloseModalDelete}
               setId={setId}
-              onPageChange={setPage}
+              setPage={setPage}
               totalCountOfRegisters={users?.total}
               page={page}
               registersPerPage={20}
@@ -67,7 +67,7 @@ const AdminUser = () => {
               users={users}
               actionDelete={handleOpenAndCloseModalDelete}
               setId={setId}
-              onPageChange={setPage}
+              setPage={setPage}
               totalCountOfRegisters={users?.total}
               page={page}
               registersPerPage={20}

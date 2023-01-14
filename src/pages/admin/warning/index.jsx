@@ -28,7 +28,7 @@ const AdminWarning = () => {
     const take = 20;
 
     getAllWarnings(setLoading, setWarnings, skip, take);
-  }, []);
+  }, [page]);
 
   const handleOpenAndCloseModalDelete = () => {
     setIsOpenModalDelete(!isOpenModalDelete);
@@ -67,7 +67,7 @@ const AdminWarning = () => {
               warnings={warnings}
               actionDelete={handleOpenAndCloseModalDelete}
               setId={setId}
-              onPageChange={setPage}
+              setPage={setPage}
               totalCountOfRegisters={warnings?.total}
               page={page}
               registersPerPage={20}
@@ -77,7 +77,7 @@ const AdminWarning = () => {
               warnings={warnings}
               actionDelete={handleOpenAndCloseModalDelete}
               setId={setId}
-              onPageChange={setPage}
+              setPage={setPage}
               totalCountOfRegisters={warnings?.total}
               page={page}
               registersPerPage={20}

@@ -28,6 +28,10 @@ export const Header = styled.div`
   }
 `;
 
+export const Logo = styled.img`
+  width: 20px;
+`;
+
 export const Menu = styled.div`
   position: fixed;
   left: 0;
