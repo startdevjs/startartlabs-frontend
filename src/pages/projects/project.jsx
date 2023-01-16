@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { getAllLessions } from "./functions/getAllLessions";
 import { getAllProjects } from "./functions/getAllProjects";
 import { getLessionById } from "./functions/getLessionById";
@@ -35,25 +35,26 @@ import {
   TitleEmpty,
   DescriptionEmpty,
   ButtonEmpty,
+  ButtonDiv,
+  ButtonCommunity,
+  IconChat
 } from "./styles";
 
 const Project = () => {
   const [pageLession, setPageLession] = useState(1);
   const [loadingLession, setLoadingLession] = useState(false);
   const [lessions, setLessions] = useState([]);
-
   const [loadingLessionActive, setLoadingLessionActive] = useState(false);
   const [activeLession, setActiveLession] = useState([]);
-
   const [linkProject, setLinkProject] = useState("");
   const [branchProject, setBranchProject] = useState("");
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
 
   const { projectId } = useParams();
+  const navigate = useNavigate();
 
   const query = useQuery();
   const activeLessionId = query.get("activeLessionId");
@@ -271,6 +272,15 @@ const Project = () => {
                   );
                 })}
               </ProjectSideBarListContent>
+              {
+            activeLession.id && (
+              <ButtonDiv>
+              <ButtonCommunity
+              onClick={() => navigate(`/community/${activeLession.id}`)}
+              >Ver tópicos na Comunidade <IconChat/></ButtonCommunity>
+            </ButtonDiv>
+            )
+          }
 
               <ProjectFooter>
                 {lessions?.lessions?.length >= 20 && (
