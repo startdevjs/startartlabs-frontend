@@ -33,23 +33,33 @@ import {
 } from "./styles";
 import { getRepliesByTopic } from "./functions/getRepliesByTopic";
 import { getTopic } from "./functions/getTopic";
+import ModalReplyTopic from "../../components/community/modalReplyTopic";
+import { Loading } from "../../components";
+import Pagination from "../../components/pagination";
 
 const CommunityPost = () => {
   const [page, setPage] = useState(1);
   const [replies, setReplies] = useState([]);
   const [topic, setTopic] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isCreated, setIsCreated] = useState(false);
 
-  getRepliesByTopic;
+  const [isOpenModalReplyTopic, setIsOpenModalReplyTopic] = useState(false);
+  const [closeModalReplyTopic, setCloseModalReplyTopic] = useState(false);
+
+  const handleOpenAndCloseModalReplyTopic = () => {
+    setIsOpenModalReplyTopic(!isOpenModalReplyTopic);
+    setCloseModalReplyTopic(!closeModalReplyTopic);
+  };
 
   const { id } = useParams();
 
   useEffect(() => {
-    const skip = (page - 1) * 20;
-    const take = 20;
+    const skip = (page - 1) * 15;
+    const take = 15;
 
     getRepliesByTopic(setLoading, setReplies, id, skip, take);
-  }, [page]);
+  }, [page, isCreated]);
 
   useEffect(() => {
     getTopic(setLoading, setTopic, id);
@@ -57,137 +67,154 @@ const CommunityPost = () => {
 
   return (
     <>
-      <Container>
-        <TopicCard>
-          <ButtonGoBackContainer>
-            <Link to="/community">
-              <ButtonGoBack>
-                <AiOutlineArrowLeft />
-                Voltar
-              </ButtonGoBack>
-            </Link>
-          </ButtonGoBackContainer>
+      {loading && <Loading />}
+      {!loading && (
+        <Container>
+          <TopicCard>
+            <ButtonGoBackContainer>
+              <Link to="/community">
+                <ButtonGoBack>
+                  <AiOutlineArrowLeft />
+                  Voltar
+                </ButtonGoBack>
+              </Link>
+            </ButtonGoBackContainer>
 
-          <ForumHeaderContainer post={true}>
-            <W50>
-              <ForumHeaderImgContainer>
-                <img src={LaptopGirl} alt="Forum" />
-              </ForumHeaderImgContainer>
+            <ForumHeaderContainer post={true}>
+              <W50>
+                <ForumHeaderImgContainer>
+                  <img src={LaptopGirl} alt="Forum" />
+                </ForumHeaderImgContainer>
 
-              <ForumHeaderContent>
-                <ForumHeaderTitle>Forum</ForumHeaderTitle>
-                <ForumHeaderSubtitle>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam quod, voluptate.
-                </ForumHeaderSubtitle>
-              </ForumHeaderContent>
-            </W50>
+                <ForumHeaderContent>
+                  <ForumHeaderTitle>Forum</ForumHeaderTitle>
+                  <ForumHeaderSubtitle>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam quod,
+                    voluptate.
+                  </ForumHeaderSubtitle>
+                </ForumHeaderContent>
+              </W50>
 
-            <W50End>
-              <ForumHeaderButtonContainer>
-                <Link to="/community/create/reply">
-                  <ButtonCreateTopic>Responder tópico</ButtonCreateTopic>
-                </Link>
-              </ForumHeaderButtonContainer>
-            </W50End>
-          </ForumHeaderContainer>
-        </TopicCard>
+              <W50End>
+                <ForumHeaderButtonContainer>
+                  <ButtonCreateTopic onClick={handleOpenAndCloseModalReplyTopic}>
+                    Responder tópico
+                  </ButtonCreateTopic>
+                </ForumHeaderButtonContainer>
+              </W50End>
+            </ForumHeaderContainer>
+          </TopicCard>
 
-        <TopicCard>
-          <CardHeader borderTop="1rem">
-            <CardHeaderDate>
-              {topic?.createdAt
-                ? format(new Date(topic?.createdAt), "dd MMMM yyyy HH:mm", {
-                    locale: ptBR,
-                  })
-                : ""}
-            </CardHeaderDate>
-            {/* <ContainerButtons>
-              <a>Reportar</a>
-            </ContainerButtons> */}
-          </CardHeader>
-
-          <CardContent borderBottom="0">
-            <AvatarArea>
-              <Avatar>
-                <div className="tile__icon">
-                  <figure className="avatar avatar--xl">
-                    <img
-                      src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${
-                        topic?.user?.avatar
-                      }`}
-                      alt={topic?.user?.name}
-                    />
-                  </figure>
-                </div>
-              </Avatar>
-
-              <Author>
-                <AuthorName>{topic?.user?.name}</AuthorName>
-                <AuthorUsername>@{topic?.user?.username}</AuthorUsername>
-
-                <AuthorShield bgColor={topic?.user?.id === topic?.user?.id ? "#2a7ae9" : "#7750f8"}>
-                  {topic?.user?.id === topic?.user?.id ? "Criador" : "Participante"}
-                </AuthorShield>
-              </Author>
-            </AvatarArea>
-
-            <CardTextContent
-              dangerouslySetInnerHTML={{
-                __html: topic?.description,
-              }}
-            ></CardTextContent>
-          </CardContent>
-        </TopicCard>
-
-        {replies?.replys?.map((item, i) => (
-          <TopicCard key={i}>
-            <CardHeader borderTop={i + 1 === 0 ? "1rem" : "0"}>
+          <TopicCard>
+            <CardHeader borderTop="1rem">
               <CardHeaderDate>
-                {format(new Date(item?.createdAt), "dd MMMM yyyy HH:mm", {
-                  locale: ptBR,
-                })}
+                {topic?.createdAt
+                  ? format(new Date(topic?.createdAt), "dd MMMM yyyy HH:mm", {
+                      locale: ptBR,
+                    })
+                  : ""}
               </CardHeaderDate>
               {/* <ContainerButtons>
-                <a>Reportar</a>
-              </ContainerButtons> */}
+              <a>Reportar</a>
+            </ContainerButtons> */}
             </CardHeader>
 
-            <CardContent borderBottom={i + 1 === replies?.replys?.length ? "1rem" : "0"}>
+            <CardContent borderBottom="0">
               <AvatarArea>
                 <Avatar>
                   <div className="tile__icon">
-                    <figure className="avatar avatar--xl">
+                    <figure className="avatar avatar--lg">
                       <img
                         src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${
-                          item?.user?.avatar
+                          topic?.user?.avatar
                         }`}
-                        alt={item?.user?.name}
+                        alt={topic?.user?.name}
                       />
                     </figure>
                   </div>
                 </Avatar>
 
                 <Author>
-                  <AuthorName>{item?.user?.name}</AuthorName>
-                  <AuthorUsername>@{item?.user?.username}</AuthorUsername>
+                  <AuthorName>{topic?.user?.name}</AuthorName>
+                  <AuthorUsername>@{topic?.user?.username}</AuthorUsername>
 
                   <AuthorShield
-                    bgColor={item?.user?.id === topic?.user?.id ? "#2a7ae9" : "#7750f8"}
+                    bgColor={topic?.user?.id === topic?.user?.id ? "#2a7ae9" : "#7750f8"}
                   >
-                    {item?.user?.id === topic?.user?.id ? "Criador" : "Participante"}
+                    {topic?.user?.id === topic?.user?.id ? "Criador" : "Participante"}
                   </AuthorShield>
                 </Author>
               </AvatarArea>
 
               <CardTextContent
                 dangerouslySetInnerHTML={{
-                  __html: item?.description,
+                  __html: topic?.description,
                 }}
               ></CardTextContent>
             </CardContent>
           </TopicCard>
-        ))}
-      </Container>
+
+          {replies?.replys?.map((item, i) => (
+            <TopicCard key={i}>
+              <CardHeader borderTop={i + 1 === 0 ? "1rem" : "0"}>
+                <CardHeaderDate>
+                  {format(new Date(item?.createdAt), "dd MMMM yyyy HH:mm", {
+                    locale: ptBR,
+                  })}
+                </CardHeaderDate>
+                {/* <ContainerButtons>
+                <a>Reportar</a>
+              </ContainerButtons> */}
+              </CardHeader>
+
+              <CardContent borderBottom={i + 1 === replies?.replys?.length ? "1rem" : "0"}>
+                <AvatarArea>
+                  <Avatar>
+                    <div className="tile__icon">
+                      <figure className="avatar avatar--lg">
+                        <img
+                          src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${
+                            item?.user?.avatar
+                          }`}
+                          alt={item?.user?.name}
+                        />
+                      </figure>
+                    </div>
+                  </Avatar>
+
+                  <Author>
+                    <AuthorName>{item?.user?.name}</AuthorName>
+                    <AuthorUsername>@{item?.user?.username}</AuthorUsername>
+
+                    <AuthorShield
+                      bgColor={item?.user?.id === topic?.user?.id ? "#2a7ae9" : "#7750f8"}
+                    >
+                      {item?.user?.id === topic?.user?.id ? "Criador" : "Participante"}
+                    </AuthorShield>
+                  </Author>
+                </AvatarArea>
+
+                <CardTextContent
+                  dangerouslySetInnerHTML={{
+                    __html: item?.description,
+                  }}
+                ></CardTextContent>
+              </CardContent>
+            </TopicCard>
+          ))}
+
+          {replies?.replys?.length >= 15 || page >= 2 ? (
+            <Pagination
+              onPageChange={setPage}
+              totalCountOfRegisters={replies?.total}
+              currentPage={page}
+              registersPerPage={15}
+            />
+          ) : (
+            <></>
+          )}
+        </Container>
+      )}
 
       <svg height="0" width="0">
         <defs>
@@ -202,6 +229,15 @@ const CommunityPost = () => {
           </clipPath>
         </defs>
       </svg>
+
+      <ModalReplyTopic
+        isOpen={isOpenModalReplyTopic}
+        onClose={handleOpenAndCloseModalReplyTopic}
+        id={id}
+        setLoading={setLoading}
+        setIsCreated={setIsCreated}
+        isCreated={isCreated}
+      />
     </>
   );
 };

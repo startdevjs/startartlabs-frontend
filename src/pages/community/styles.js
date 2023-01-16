@@ -1,35 +1,53 @@
 import styled from "styled-components";
+import { AiOutlinePlus } from "react-icons/ai";
 
-export const Message = styled.h1`
-  font-size: 2rem !important;
-  font-weight: 500 !important;
-  margin-bottom: 30px;
-  margin-top: 30px;
+export const CommunityContainer = styled.div`
+  width: 100%;
+  margin-top: 5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+export const CommunityTitle = styled.h1`
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 20px !important;
   margin-left: 4px !important;
-  text-align: center !important;
-  line-height: 1.4 !important;
-  color: #dadada !important;
   @media (min-width: 1150px) {
-    font-size: 4rem !important;
+    font-size: 2rem !important;
   }
 `;
-export const Description = styled.p`
-  font-size: 1.4rem !important;
-  font-weight: 400 !important;
-  margin-bottom: 15px;
-  margin-top: 15px;
-  margin-left: 4px !important;
-  text-align: center !important;
-  line-height: 2.4 !important;
-  @media (min-width: 1150px) {
-    font-size: 1.4rem !important;
+export const Header = styled.div`
+  background-color: #2a2648;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 50%;
+  justify-content: space-between;
+  padding: 1em;
+  > span {
+    font-size: 1.3rem;
+  }
+  @media (max-width: 1440px) {
+    width: 63%;
+    > span {
+      font-size: 1.1rem;
+    }
+  }
+  @media (max-width: 500px) {
+    flex-direction: column;
+    width: 100%;
   }
 `;
 
 export const Container = styled.div`
   width: 100%;
   margin-bottom: 2rem;
-  margin-top: 8rem;
+  margin-top: 1rem;
+
+  padding-bottom: 2rem;
 `;
 
 export const ForumHeaderContainer = styled.div`
@@ -42,11 +60,9 @@ export const ForumHeaderContainer = styled.div`
   align-items: center;
   gap: 2rem;
 
-  // degrade 2a7ae9 - 7750f
   background: linear-gradient(90deg, rgba(42, 122, 233, 1) 0%, rgba(119, 80, 240, 1) 100%);
 
   border-radius: 1rem;
-
   margin-bottom: 6rem;
 
   @media (max-width: 1100px) {
@@ -55,13 +71,13 @@ export const ForumHeaderContainer = styled.div`
 `;
 
 export const ForumHeaderImgContainer = styled.div`
-  width: 250px;
+  width: 200px;
 `;
 
 export const ForumHeaderContent = styled.div``;
 
 export const ForumHeaderTitle = styled.h1`
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 500;
   color: #fff;
 
@@ -69,13 +85,13 @@ export const ForumHeaderTitle = styled.h1`
 `;
 
 export const ForumHeaderSubtitle = styled.p`
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 400;
   color: #d4d4d4;
 `;
 
 export const W50 = styled.div`
-  width: 45%;
+  width: 65%;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -90,7 +106,7 @@ export const W50 = styled.div`
 `;
 
 export const W50End = styled.div`
-  width: 45%;
+  width: 25%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -110,8 +126,8 @@ export const ForumHeaderButtonContainer = styled.div`
 `;
 
 export const ButtonCreateTopic = styled.button`
-  width: 250px;
-  padding: 1rem 2rem;
+  width: 200px;
+  padding: 1rem 1rem;
 
   display: flex;
   justify-content: center;
@@ -121,7 +137,7 @@ export const ButtonCreateTopic = styled.button`
   border: 2px solid #fff;
   border-radius: 0.5rem;
 
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #fff;
 
@@ -207,7 +223,6 @@ export const AvatarArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
 
   @media (max-width: 880px) {
     justify-content: center;
@@ -217,7 +232,7 @@ export const AvatarArea = styled.div`
 
 export const Avatar = styled.div`
   width: 100px;
-  height: 110px;
+  height: 100px;
   filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.1));
 
   margin-top: 1rem;
@@ -440,4 +455,32 @@ export const ButtonGoBack = styled.button`
     background-color: #2a7ae9;
     color: #fff;
   }
+`;
+
+export const ButtonCreate = styled.button`
+  max-width: 25%;
+  align-items: center;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-top: 1em;
+  margin-right: 1em;
+  background-color: #3f9e3f;
+  outline: none;
+  border: none;
+  color: #fff;
+  &:hover {
+    filter: brightness(0.8);
+    color: #fff;
+  }
+  @media (max-width: 1440px) {
+    max-width: 35%;
+  }
+  @media (max-width: 500px) {
+    max-width: 55%;
+  }
+`;
+
+export const IconPlus = styled(AiOutlinePlus)`
+  margin-right: 1em;
 `;

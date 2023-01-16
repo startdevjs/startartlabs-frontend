@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BiCodeAlt, BiPlayCircle } from "react-icons/bi";
+import { BiCodeAlt, BiPlayCircle, BiChat } from "react-icons/bi";
 
 export const ProjectContainer = styled.div`
   width: 100%;
@@ -123,7 +123,7 @@ export const ProjectDescription = styled.p`
 
 export const ProjectSideBarList = styled.div`
   width: 100%;
-  height: auto;
+  height: fit-content;
   /* padding: 20px; */
 
   background-color: #1d1933;
@@ -368,4 +368,28 @@ export const ButtonEmpty = styled.button`
   @media (min-width: 1150px) {
     width: 30%;
   }
+`;
+export const ButtonDiv = styled.div`
+  width: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 2em;
+`;
+export const ButtonCommunity = styled.button`
+  max-width: 80%;
+  margin: 0 auto;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  text-align: center;
+  justify-content: center;
+  &:hover {
+    filter: brightness(0.8);
+  }
+`;
+export const IconChat = styled(BiChat)`
+  font-size: 2.5em;
 `;

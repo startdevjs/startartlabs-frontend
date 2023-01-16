@@ -42,7 +42,7 @@ const Profile = () => {
   const [success, setSuccess] = useState(false);
   const [validPassword, setValidPassword] = useState(true);
   const [isOpenModalFriends, setIsOpenModalFriends] = useState(false);
-  const [closeModalFriends, setCloseModalFriends] = useState(false);
+  const [closeModalFriends, setCloseModalFriends] = useState(false); 
   const [isOpenModalRequests, setIsOpenModalRequests] = useState(false);
   const [closeModalRequests, setCloseModalRequests] = useState(false);
   const [name, setName] = useState("");

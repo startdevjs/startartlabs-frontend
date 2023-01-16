@@ -16,10 +16,19 @@ export const Body = styled.div`
   padding: 30px 15px;
 `;
 
-export const Logo = styled.h1`
-  color: #fff !important;
-  text-align: center;
-  font-size: 25px;
+export const LogoContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2rem;
+  margin-bottom: 2rem;
+`;
+
+export const Logo = styled.img`
+  width: 90%;
 `;
 
 export const Password = styled.p`
