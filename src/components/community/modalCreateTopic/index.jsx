@@ -57,7 +57,7 @@ const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCre
       setLoading(false);
     }
   };
-
+  
   return (
     <>
       <Modal
