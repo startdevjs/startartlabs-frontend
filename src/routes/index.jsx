@@ -37,6 +37,7 @@ const RoutesComponent = () => {
       <Route path="/projects" element={<Private Component={Projects} />} />
       <Route path="/project/:projectId" element={<Private Component={Project} />} />
       <Route path="/community" element={<Private Component={Community} />} />
+      <Route path="/community/:id" element={<Private Component={Community} />} />
       <Route path="/admin" element={<PrivateAdmin Component={AdminUser} />} />
       <Route path="/admin/user/update/:id" element={<PrivateAdmin Component={UpdateUser} />} />
       <Route path="/admin/project" element={<PrivateAdmin Component={AdminProject} />} />
