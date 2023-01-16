@@ -1,3 +1,9 @@
+import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import LaptopGirl from "../../assets/laptop-girl.png";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 import {
   Container,
   TopicCard,
@@ -13,60 +19,171 @@ import {
   AuthorUsername,
   AuthorShield,
   CardTextContent,
+  ForumHeaderContainer,
+  ForumHeaderImgContainer,
+  ForumHeaderContent,
+  ForumHeaderTitle,
+  ForumHeaderSubtitle,
+  ButtonGoBackContainer,
+  ButtonGoBack,
+  ForumHeaderButtonContainer,
+  ButtonCreateTopic,
+  W50,
+  W50End,
 } from "./styles";
+import { getRepliesByTopic } from "./functions/getRepliesByTopic";
+import { getTopic } from "./functions/getTopic";
 
 const CommunityPost = () => {
-  const array = [1, 2, 3];
+  const [page, setPage] = useState(1);
+  const [replies, setReplies] = useState([]);
+  const [topic, setTopic] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  getRepliesByTopic;
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const skip = (page - 1) * 20;
+    const take = 20;
+
+    getRepliesByTopic(setLoading, setReplies, id, skip, take);
+  }, [page]);
+
+  useEffect(() => {
+    getTopic(setLoading, setTopic, id);
+  }, [id]);
 
   return (
     <>
-      {/* <Message>Em breve...</Message>
-        <Description>
-            <p>Você fará parte de uma comunidade de programadores!</p>
-        </Description> */}
-
       <Container>
-        {array?.map((item, i) => (
+        <TopicCard>
+          <ButtonGoBackContainer>
+            <Link to="/community">
+              <ButtonGoBack>
+                <AiOutlineArrowLeft />
+                Voltar
+              </ButtonGoBack>
+            </Link>
+          </ButtonGoBackContainer>
+
+          <ForumHeaderContainer post={true}>
+            <W50>
+              <ForumHeaderImgContainer>
+                <img src={LaptopGirl} alt="Forum" />
+              </ForumHeaderImgContainer>
+
+              <ForumHeaderContent>
+                <ForumHeaderTitle>Forum</ForumHeaderTitle>
+                <ForumHeaderSubtitle>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam quod, voluptate.
+                </ForumHeaderSubtitle>
+              </ForumHeaderContent>
+            </W50>
+
+            <W50End>
+              <ForumHeaderButtonContainer>
+                <Link to="/community/create/reply">
+                  <ButtonCreateTopic>Responder tópico</ButtonCreateTopic>
+                </Link>
+              </ForumHeaderButtonContainer>
+            </W50End>
+          </ForumHeaderContainer>
+        </TopicCard>
+
+        <TopicCard>
+          <CardHeader borderTop="1rem">
+            <CardHeaderDate>
+              {topic?.createdAt
+                ? format(new Date(topic?.createdAt), "dd MMMM yyyy HH:mm", {
+                    locale: ptBR,
+                  })
+                : ""}
+            </CardHeaderDate>
+            {/* <ContainerButtons>
+              <a>Reportar</a>
+            </ContainerButtons> */}
+          </CardHeader>
+
+          <CardContent borderBottom="0">
+            <AvatarArea>
+              <Avatar>
+                <div className="tile__icon">
+                  <figure className="avatar avatar--xl">
+                    <img
+                      src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${
+                        topic?.user?.avatar
+                      }`}
+                      alt={topic?.user?.name}
+                    />
+                  </figure>
+                </div>
+              </Avatar>
+
+              <Author>
+                <AuthorName>{topic?.user?.name}</AuthorName>
+                <AuthorUsername>@{topic?.user?.username}</AuthorUsername>
+
+                <AuthorShield bgColor={topic?.user?.id === topic?.user?.id ? "#2a7ae9" : "#7750f8"}>
+                  {topic?.user?.id === topic?.user?.id ? "Criador" : "Participante"}
+                </AuthorShield>
+              </Author>
+            </AvatarArea>
+
+            <CardTextContent
+              dangerouslySetInnerHTML={{
+                __html: topic?.description,
+              }}
+            ></CardTextContent>
+          </CardContent>
+        </TopicCard>
+
+        {replies?.replys?.map((item, i) => (
           <TopicCard key={i}>
-            <CardHeader borderTop={i === 0 ? "1rem" : "0"}>
-              <CardHeaderDate>April 15, 2019 at 4:05 am</CardHeaderDate>
-              <ContainerButtons>
+            <CardHeader borderTop={i + 1 === 0 ? "1rem" : "0"}>
+              <CardHeaderDate>
+                {format(new Date(item?.createdAt), "dd MMMM yyyy HH:mm", {
+                  locale: ptBR,
+                })}
+              </CardHeaderDate>
+              {/* <ContainerButtons>
                 <a>Reportar</a>
-                <a>Responder</a>
-              </ContainerButtons>
+              </ContainerButtons> */}
             </CardHeader>
 
-            <CardContent borderBottom={i + 1 === array?.length ? "1rem" : "0"}>
+            <CardContent borderBottom={i + 1 === replies?.replys?.length ? "1rem" : "0"}>
               <AvatarArea>
                 <Avatar>
-                  {/* <AvatarImgContainer>
-                    <img src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  </AvatarImgContainer> */}
                   <div className="tile__icon">
-                    <figure className="avatar avatar--xl" data-text="Jz"></figure>
+                    <figure className="avatar avatar--xl">
+                      <img
+                        src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${
+                          item?.user?.avatar
+                        }`}
+                        alt={item?.user?.name}
+                      />
+                    </figure>
                   </div>
                 </Avatar>
 
                 <Author>
-                  <AuthorName>John Doe</AuthorName>
-                  <AuthorUsername>@luismarchio03</AuthorUsername>
+                  <AuthorName>{item?.user?.name}</AuthorName>
+                  <AuthorUsername>@{item?.user?.username}</AuthorUsername>
 
                   <AuthorShield
-                  // background={}
+                    bgColor={item?.user?.id === topic?.user?.id ? "#2a7ae9" : "#7750f8"}
                   >
-                    Criador
+                    {item?.user?.id === topic?.user?.id ? "Criador" : "Participante"}
                   </AuthorShield>
                 </Author>
               </AvatarArea>
 
-              <CardTextContent>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-              </CardTextContent>
+              <CardTextContent
+                dangerouslySetInnerHTML={{
+                  __html: item?.description,
+                }}
+              ></CardTextContent>
             </CardContent>
           </TopicCard>
         ))}

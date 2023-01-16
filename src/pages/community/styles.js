@@ -32,6 +32,109 @@ export const Container = styled.div`
   margin-top: 8rem;
 `;
 
+export const ForumHeaderContainer = styled.div`
+  width: 100%;
+  /* height: 200px; */
+  padding: 2rem;
+
+  display: flex;
+  justify-content: ${({ post }) => (post ? "space-between" : "flex-start")};
+  align-items: center;
+  gap: 2rem;
+
+  // degrade 2a7ae9 - 7750f
+  background: linear-gradient(90deg, rgba(42, 122, 233, 1) 0%, rgba(119, 80, 240, 1) 100%);
+
+  border-radius: 1rem;
+
+  margin-bottom: 6rem;
+
+  @media (max-width: 1100px) {
+    flex-direction: column;
+  }
+`;
+
+export const ForumHeaderImgContainer = styled.div`
+  width: 250px;
+`;
+
+export const ForumHeaderContent = styled.div``;
+
+export const ForumHeaderTitle = styled.h1`
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #fff;
+
+  margin-bottom: 0.5rem;
+`;
+
+export const ForumHeaderSubtitle = styled.p`
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #d4d4d4;
+`;
+
+export const W50 = styled.div`
+  width: 45%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  @media (max-width: 1100px) {
+    width: 100%;
+  }
+
+  @media (max-width: 780px) {
+    flex-direction: column;
+  }
+`;
+
+export const W50End = styled.div`
+  width: 45%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+
+  @media (max-width: 1100px) {
+    width: 100%;
+
+    justify-content: center;
+  }
+`;
+
+export const ForumHeaderButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+export const ButtonCreateTopic = styled.button`
+  width: 250px;
+  padding: 1rem 2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 0.5rem;
+
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+
+  cursor: pointer;
+
+  transition: 0.4s;
+
+  &:hover {
+    color: #0f172a;
+    border: 2px solid #0f172a;
+  }
+`;
+
 export const TopicCard = styled.div`
   width: 100%;
   padding-left: 2rem;
@@ -92,6 +195,11 @@ export const CardContent = styled.div`
 
   border-bottom-left-radius: ${(props) => props.borderBottom};
   border-bottom-right-radius: ${(props) => props.borderBottom};
+
+  @media (max-width: 880px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const AvatarArea = styled.div`
@@ -100,6 +208,11 @@ export const AvatarArea = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+
+  @media (max-width: 880px) {
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const Avatar = styled.div`
@@ -141,6 +254,13 @@ export const Author = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 880px) {
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+  }
 `;
 
 export const AuthorName = styled.div`
@@ -163,8 +283,7 @@ export const AuthorShield = styled.div`
   margin-top: 12px;
   padding: 0 8px;
   border-radius: 200px;
-  /* background-color: #7750f8; */
-  background-color: #2a7ae9;
+  background-color: ${({ bgColor }) => bgColor};
   color: #fff;
   font-size: 0.75rem;
   font-weight: 700;
@@ -191,14 +310,27 @@ export const CommunityTopicContent = styled.div`
   border-top-right-radius: ${(props) => props.borderTop};
   border-bottom-left-radius: ${(props) => props.borderBottom};
   border-bottom-right-radius: ${(props) => props.borderBottom};
+
+  @media (max-width: 880px) {
+    flex-direction: column;
+    justify-content: center;
+
+    text-align: center;
+
+    gap: 2rem;
+  }
 `;
 
 export const TitleCommunityTopicContainer = styled.div`
   width: 40%;
 
   > p {
-    color: #9aa4bf;
+    color: #9aa4bf !important;
     font-weight: 400;
+  }
+
+  @media (max-width: 880px) {
+    width: 100%;
   }
 `;
 
@@ -219,6 +351,10 @@ export const TitleCommunityTopicStatic = styled.div`
 
   color: #fff;
   font-weight: 700;
+
+  @media (max-width: 880px) {
+    width: 100%;
+  }
 `;
 
 export const NumberReplies = styled.div`
@@ -227,6 +363,10 @@ export const NumberReplies = styled.div`
   font-weight: 700;
 
   text-align: center;
+
+  @media (max-width: 880px) {
+    width: 100%;
+  }
 `;
 
 export const AvatarCommunityTopic = styled.div`
@@ -237,6 +377,10 @@ export const AvatarCommunityTopic = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+
+  @media (max-width: 880px) {
+    width: 100%;
+  }
 `;
 
 export const AvatarCommunityTopicStatic = styled.div`
@@ -250,4 +394,50 @@ export const AvatarCommunityTopicStatic = styled.div`
 
   color: #fff;
   font-weight: 700;
+
+  @media (max-width: 880px) {
+    width: 100%;
+  }
+`;
+
+export const ButtonGoBackContainer = styled.div`
+  width: 200px;
+
+  margin-bottom: 1rem;
+`;
+
+export const ButtonGoBack = styled.button`
+  width: 100%;
+
+  padding: 0.5rem;
+
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  background-color: transparent;
+  color: #2a7ae9;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.2s;
+
+  border: 1px solid #2a7ae9;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background-color: #2a7ae9;
+    color: #fff;
+  }
 `;

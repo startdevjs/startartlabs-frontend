@@ -1,11 +1,16 @@
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useEffect, useState } from "react";
-import api from "../../services/api";
+import { Link } from "react-router-dom";
 import { getAllTopics } from "./functions/getAllTopics";
-import { getTotalRepliesByTopic } from "./functions/getTotalRepliesByTopic";
+import LaptopGirl from "../../assets/laptop-girl.png";
 import {
   Container,
+  ForumHeaderContainer,
+  ForumHeaderImgContainer,
+  ForumHeaderContent,
+  ForumHeaderTitle,
+  ForumHeaderSubtitle,
   CommunityTopicContent,
   TitleCommunityTopicContainer,
   TitleCommunityTopic,
@@ -27,11 +32,22 @@ const Community = () => {
     getAllTopics(setLoading, setTopics, skip, take);
   }, [page]);
 
-  const array = [1, 2, 3];
-
   return (
     <>
       <Container>
+        <ForumHeaderContainer>
+          <ForumHeaderImgContainer>
+            <img src={LaptopGirl} alt="Forum" />
+          </ForumHeaderImgContainer>
+
+          <ForumHeaderContent>
+            <ForumHeaderTitle>Forum</ForumHeaderTitle>
+            <ForumHeaderSubtitle>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam quod, voluptate.
+            </ForumHeaderSubtitle>
+          </ForumHeaderContent>
+        </ForumHeaderContainer>
+
         <CommunityTopicContent borderTop={"1rem"} par={true}>
           <TitleCommunityTopicStatic>Titulo do tópico</TitleCommunityTopicStatic>
 
@@ -43,19 +59,21 @@ const Community = () => {
         {topics?.topics?.map((item, i) => (
           <CommunityTopicContent
             key={i}
-            borderBottom={i + 1 === array?.length ? "1rem" : "0"}
+            borderBottom={i + 1 === topics?.topics?.length ? "1rem" : "0"}
             // borderTop={i === 0 ? "1rem" : "0"}
             par={(i + 1) % 2 === 0 ? true : false}
           >
             <TitleCommunityTopicContainer>
-              <TitleCommunityTopic>{item?.title}</TitleCommunityTopic>
-              <p className="tile__subtitle m-0">
-                {/* // date format (date FNS) -> 13 sexta 2023 12:00 */}
+              <Link to={`/community/post/${item?.id}`}>
+                <TitleCommunityTopic>{item?.title}</TitleCommunityTopic>
+                <p className="tile__subtitle m-0">
+                  {/* // date format (date FNS) -> 13 sexta 2023 12:00 */}
 
-                {format(new Date(item?.createdAt), "dd MMMM yyyy HH:mm", {
-                  locale: ptBR,
-                })}
-              </p>
+                  {format(new Date(item?.createdAt), "dd MMMM yyyy HH:mm", {
+                    locale: ptBR,
+                  })}
+                </p>
+              </Link>
             </TitleCommunityTopicContainer>
 
             <NumberReplies>100</NumberReplies>
@@ -63,8 +81,13 @@ const Community = () => {
             <AvatarCommunityTopic>
               <div className="tile m-0 level">
                 <div className="tile__icon">
-                  <figure className="avatar avatar--sm" data-text={item?.user?.name}>
-                    {/* <img src={item?.user?.avatar} alt={item?.user?.name} /> */}
+                  <figure className="avatar avatar--sm">
+                    <img
+                      src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/images/${
+                        item?.user?.avatar
+                      }`}
+                      alt={item?.user?.name}
+                    />
                   </figure>
                 </div>
                 <div className="tile__container">
