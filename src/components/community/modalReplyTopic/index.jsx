@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Input, Toast } from "../..";
-import Autocomplete from "../../autocomplete";
 import api from "../../../services/api";
 import {
   Modal,
@@ -13,23 +12,14 @@ import {
   ButtonGoBack,
   ButtonSubmit,
 } from "./styles";
-import { getAllProjects } from "./getAllProjects";
-import { getAllLessions } from "./getAllLessions";
 
-const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCreated }) => {
+const ModalReplyTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCreated }) => {
   const [topicDescription, setTopicDescription] = useState();
-  const [topicTitle, setTopicTitle] = useState();
   const [link, setLink] = useState(null);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
-  const [lessionId, setLessionId] = useState("");
-  const [lession, setLessions] = useState({});
-
-  useEffect(() => {
-    getAllLessions(setLoading, setLessions);
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,12 +27,11 @@ const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCre
 
     try {
       const data = {
-        title: topicTitle,
         description: topicDescription,
-        lessionId: Number(lessionId),
+        topicId: Number(id),
         link,
       };
-      await api.post("/topic", data);
+      await api.post("/reply", data);
       setIsCreated(!isCreated);
       setLoading(false);
       setSuccess(true);
@@ -57,7 +46,7 @@ const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCre
       setLoading(false);
     }
   };
-  
+
   return (
     <>
       <Modal
@@ -78,23 +67,7 @@ const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCre
               Criar tópico relacionado a este desafio <Separator />
             </h1>
             <form onSubmit={handleSubmit}>
-              <Input
-                text="Título"
-                name="title"
-                type="text"
-                required
-                placeholder="Digite o título do seu tópico"
-                value={topicTitle}
-                onChange={(e) => setTopicTitle(e.target.value)}
-                error={errors.title}
-              />
               <RichText value={topicDescription} onChange={(e) => setTopicDescription(e)} />
-              <Autocomplete
-                text="A qual projeto esse tópico pertence?"
-                items={lession?.lessions}
-                setDataId={setLessionId}
-                placeholder="Digite o nome do projeto"
-              />
               <Input
                 text="Link do seu repositório"
                 placeholder="Ex: Github"
@@ -117,4 +90,4 @@ const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCre
   );
 };
 
-export default ModalCreateTopic;
+export default ModalReplyTopic;

@@ -17,6 +17,10 @@
   --cirrus-focus-color: transparent;
 }
 
+body svg {
+  background-color: transparent !important;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

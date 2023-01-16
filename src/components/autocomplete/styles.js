@@ -40,16 +40,17 @@ export const OptionAutoComplete = styled.div`
   cursor: pointer;
 
   background-color: #000;
+  color: #fff !important;
 
   &:hover {
     background-color: #333;
   }
 
   span {
-    color: #fff;
+    color: #fff !important;
 
     &:hover {
-      color: #fff;
+      color: #fff !important;
     }
   }
 `;

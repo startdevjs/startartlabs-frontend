@@ -37,7 +37,7 @@ import {
   ButtonEmpty,
   ButtonDiv,
   ButtonCommunity,
-  IconChat
+  IconChat,
 } from "./styles";
 
 const Project = () => {
@@ -272,15 +272,13 @@ const Project = () => {
                   );
                 })}
               </ProjectSideBarListContent>
-              {
-            activeLession.id && (
-              <ButtonDiv>
-              <ButtonCommunity
-              onClick={() => navigate(`/community/${activeLession.id}`)}
-              >Ver tópicos na Comunidade <IconChat/></ButtonCommunity>
-            </ButtonDiv>
-            )
-          }
+              {activeLession.id && (
+                <ButtonDiv>
+                  <ButtonCommunity onClick={() => navigate(`/community`)}>
+                    Ver tópicos na Comunidade <IconChat />
+                  </ButtonCommunity>
+                </ButtonDiv>
+              )}
 
               <ProjectFooter>
                 {lessions?.lessions?.length >= 20 && (
