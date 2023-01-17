@@ -19,6 +19,9 @@ import UpdateWarning from "../pages/admin/warning/update";
 import CreateWarning from "../pages/admin/warning/create";
 import AdminWarning from "../pages/admin/warning";
 import AdminExercise from "../pages/admin/exercise";
+import AdminForum from "../pages/admin/forum";
+import CreateForum from "../pages/admin/forum/create";
+import UpdateForum from "../pages/admin/forum/update";
 import UpdateExercise from "../pages/admin/exercise/update";
 import Project from "../pages/projects/project";
 import Profile from "../pages/profile";
@@ -59,6 +62,9 @@ const RoutesComponent = () => {
         path="/admin/warning/update/:id"
         element={<PrivateAdmin Component={UpdateWarning} />}
       />
+      <Route path="/admin/forum" element={<PrivateAdmin Component={AdminForum} />} />
+      <Route path="/admin/forum/create" element={<PrivateAdmin Component={CreateForum} />} />
+      <Route path="/admin/forum/update/:id" element={<PrivateAdmin Component={UpdateForum} />} />
       <Route path="/admin/exercise" element={<PrivateAdmin Component={AdminExercise} />} />
       <Route
         path="/admin/exercise/update/:id"

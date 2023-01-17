@@ -1,5 +1,5 @@
 import api from "../../../../services/api";
-import { getAllWarnings } from "./getAllWarning";
+import { getForums } from "./getForums";
 
 export const onDelete = async (
   id,
@@ -9,24 +9,24 @@ export const onDelete = async (
   setMessage,
   setIsOpenModalDelete,
   setCloseModalDelete,
-  setWarnings,
+  setForums,
 ) => {
   setLoading(true);
 
   try {
-    await api.delete(`/warning/${id}`);
+    await api.delete(`/forumInfos/${id}`);
 
-    getAllWarnings(setLoading, setWarnings);
+    getForums(setLoading, setForums);
 
     setIsOpenModalDelete(false);
     setCloseModalDelete(true);
 
     setLoading(false);
     setSuccess(true);
-    setMessage("Aviso deletado com sucesso");
+    setMessage("Informação deletada com sucesso");
   } catch (error) {
     setLoading(false);
     setError(true);
-    setMessage("Erro ao deletar aviso");
+    setMessage("Erro ao deletar a informação");
   }
 };

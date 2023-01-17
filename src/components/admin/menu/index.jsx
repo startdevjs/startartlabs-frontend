@@ -51,6 +51,13 @@ const AdminMenuComponent = ({ children }) => {
             </div>
           </Option>
         </Link>
+        <Link to="/admin/forum">
+          <Option active={location.pathname === "/admin/forum" ? "true" : "false"}>
+            <div className="tooltip tooltip--right" data-tooltip="Admin Forum">
+              <IconWarning /> Forum
+            </div>
+          </Option>
+        </Link>
       </Menu>
       <Content>{children}</Content>
     </>
