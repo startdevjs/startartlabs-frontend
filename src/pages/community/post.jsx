@@ -36,6 +36,7 @@ import { getTopic } from "./functions/getTopic";
 import ModalReplyTopic from "../../components/community/modalReplyTopic";
 import { Loading } from "../../components";
 import Pagination from "../../components/pagination";
+import { getForums } from "./functions/getForums";
 
 const CommunityPost = () => {
   const [page, setPage] = useState(1);
@@ -43,6 +44,7 @@ const CommunityPost = () => {
   const [topic, setTopic] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
+  const [forumInfos, setForumInfos] = useState([]);
 
   const [isOpenModalReplyTopic, setIsOpenModalReplyTopic] = useState(false);
   const [closeModalReplyTopic, setCloseModalReplyTopic] = useState(false);
@@ -64,6 +66,10 @@ const CommunityPost = () => {
   useEffect(() => {
     getTopic(setLoading, setTopic, id);
   }, [id]);
+
+  useEffect(() => {
+    getForums(setLoading, setForumInfos);
+  }, []);
 
   return (
     <>
@@ -87,10 +93,9 @@ const CommunityPost = () => {
                 </ForumHeaderImgContainer>
 
                 <ForumHeaderContent>
-                  <ForumHeaderTitle>Forum</ForumHeaderTitle>
+                  <ForumHeaderTitle>{forumInfos?.forumInfos?.reply_title}</ForumHeaderTitle>
                   <ForumHeaderSubtitle>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam quod,
-                    voluptate.
+                    {forumInfos?.forumInfos?.reply_subtitle}
                   </ForumHeaderSubtitle>
                 </ForumHeaderContent>
               </W50>
