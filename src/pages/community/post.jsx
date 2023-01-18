@@ -78,7 +78,7 @@ const CommunityPost = () => {
         <Container>
           <TopicCard>
             <ButtonGoBackContainer>
-              <Link to="/community">
+              <Link to={-1}>
                 <ButtonGoBack>
                   <AiOutlineArrowLeft />
                   Voltar

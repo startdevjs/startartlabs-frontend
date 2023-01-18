@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { Input, Toast } from "../..";
 import Autocomplete from "../../autocomplete";
 import api from "../../../services/api";
+import { useParams } from "react-router-dom";
 import {
   Modal,
   ModalContent,
@@ -13,10 +14,9 @@ import {
   ButtonGoBack,
   ButtonSubmit,
 } from "./styles";
-import { getAllProjects } from "./getAllProjects";
-import { getAllLessions } from "./getAllLessions";
 
-const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCreated }) => {
+
+const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCreated, isFilterByProject, lessionByProject }) => {
   const [topicDescription, setTopicDescription] = useState();
   const [topicTitle, setTopicTitle] = useState();
   const [link, setLink] = useState(null);
@@ -24,25 +24,32 @@ const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCre
   const [error, setError] = useState(false);
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
-  const [lessionId, setLessionId] = useState("");
-  const [lession, setLessions] = useState({});
+  const [lessionIdByProject, setLessionIdByProject] = useState();
 
-  useEffect(() => {
-    getAllLessions(setLoading, setLessions);
-  }, []);
+  const {id: lessionId} = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const data = {
-        title: topicTitle,
-        description: topicDescription,
-        lessionId: Number(lessionId),
-        link,
-      };
-      await api.post("/topic", data);
+      if(isFilterByProject) {
+        const data = {
+          title: topicTitle,
+          description: topicDescription,
+          lessionId: Number(lessionIdByProject),
+          link,
+        };
+        await api.post("/topic", data);
+      } else {
+        const data = {
+          title: topicTitle,
+          description: topicDescription,
+          lessionId: Number(lessionId),
+          link,
+        };
+        await api.post("/topic", data);
+      }
       setIsCreated(!isCreated);
       setLoading(false);
       setSuccess(true);
@@ -89,12 +96,16 @@ const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCre
                 error={errors.title}
               />
               <RichText value={topicDescription} onChange={(e) => setTopicDescription(e)} />
-              <Autocomplete
-                text="A qual projeto esse tópico pertence?"
-                items={lession?.lessions}
-                setDataId={setLessionId}
-                placeholder="Digite o nome do projeto"
-              />
+              {
+                isFilterByProject && (
+                <Autocomplete
+                text="A qual aula esse tópico pertence?"
+                items={lessionByProject?.lessions}
+                setDataId={setLessionIdByProject}
+                placeholder="Digite o nome da aula"
+              /> 
+                )
+              }
               <Input
                 text="Link do seu repositório"
                 placeholder="Ex: Github"

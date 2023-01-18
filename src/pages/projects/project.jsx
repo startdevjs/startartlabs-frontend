@@ -274,7 +274,7 @@ const Project = () => {
               </ProjectSideBarListContent>
               {activeLession.id && (
                 <ButtonDiv>
-                  <ButtonCommunity onClick={() => navigate(`/community`)}>
+                  <ButtonCommunity onClick={() => navigate(`/community/${activeLession.id}`)}>
                     Ver tópicos na Comunidade <IconChat />
                   </ButtonCommunity>
                 </ButtonDiv>

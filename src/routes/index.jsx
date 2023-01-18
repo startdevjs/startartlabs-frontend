@@ -28,6 +28,8 @@ import Profile from "../pages/profile";
 import Projects from "../pages/projects";
 import Community from "../pages/community";
 import CommunityPost from "../pages/community/post";
+import CommunityHome from "../pages/community/communityHome";
+import CommunityByProject from "../pages/community/communityByProject";
 
 const RoutesComponent = () => {
   return (
@@ -40,7 +42,9 @@ const RoutesComponent = () => {
       <Route path="/" element={<Private Component={Home} />} />
       <Route path="/projects" element={<Private Component={Projects} />} />
       <Route path="/project/:projectId" element={<Private Component={Project} />} />
-      <Route path="/community" element={<Private Component={Community} />} />
+      <Route path="/community" element={<Private Component={CommunityHome} />} />
+      <Route path="/community/:id" element={<Private Component={Community} />} />
+      <Route path="/community/project/:id" element={<Private Component={CommunityByProject} />} />
       <Route path="/community/post/:id" element={<Private Component={CommunityPost} />} />
       <Route path="/admin" element={<PrivateAdmin Component={AdminUser} />} />
       <Route path="/admin/user/update/:id" element={<PrivateAdmin Component={UpdateUser} />} />
