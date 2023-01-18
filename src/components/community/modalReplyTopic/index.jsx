@@ -18,7 +18,6 @@ const ModalReplyTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCrea
   const [link, setLink] = useState(null);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
-  const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -36,10 +35,9 @@ const ModalReplyTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCrea
       setLoading(false);
       setSuccess(true);
       setMessage("Tópico criado com sucesso!");
-      onClose();
       setTopicDescription("");
-      setTopicTitle("");
       setLink("");
+      onClose();
     } catch (e) {
       setMessage("Ocorreu um erro, tente mais tarde");
       setError(true);

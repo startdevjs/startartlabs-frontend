@@ -28,7 +28,6 @@ const UpdateForum = () => {
   }, []);
 
   useMemo(() => {
-    console.log(forum);
     setTopicTitle(forum?.forumInfos?.topic_title);
     setTopicSubtitle(forum?.forumInfos?.topic_subtitle);
     setReplyTitle(forum?.forumInfos?.reply_title);

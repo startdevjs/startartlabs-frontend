@@ -484,3 +484,51 @@ export const ButtonCreate = styled.button`
 export const IconPlus = styled(AiOutlinePlus)`
   margin-right: 1em;
 `;
+export const CardByProject = styled.div`
+  width: 70%;
+  padding: 2rem;
+  padding-top: 3em;
+  display: flex;
+  flex-direction: row;
+  background-color: #21283b;
+  border-radius: 16px;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 auto 2.5em auto;
+  cursor: pointer;
+  > div {
+    width: 50%;
+  }
+  @media (max-width: 500px) {
+    flex-direction: column;
+    width: 100%;
+    > div {
+      width: 100%;
+    }
+  }
+`;
+export const CardImage = styled.div`
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  background-image: url(${(props) => props.image}) !important;
+  background-size: cover !important;
+  background-position: 50% !important;
+  max-width: 50%;
+  width: 50%;
+  min-height: 250px;
+  height: auto;
+  @media (max-width: 460px) {
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+  }
+  @media (min-width: 1080px) {
+    min-height: 150px;
+  }
+  @media (min-width: 1400px) {
+    min-height: 200px;
+  }
+  @media (max-width: 500px) {
+    max-width: 100%;
+    width: 100%;
+  }
+`;

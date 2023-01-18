@@ -1,13 +1,17 @@
 import api from "../../../services/api";
 
-export const getAllTopics = async (setLoading, setTopics, skip, take) => {
+export const getAllTopics = async ({ setLoading, setTopics, skip, take, lession }) => {
   setLoading(true);
 
   try {
-    const { data } = await api.get(`/topic?skip=${skip}&take=${take}`);
-
+    if (lession) {
+      const { data } = await api.get(`/topic/${lession}/byLession?skip=${skip}&take=${take}`);
+      setTopics(data);
+    } else {
+      const { data } = await api.get(`/topic?skip=${skip}&take=${take}`);
+      setTopics(data);
+    }
     setLoading(false);
-    setTopics(data);
   } catch (error) {
     setLoading(false);
   }
