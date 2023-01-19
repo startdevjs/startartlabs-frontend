@@ -151,11 +151,30 @@ const CommunityPost = () => {
                 </Author>
               </AvatarArea>
 
+              {topic?.link !== null && topic?.link !== undefined && topic?.link !== "" ? (
+                <CardTextContent
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      `<a 
+                          style='margin-bottom: 1rem; display: block;'
+                        target='_blank' href=${topic?.link}><span
+                          style='color: #d4d4d4'
+                        >Link:</span> ${topic?.link}</a>` + topic?.description,
+                  }}
+                ></CardTextContent>
+              ) : (
+                <CardTextContent
+                  dangerouslySetInnerHTML={{
+                    __html: topic?.description,
+                  }}
+                ></CardTextContent>
+              )}
+              {/* 
               <CardTextContent
                 dangerouslySetInnerHTML={{
                   __html: topic?.description,
                 }}
-              ></CardTextContent>
+              ></CardTextContent> */}
             </CardContent>
           </TopicCard>
 
@@ -199,11 +218,24 @@ const CommunityPost = () => {
                   </Author>
                 </AvatarArea>
 
-                <CardTextContent
-                  dangerouslySetInnerHTML={{
-                    __html: item?.description,
-                  }}
-                ></CardTextContent>
+                {item?.link !== null && item?.link !== undefined && item?.link !== "" ? (
+                  <CardTextContent
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        `<a 
+                          style='margin-bottom: 1rem; display: block;'
+                        target='_blank' href=${item?.link}><span
+                          style='color: #d4d4d4'
+                        >Link:</span> ${item?.link}</a>` + item?.description,
+                    }}
+                  ></CardTextContent>
+                ) : (
+                  <CardTextContent
+                    dangerouslySetInnerHTML={{
+                      __html: item?.description,
+                    }}
+                  ></CardTextContent>
+                )}
               </CardContent>
             </TopicCard>
           ))}
