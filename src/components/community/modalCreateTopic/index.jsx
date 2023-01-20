@@ -15,8 +15,16 @@ import {
   ButtonSubmit,
 } from "./styles";
 
-
-const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCreated, isFilterByProject, lessionByProject }) => {
+const ModalCreateTopic = ({
+  isOpen,
+  onClose,
+  id,
+  setLoading,
+  isCreated,
+  setIsCreated,
+  isFilterByProject,
+  lessionByProject,
+}) => {
   const [topicDescription, setTopicDescription] = useState();
   const [topicTitle, setTopicTitle] = useState();
   const [link, setLink] = useState(null);
@@ -26,14 +34,14 @@ const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCre
   const [success, setSuccess] = useState(false);
   const [lessionIdByProject, setLessionIdByProject] = useState();
 
-  const {id: lessionId} = useParams();
+  const { id: lessionId } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      if(isFilterByProject) {
+      if (isFilterByProject) {
         const data = {
           title: topicTitle,
           description: topicDescription,
@@ -64,7 +72,7 @@ const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCre
       setLoading(false);
     }
   };
-  
+
   return (
     <>
       <Modal
@@ -95,17 +103,27 @@ const ModalCreateTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCre
                 onChange={(e) => setTopicTitle(e.target.value)}
                 error={errors.title}
               />
-              <RichText value={topicDescription} onChange={(e) => setTopicDescription(e)} />
-              {
-                isFilterByProject && (
+              <RichText
+                modules={{
+                  toolbar: [
+                    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                    ["bold", "italic", "underline", "strike"],
+                    [],
+                    [],
+                    [],
+                  ],
+                }}
+                value={topicDescription}
+                onChange={(e) => setTopicDescription(e)}
+              />
+              {isFilterByProject && (
                 <Autocomplete
-                text="A qual aula esse tópico pertence?"
-                items={lessionByProject?.lessions}
-                setDataId={setLessionIdByProject}
-                placeholder="Digite o nome da aula"
-              /> 
-                )
-              }
+                  text="A qual aula esse tópico pertence?"
+                  items={lessionByProject?.lessions}
+                  setDataId={setLessionIdByProject}
+                  placeholder="Digite o nome da aula"
+                />
+              )}
               <Input
                 text="Link do seu repositório"
                 placeholder="Ex: Github"

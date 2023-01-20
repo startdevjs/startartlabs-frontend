@@ -147,9 +147,48 @@ export const RichText = styled(ReactQuill)`
   height: 350px !important;
   width: 100% !important;
   background: #000 !important;
+
+  /* .ql-snow .ql-tooltip {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .ql-snow .ql-tooltip a.ql-preview {
+    padding-left: 5rem;
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not(
+      [type="reset"]
+    ),
+  select {
+    width: 80%;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+    font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: var(--font-size-m);
+    letter-spacing: 0.02rem;
+    transition: 0.3s;
+    outline: 0;
+    padding: 0.85rem 1.1rem;
+
+    margin-left: 8rem;
+  } */
+
   .ql-snow .ql-stroke {
     stroke: #fff;
   }
+
+  .ql-snow .ql-tooltip {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 5px #ddd;
+    color: #444;
+    padding: 0px;
+    white-space: nowrap;
+  }
+
   .ql-container {
     border: none !important;
     height: 100% !important;
@@ -166,6 +205,7 @@ export const RichText = styled(ReactQuill)`
       }
     }
   }
+
   .ql-formats {
     button {
       margin-top: 1rem !important;

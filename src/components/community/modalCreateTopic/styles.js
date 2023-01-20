@@ -147,6 +147,7 @@ export const RichText = styled(ReactQuill)`
   height: 350px !important;
   width: 100% !important;
   background: #000 !important;
+
   .ql-snow .ql-stroke {
     stroke: #fff;
   }

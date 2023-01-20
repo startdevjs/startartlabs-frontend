@@ -198,7 +198,7 @@ export const ContainerButtons = styled.div`
 `;
 
 export const CardContent = styled.div`
-  width: 70%;
+  /* width: 70%; */
 
   width: 100%;
   padding: 3rem;
@@ -307,7 +307,13 @@ export const AuthorShield = styled.div`
 `;
 
 export const CardTextContent = styled.div`
-  padding-top: 2rem;
+  width: 70%;
+
+  padding-top: 1rem;
+
+  @media (max-width: 880px) {
+    width: 100%;
+  }
 `;
 
 export const CommunityTopicContent = styled.div`
@@ -339,9 +345,8 @@ export const CommunityTopicContent = styled.div`
 export const TitleCommunityTopicContainer = styled.div`
   width: 40%;
 
-  > p {
-    color: #9aa4bf !important;
-    font-weight: 400;
+  p {
+    font-size: 11px !important;
   }
 
   @media (max-width: 880px) {
@@ -484,22 +489,46 @@ export const ButtonCreate = styled.button`
 export const IconPlus = styled(AiOutlinePlus)`
   margin-right: 1em;
 `;
+
+export const CardByProjectContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+
+  @media (max-width: 880px) {
+    flex-direction: column;
+  }
+`;
+
 export const CardByProject = styled.div`
-  width: 70%;
+  width: 30%;
   padding: 2rem;
   padding-top: 3em;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: #21283b;
   border-radius: 16px;
   align-items: center;
   justify-content: space-around;
   margin: 0 auto 2.5em auto;
   cursor: pointer;
+
   > div {
-    width: 50%;
+    width: 100%;
+
+    > h6 {
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    > h4 {
+      font-size: 1.2rem;
+    }
   }
-  @media (max-width: 500px) {
+
+  @media (max-width: 880px) {
     flex-direction: column;
     width: 100%;
     > div {
@@ -513,21 +542,19 @@ export const CardImage = styled.div`
   background-image: url(${(props) => props.image}) !important;
   background-size: cover !important;
   background-position: 50% !important;
-  max-width: 50%;
-  width: 50%;
-  min-height: 250px;
+  max-width: 100%;
+  width: 100%;
+  min-height: 150px;
   height: auto;
   @media (max-width: 460px) {
     background-size: contain !important;
     background-repeat: no-repeat !important;
   }
-  @media (min-width: 1080px) {
-    min-height: 150px;
-  }
+
   @media (min-width: 1400px) {
     min-height: 200px;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 880px) {
     max-width: 100%;
     width: 100%;
   }

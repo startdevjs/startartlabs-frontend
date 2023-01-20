@@ -62,10 +62,22 @@ const ModalReplyTopic = ({ isOpen, onClose, id, setLoading, isCreated, setIsCrea
           <Container>
             <h1>
               {" "}
-              Criar tópico relacionado a este desafio <Separator />
+              Responder tópico <Separator />
             </h1>
             <form onSubmit={handleSubmit}>
-              <RichText value={topicDescription} onChange={(e) => setTopicDescription(e)} />
+              <RichText
+                modules={{
+                  toolbar: [
+                    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                    ["bold", "italic", "underline", "strike"],
+                    [],
+                    [],
+                    [],
+                  ],
+                }}
+                value={topicDescription}
+                onChange={(e) => setTopicDescription(e)}
+              />
               <Input
                 text="Link do seu repositório"
                 placeholder="Ex: Github"
