@@ -7,6 +7,7 @@ import Loading from "../../../components/loading";
 import Select from "../../../components/select";
 import Textarea from "../../../components/textarea";
 import Toast from "../../../components/toast";
+import useWhiteLabel from "../../../hooks/useWhiteLabel";
 import { getAllProjects } from "../project/functions/getAllProjects";
 import { onCreate } from "./functions/onCreate";
 import { ButtonGoBack, ButtonSubmit, ContainerButtons, RichText } from "./styles";
@@ -28,6 +29,7 @@ const CreateLession = () => {
   const [projects, setProjects] = useState({});
 
   const navigate = useNavigate();
+  const whiteLabel = useWhiteLabel();
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -113,10 +115,10 @@ const CreateLession = () => {
         </Select>
 
         <Autocomplete
-          text="Projeto"
+          text={whiteLabel?.payment ? "Curso" : "Projeto"}
           items={projects?.projects}
           setDataId={setProjectId}
-          placeholder="Digite o nome do projeto"
+          placeholder={`Digite o nome do ${whiteLabel?.payment ? "curso" : "projeto"}`}
         />
 
         <Input

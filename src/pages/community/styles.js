@@ -19,7 +19,7 @@ export const CommunityTitle = styled.h1`
   }
 `;
 export const Header = styled.div`
-  background-color: #2a2648;
+  background-color: ${({ theme: { colors } }) => colors.primaryColorLight};
   border-radius: 16px;
   display: flex;
   flex-direction: row;
@@ -60,7 +60,11 @@ export const ForumHeaderContainer = styled.div`
   align-items: center;
   gap: 2rem;
 
-  background: linear-gradient(90deg, rgba(42, 122, 233, 1) 0%, rgba(119, 80, 240, 1) 100%);
+  background: linear-gradient(
+    90deg,
+    ${({ theme: { colors } }) => colors.secondaryColor} 0%,
+    rgba(119, 80, 240, 1) 100%
+  );
 
   border-radius: 1rem;
   margin-bottom: 6rem;
@@ -146,8 +150,8 @@ export const ButtonCreateTopic = styled.button`
   transition: 0.4s;
 
   &:hover {
-    color: #0f172a;
-    border: 2px solid #0f172a;
+    color: ${({ theme: { colors } }) => colors.primaryColorDark};
+    border: 2px solid ${({ theme: { colors } }) => colors.primaryColorDark};
   }
 `;
 
@@ -166,7 +170,7 @@ export const CardHeader = styled.div`
 
   padding: 1rem;
 
-  background-color: #21283b;
+  background-color: ${({ theme: { colors } }) => colors.primaryColorDark};
 
   border-top-left-radius: ${(props) => props.borderTop};
   border-top-right-radius: ${(props) => props.borderTop};
@@ -207,7 +211,7 @@ export const CardContent = styled.div`
   /* align-items: center; */
   gap: 2rem;
 
-  background-color: #1d2333;
+  background-color: ${({ theme: { colors } }) => colors.primaryColorLight};
 
   border-bottom-left-radius: ${(props) => props.borderBottom};
   border-bottom-right-radius: ${(props) => props.borderBottom};
@@ -288,7 +292,7 @@ export const AuthorUsername = styled.div`
   font-weight: 500;
 
   &:hover {
-    color: #2a7ae9;
+    color: ${({ theme: { colors } }) => colors.secondaryColor};
     font-weight: 600;
   }
 `;
@@ -325,7 +329,10 @@ export const CommunityTopicContent = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  background-color: ${(props) => (props.par === true ? "#1d2333" : "#21283b")};
+  background-color: ${(props) =>
+    props.par === true
+      ? ({ theme: { colors } }) => colors.primaryColorDark
+      : ({ theme: { colors } }) => colors.primaryColorLight};
 
   border-top-left-radius: ${(props) => props.borderTop};
   border-top-right-radius: ${(props) => props.borderTop};
@@ -362,7 +369,7 @@ export const TitleCommunityTopic = styled.div`
   transition: 0.2s;
 
   &:hover {
-    color: #2a7ae9;
+    color: ${({ theme: { colors } }) => colors.secondaryColor};
   }
 `;
 
@@ -435,7 +442,7 @@ export const ButtonGoBack = styled.button`
   margin-bottom: 1rem;
   border-radius: 1rem;
   background-color: transparent;
-  color: #2a7ae9;
+  color: ${({ theme: { colors } }) => colors.secondaryColor};
   font-weight: 700;
   font-size: 1rem;
   line-height: 40px;
@@ -444,7 +451,7 @@ export const ButtonGoBack = styled.button`
   cursor: pointer;
   transition: 0.2s;
 
-  border: 1px solid #2a7ae9;
+  border: 1px solid ${({ theme: { colors } }) => colors.secondaryColor};
 
   display: flex;
   justify-content: center;
@@ -457,7 +464,7 @@ export const ButtonGoBack = styled.button`
   }
 
   &:hover {
-    background-color: #2a7ae9;
+    background-color: ${({ theme: { colors } }) => colors.secondaryColor};
     color: #fff;
   }
 `;
@@ -508,7 +515,7 @@ export const CardByProject = styled.div`
   padding-top: 3em;
   display: flex;
   flex-direction: column;
-  background-color: #21283b;
+  background-color: ${({ theme: { colors } }) => colors.primaryColorLight};
   border-radius: 16px;
   align-items: center;
   justify-content: space-around;

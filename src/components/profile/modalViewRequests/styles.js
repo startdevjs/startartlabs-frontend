@@ -5,7 +5,7 @@ export const Modal = styled(ReactModal)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
   border: 0;
   border-radius: 15px;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);

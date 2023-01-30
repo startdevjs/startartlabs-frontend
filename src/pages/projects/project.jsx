@@ -94,15 +94,22 @@ const Project = () => {
         <TitleEmpty>Nenhuma aula ou desafio foi encontrada</TitleEmpty>
 
         <DescriptionEmpty>
-          <p>
-            Nenhuma aula ou desafio foi encontrada para esse projeto. Explore outros dos nossos
-            projetos.
-          </p>
+          {whiteLabel?.payment ? (
+            <p>
+              Nenhuma aula ou desafio foi encontrada para esse projeto. Explore outros dos nossos
+              cursos.
+            </p>
+          ) : (
+            <p>
+              Nenhuma aula ou desafio foi encontrada para esse projeto. Explore outros dos nossos
+              projetos.
+            </p>
+          )}
         </DescriptionEmpty>
 
         <Link to="/projects">
           <ButtonEmpty>
-            <a>Explore outros projetos</a>
+            <a>Explore outros {whiteLabel?.payment ? "Cursos" : "Projetos"}</a>
           </ButtonEmpty>
         </Link>
       </ContainerEmpty>
@@ -256,7 +263,9 @@ const Project = () => {
                     <>
                       <Link
                         style={
-                          lession?.id == activeLessionId ? { color: "#2a7ae9" } : { color: "#fff" }
+                          lession?.id == activeLessionId
+                            ? { color: "${({ theme: { colors } }) => colors.secondaryColor}" }
+                            : { color: "#fff" }
                         }
                         to={`?activeLessionId=${lession?.id}`}
                       >

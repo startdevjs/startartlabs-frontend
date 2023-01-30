@@ -7,6 +7,7 @@ import Loading from "../../../components/loading";
 import Select from "../../../components/select";
 import Textarea from "../../../components/textarea";
 import Toast from "../../../components/toast";
+import useWhiteLabel from "../../../hooks/useWhiteLabel";
 import { getAllProjects } from "../project/functions/getAllProjects";
 import { getLessionById } from "./functions/getLessionById";
 import { onUpdate } from "./functions/onUpdate";
@@ -31,6 +32,7 @@ const UpdateLession = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
+  const whiteLabel = useWhiteLabel();
 
   useEffect(() => {
     getLessionById(id, setLoading, setLession);
@@ -127,11 +129,11 @@ const UpdateLession = () => {
         </Select>
 
         <Autocomplete
-          text="Projeto"
+          text={whiteLabel?.payment ? "Curso" : "Projeto"}
           items={projects?.projects}
           setDataId={setProjectId}
           valueIsUpdate={projectId}
-          placeholder="Digite o nome do projeto"
+          placeholder={`Digite o nome do ${whiteLabel?.payment ? "curso" : "projeto"}`}
         />
 
         <Input

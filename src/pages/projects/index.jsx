@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Loading from "../../components/loading";
 import Pagination from "../../components/pagination";
 import ProjectCard from "../../components/projectCard";
+import useWhiteLabel from "../../hooks/useWhiteLabel";
 import { getAllProjects } from "./functions/getAllProjects";
 import { Container, ProjectContainer, ProjectContent, ProjectTitle } from "./styles";
 
@@ -9,6 +10,8 @@ const Projects = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [projects, setProjects] = useState([]);
+
+  const whiteLabel = useWhiteLabel();
 
   useEffect(() => {
     const skip = (page - 1) * 20;
@@ -24,7 +27,7 @@ const Projects = () => {
         {!loading && (
           <>
             <ProjectContainer>
-              <ProjectTitle>Projetos</ProjectTitle>
+              <ProjectTitle>{whiteLabel?.payment ? "Cursos" : "Projetos"}</ProjectTitle>
 
               <ProjectContent>
                 {projects?.projects?.map((project) => (

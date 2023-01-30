@@ -4,7 +4,7 @@ export const Container = styled.div`
   width: 100%;
   min-height: 200px;
 
-  background: #1d1933;
+  background: ${({ theme: { colors } }) => colors.primaryColor};
   padding: 10px;
   border-radius: 16px;
   box-shadow: 0 0 20px rgb(89 102 122 / 5%);
@@ -76,7 +76,7 @@ export const Button = styled.button`
 `;
 
 export const ProjectCardButton = styled(Button)`
-  background-color: #2a7ae9;
+  background-color: ${({ theme: { colors } }) => colors.secondaryColor};
   transition: background-color 0.2s;
 
   a {

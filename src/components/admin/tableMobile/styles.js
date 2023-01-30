@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 100%;
 
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
 
   border-radius: 10px;
 
@@ -18,7 +18,7 @@ export const Container = styled.div`
 export const Card = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
   border-radius: 10px;
   padding: 2em;
   display: flex;
@@ -103,45 +103,45 @@ export const Button = styled.button`
 
 export const ButtonEdit = styled(Button)`
   background-color: #ffcc00;
-  color: #1d1933;
+  color: ${({ theme: { colors } }) => colors.primaryColor};
 
   a {
-    color: #1d1933 !important;
+    color: ${({ theme: { colors } }) => colors.primaryColor} !important;
   }
 
   &:hover {
     filter: brightness(0.8);
-    color: #1d1933;
+    color: ${({ theme: { colors } }) => colors.primaryColor};
   }
 `;
 
 export const ButtonCorrection = styled(Button)`
-  background-color: #2a7ae9;
-  color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.secondaryColor};
+  color: ${({ theme: { colors } }) => colors.primaryColor};
 
   a {
-    color: #1d1933 !important;
+    color: ${({ theme: { colors } }) => colors.primaryColor} !important;
   }
 
   &:hover {
     filter: brightness(0.8);
-    color: #1d1933;
+    color: ${({ theme: { colors } }) => colors.primaryColor};
   }
 `;
 
 export const ButtonDelete = styled(Button)`
   background-color: #ff4d4d;
-  color: #1d1933;
+  color: ${({ theme: { colors } }) => colors.primaryColor};
 
   &:hover {
     filter: brightness(0.8);
-    color: #1d1933;
+    color: ${({ theme: { colors } }) => colors.primaryColor};
   }
 `;
 
 export const Corrected = styled.div`
   background-color: ${(props) => props.background};
-  color: #1d1933;
+  color: ${({ theme: { colors } }) => colors.primaryColor};
 
   border-radius: 5px;
   padding: 0.5em;

@@ -17,6 +17,7 @@ import {
   ProjectContent,
 } from "./styles";
 import Pagination from "../../components/pagination";
+import useWhiteLabel from "../../hooks/useWhiteLabel";
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -24,6 +25,8 @@ const Home = () => {
   const [loadingWarning, setLoadingWarning] = useState([]);
   const [warnings, setWarnings] = useState([]);
   const [projects, setProjects] = useState([]);
+
+  const whiteLabel = useWhiteLabel();
 
   useEffect(() => {
     getAllWarnings(setLoadingWarning, setWarnings);
@@ -66,7 +69,7 @@ const Home = () => {
         {!loading && (
           <>
             <ProjectContainer>
-              <ProjectTitle>Projetos</ProjectTitle>
+              <ProjectTitle>{whiteLabel?.payment ? "Cursos" : "Projetos"}</ProjectTitle>
 
               <ProjectContent>
                 {projects?.projects?.map((project) => (
