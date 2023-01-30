@@ -30,6 +30,12 @@ import Community from "../pages/community";
 import CommunityPost from "../pages/community/post";
 import CommunityHome from "../pages/community/communityHome";
 import CommunityByProject from "../pages/community/communityByProject";
+import PaymentMethodPix from "../pages/paymentMethod/pix";
+import PaymentMethodBankSlip from "../pages/paymentMethod/bankSlip";
+import PaymentMethodCard from "../pages/paymentMethod/card";
+import FirstStep from "../pages/checkout/firstStep";
+import SecondStep from "../pages/checkout/secondStep";
+import PaymentMethod from "../pages/paymentMethod";
 
 const RoutesComponent = () => {
   return (
@@ -46,6 +52,16 @@ const RoutesComponent = () => {
       <Route path="/community/:id" element={<Private Component={Community} />} />
       <Route path="/community/project/:id" element={<Private Component={CommunityByProject} />} />
       <Route path="/community/post/:id" element={<Private Component={CommunityPost} />} />
+      <Route path="/payment/method" element={<Private Component={PaymentMethod} />} />
+      <Route path="/payment/method/pix" element={<Private Component={PaymentMethodPix} />} />
+      <Route
+        path="/payment/method/bankSlip"
+        element={<Private Component={PaymentMethodBankSlip} />}
+      />
+      <Route path="/payment/method/card" element={<Private Component={PaymentMethodCard} />} />
+      <Route path="/payment/checkout/first-step" element={<Private Component={FirstStep} />} />
+      <Route path="/payment/checkout/second-step" element={<Private Component={SecondStep} />} />
+
       <Route path="/admin" element={<PrivateAdmin Component={AdminUser} />} />
       <Route path="/admin/user/update/:id" element={<PrivateAdmin Component={UpdateUser} />} />
       <Route path="/admin/project" element={<PrivateAdmin Component={AdminProject} />} />
