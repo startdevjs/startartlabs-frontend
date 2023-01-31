@@ -52,7 +52,7 @@ export const Menu = styled.div`
 
 export const Option = styled.div`
   color: ${({ active }) =>
-    active === "true" ? `${({ theme: { colors } }) => colors.secondaryColor}` : "#7e7e7e"};
+    active === "true" ? ({ theme: { colors } }) => colors.secondaryColor : "#7e7e7e"};
 
   padding-top: 40px;
   cursor: pointer;

@@ -36,6 +36,7 @@ const Projects = () => {
                     id={project?.id}
                     name={project?.name}
                     description={project?.description}
+                    price={project?.price}
                     image={
                       project?.image !== null &&
                       project?.image !== undefined &&

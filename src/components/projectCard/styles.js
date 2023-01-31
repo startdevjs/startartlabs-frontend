@@ -62,6 +62,21 @@ export const ProjectCardDescription = styled.p`
   word-wrap: break-word;
 `;
 
+export const ProjectCardPriceContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
+export const ProjectCardPrice = styled.p`
+  font-size: 14px;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.6;
+`;
+
 export const Button = styled.button`
   padding: 0.8em;
 
