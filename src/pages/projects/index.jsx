@@ -4,6 +4,7 @@ import Pagination from "../../components/pagination";
 import ProjectCard from "../../components/projectCard";
 import useWhiteLabel from "../../hooks/useWhiteLabel";
 import { getAllProjects } from "./functions/getAllProjects";
+import { getCourses } from "./functions/getCourses";
 import { Container, ProjectContainer, ProjectContent, ProjectTitle } from "./styles";
 
 const Projects = () => {
@@ -17,7 +18,11 @@ const Projects = () => {
     const skip = (page - 1) * 20;
     const take = 20;
 
-    getAllProjects(setLoading, setProjects, skip, take);
+    if (whiteLabel?.payment) {
+      getCourses(setLoading, setProjects);
+    } else {
+      getAllProjects(setLoading, setProjects, skip, take);
+    }
   }, [page]);
 
   return (

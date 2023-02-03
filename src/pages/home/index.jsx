@@ -18,6 +18,7 @@ import {
 } from "./styles";
 import Pagination from "../../components/pagination";
 import useWhiteLabel from "../../hooks/useWhiteLabel";
+import { getCourses } from "./functions/getCourses";
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -36,7 +37,11 @@ const Home = () => {
     const skip = (page - 1) * 20;
     const take = 20;
 
-    getAllProjects(setLoading, setProjects, skip, take);
+    if (whiteLabel?.payment) {
+      getCourses(setLoading, setProjects);
+    } else {
+      getAllProjects(setLoading, setProjects, skip, take);
+    }
   }, [page]);
 
   return (

@@ -20,7 +20,7 @@ const ProjectCard = ({ key, id, name, description, image, price }) => {
       <ProjectCardInfo>
         <ProjectCardTitle>{name}</ProjectCardTitle>
 
-        {whiteLabel?.payment && (
+        {/* {whiteLabel?.payment && (
           <ProjectCardPrice>
             {price !== null && price !== undefined
               ? new Intl.NumberFormat("pt-BR", {
@@ -29,7 +29,7 @@ const ProjectCard = ({ key, id, name, description, image, price }) => {
                 }).format(price)
               : ""}
           </ProjectCardPrice>
-        )}
+        )} */}
 
         <ProjectCardDescription
           dangerouslySetInnerHTML={{ __html: description }}
@@ -37,8 +37,8 @@ const ProjectCard = ({ key, id, name, description, image, price }) => {
       </ProjectCardInfo>
 
       {whiteLabel?.payment ? (
-        <Link to={`/payment/checkout/first-step`}>
-          <ProjectCardButton>Comprar</ProjectCardButton>
+        <Link to={`/course/${id}`}>
+          <ProjectCardButton>Acessar</ProjectCardButton>
         </Link>
       ) : (
         <Link to={`/project/${id}`}>
