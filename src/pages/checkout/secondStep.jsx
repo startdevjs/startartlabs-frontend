@@ -14,17 +14,13 @@ const SecondStep = () => {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
-
   const [cpfCnpj, setCpfCnpj] = useState("");
   const [phone, setPhone] = useState("");
   const [postalCode, setPostalCode] = useState("");
-
   const [user, setUser] = useState(null);
 
   const userLogged = JSON.parse(localStorage.getItem("startdev-labs"));
   const navigate = useNavigate();
-
-  console.log("userLogged", userLogged);
 
   const {
     register,
@@ -35,8 +31,6 @@ const SecondStep = () => {
 
   const save = async (data) => {
     setLoading(true);
-
-    console.log({ data });
 
     if (user?.UserInfo?.length > 0) {
       try {

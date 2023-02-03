@@ -36,6 +36,7 @@ import PaymentMethodCard from "../pages/paymentMethod/card";
 import FirstStep from "../pages/checkout/firstStep";
 import SecondStep from "../pages/checkout/secondStep";
 import PaymentMethod from "../pages/paymentMethod";
+import PaymentConfirmed from "../pages/paymentConfirmed";
 
 const RoutesComponent = () => {
   return (
@@ -58,6 +59,7 @@ const RoutesComponent = () => {
         path="/payment/method/bankSlip"
         element={<Private Component={PaymentMethodBankSlip} />}
       />
+      <Route path="/payment/confirmed" element={<Private Component={PaymentConfirmed} />} />
       <Route path="/payment/method/card" element={<Private Component={PaymentMethodCard} />} />
       <Route path="/payment/checkout/first-step" element={<Private Component={FirstStep} />} />
       <Route path="/payment/checkout/second-step" element={<Private Component={SecondStep} />} />

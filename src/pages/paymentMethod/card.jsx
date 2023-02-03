@@ -2,9 +2,15 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Input from "../../components/input";
 import Select from "../../components/select";
-import WithShoppingBagMan from "../../assets/with-shopping-bag-man.png";
-import Mastercard from "../../assets/mastercard.png";
-import Visa from "../../assets/visa-logo.png";
+import { useState } from "react";
+import { format } from "date-fns";
+import api from "../../services/api";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import PaymentDetails from "../../components/paymentDetails/infos";
+import loadingImage from "../../assets/loading.gif";
+import { ErrorMessage, Toast } from "../../components";
 import {
   Container,
   ButtonGoBack,
@@ -17,10 +23,30 @@ import {
   W50Inputs,
   ButtonSaveContainer,
   ButtonSave,
+  ImportantInfos,
 } from "./styles";
-import { useState } from "react";
-import { format } from "date-fns";
-import api from "../../services/api";
+
+const schemaOwnCard = yup.object({
+  holderName: yup.string().required("Campo obrigatório"),
+  number: yup.string().required("Campo obrigatório"),
+  expiryMonth: yup.string().required("Campo obrigatório"),
+  expiryYear: yup.string().required("Campo obrigatório"),
+  cvv: yup.string().required("Campo obrigatório"),
+});
+
+const schemaOtherOwnerCard = yup.object({
+  creditCardHolderInfoName: yup.string().required("Campo obrigatório"),
+  creditCardHolderInfoEmail: yup.string().required("Campo obrigatório"),
+  creditCardHolderInfoCpfCnpj: yup.string().required("Campo obrigatório"),
+  creditCardHolderInfoPostalCode: yup.string().required("Campo obrigatório"),
+  creditCardHolderInfoAddressNumber: yup.string().required("Campo obrigatório"),
+  creditCardHolderInfoPhone: yup.string().required("Campo obrigatório"),
+  holderName: yup.string().required("Campo obrigatório"),
+  cardNumber: yup.string().required("Campo obrigatório"),
+  expiryMonth: yup.string().required("Campo obrigatório"),
+  expiryYear: yup.string().required("Campo obrigatório"),
+  cvv: yup.string().required("Campo obrigatório"),
+});
 
 const PaymentMethodCard = () => {
   const [name, setName] = useState("");
@@ -30,7 +56,11 @@ const PaymentMethodCard = () => {
   const [year, setYear] = useState("");
   const [cpf, setCpf] = useState("");
   const [installment, setInstallment] = useState(1);
-  const [creditCardHolderInfoTrue, setCreditCardHolderInfoTrue] = useState(null);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [creditCardHolderInfoTrue, setCreditCardHolderInfoTrue] = useState(1);
   const [creditCardHolderInfo, setCreditCardHolderInfo] = useState({
     name: "",
     email: "",
@@ -42,15 +72,49 @@ const PaymentMethodCard = () => {
     mobilePhone: "",
   });
 
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const userLogged = JSON.parse(localStorage.getItem("startdev-labs"));
   const navigate = useNavigate();
   const location = useLocation();
+  const userLogged = JSON.parse(localStorage.getItem("startdev-labs"));
+  const discount = location.state?.discount;
+  const price = location.state?.price;
 
-  console.log("location.state?.user dasdasd", location.state?.user?.UserInfo[0]);
+  const schema = yup.object({
+    creditCardHolderInfoTrue: yup.number(),
+    creditCardHolderInfoName: yup.string().when("creditCardHolderInfoTrue", {
+      is: 2,
+      then: yup.string().required("Campo obrigatório"),
+    }),
+    creditCardHolderInfoEmail: yup.string().when("creditCardHolderInfoTrue", {
+      is: 2,
+      then: yup.string().required("Campo obrigatório"),
+    }),
+    creditCardHolderInfoCpfCnpj: yup.string().when("creditCardHolderInfoTrue", {
+      is: 2,
+      then: yup.string().required("Campo obrigatório"),
+    }),
+    creditCardHolderInfoPostalCode: yup.string().when("creditCardHolderInfoTrue", {
+      is: 2,
+      then: yup.string().required("Campo obrigatório"),
+    }),
+    creditCardHolderInfoAddressNumber: yup.string(),
+    creditCardHolderInfoPhone: yup.string().when("creditCardHolderInfoTrue", {
+      is: 2,
+      then: yup.string().required("Campo obrigatório"),
+    }),
+    holderName: yup.string().required("Campo obrigatório"),
+    cardNumber: yup.string().required("Campo obrigatório"),
+    expiryMonth: yup.string().required("Campo obrigatório"),
+    expiryYear: yup.string().required("Campo obrigatório"),
+    cvv: yup.string().required("Campo obrigatório"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -112,71 +176,96 @@ const PaymentMethodCard = () => {
     }
   };
 
-  const valueTeste = 10000;
+  const handleDueDate = () => {
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + 3);
+    return currentDate;
+  };
 
-  const handleCreditCard = async () => {
+  const handlePrice = () => {
+    if (discount) {
+      return price * ((100 - discount) / 100);
+    } else {
+      return price;
+    }
+  };
+
+  const handleCreditCard = async (data) => {
     setLoading(true);
-
     try {
+      // Cartão terceiros
       if (creditCardHolderInfoTrue === "2") {
-        await api.post("/payment/creditCard", {
-          client: location.state?.user?.UserInfo[0]?.id_pay,
-          dueDate: format(new Date(), "yyyy-MM-dd"),
-          value: valueTeste,
+        const res = await api.post("/payment/creditCard", {
+          client: location.state?.user_info?.id_pay,
+          dueDate: format(handleDueDate(), "yyyy-MM-dd"),
+          value: handlePrice(),
           description: "Curso de React",
           externalReference: null,
-          installmentCount: installment,
-          installmentValue: valueTeste / Number(installment),
+          installmentCount: Number(installment),
+          installmentValue: handlePrice() / Number(installment),
+          projectId: 58,
           creditCard: {
-            holderName: name,
-            number: cardNumber,
-            expiryMonth: month,
-            expiryYear: year,
-            ccv: cvv,
+            holderName: data.holderName,
+            number: data.cardNumber,
+            expiryMonth: data.expiryMonth,
+            expiryYear: data.expiryYear,
+            ccv: data.cvv,
           },
           creditCardHolderInfo: {
-            name: creditCardHolderInfo?.name,
-            email: creditCardHolderInfo?.email,
-            cpfCnpj: creditCardHolderInfo?.cpfCnpj,
-            postalCode: creditCardHolderInfo?.postalCode,
-            addressNumber: creditCardHolderInfo?.addressNumber,
+            name: data?.creditCardHolderInfoName,
+            email: data?.creditCardHolderInfoEmail,
+            cpfCnpj: data?.creditCardHolderInfoCpfCnpj,
+            postalCode: data?.creditCardHolderInfoPostalCode,
+            addressNumber: data?.creditCardHolderInfoAddressNumber,
             addressComplement: null,
-            phone: creditCardHolderInfo?.phone,
-            mobilePhone: creditCardHolderInfo?.mobilePhone,
+            phone: data?.creditCardHolderInfoPhone,
+            mobilePhone: data?.creditCardHolderInfoPhone,
           },
           creditCardToken: null,
         });
+        navigate("/payment/confirmed", {
+          state: {
+            feedback: res?.status,
+          },
+        });
+        setLoading(false);
       } else {
-        await api.post("/payment/creditCard", {
-          client: location.state?.user?.UserInfo[0]?.id_pay,
-          dueDate: format(new Date(), "yyyy-MM-dd"),
-          value: valueTeste,
+        // Cartão próprio
+
+        const res = await api.post("/payment/creditCard", {
+          client: location.state?.user_info?.id_pay,
+          dueDate: format(handleDueDate(), "yyyy-MM-dd"),
+          value: handlePrice(),
           description: "Curso de React",
           externalReference: null,
-          installmentCount: installment,
-          installmentValue: valueTeste / Number(installment),
+          installmentCount: Number(installment),
+          installmentValue: handlePrice() / Number(installment),
+          projectId: 58,
           creditCard: {
-            holderName: name,
-            number: cardNumber,
-            expiryMonth: month,
-            expiryYear: year,
-            ccv: cvv,
+            holderName: data.holderName,
+            number: data.cardNumber,
+            expiryMonth: data.expiryMonth,
+            expiryYear: data.expiryYear,
+            ccv: data.cvv,
           },
           creditCardHolderInfo: {
             name: location.state?.user?.name,
             email: location.state?.user?.email,
-            cpfCnpj: location.state?.user?.UserInfo[0]?.cpfCnpj,
-            postalCode: location.state?.user?.UserInfo[0]?.postalCode,
-            addressNumber: location.state?.user?.UserInfo[0]?.addressNumber,
-            addressComplement: null,
-            phone: location.state?.user?.UserInfo[0]?.phone,
-            mobilePhone: location.state?.user?.UserInfo[0]?.mobilePhone,
+            cpfCnpj: location.state?.user_info?.cpfCnpj,
+            postalCode: location.state?.user_info?.postalCode,
+            addressNumber: location.state?.user_info?.addressNumber,
+            addressComplement: location.state?.user_info?.complement,
+            phone: location.state?.user_info?.phone,
+            mobilePhone: location.state?.user_info?.mobilePhone,
           },
           creditCardToken: null,
         });
+        navigate("/payment/confirmed", {
+          state: {
+            feedback: res?.status,
+          },
+        });
       }
-
-      navigate("/");
       setLoading(false);
     } catch (e) {
       setMessage("Não foi possível, tente mais tarde");
@@ -193,166 +282,136 @@ const PaymentMethodCard = () => {
           Voltar
         </ButtonGoBack>
       </Link>
-
       <Content>
+        <PaymentDetails
+          logged={userLogged?.logged}
+          userLogged={userLogged}
+          price={price}
+          discount={discount}
+        />
         <InfosContainer>
           <Title>Cartão de crédito</Title>
-
-          <ContainerBadges>
+          {/*  <ContainerBadges>
             <img src={Mastercard} alt="Mastercard" />
             <img src={Visa} alt="Visa" />
           </ContainerBadges>
-
-          <Form>
+ */}
+          <Form onSubmit={handleSubmit(handleCreditCard)}>
             <Select
               text="Dono do cartão"
               name="creditCardHolderInfoTrue"
+              {...register("creditCardHolderInfoTrue")}
               value={creditCardHolderInfoTrue}
               onChange={onChange}
-              // error={errors.installment}
             >
               <option value="1">Meu Cartão</option>
               <option value="2">Cartão de terceiros</option>
             </Select>
-
             {creditCardHolderInfoTrue === "2" && (
               <>
                 <Input
                   text="Nome do dono do cartão"
-                  name="creditCardHolderInfoName"
                   type="text"
                   placeholder="Digite o nome"
-                  value={creditCardHolderInfo.name}
-                  onChange={onChange}
-                  // error={errors.name}
+                  {...register("creditCardHolderInfoName")}
                 />
-
+                {errors.creditCardHolderInfoName && (
+                  <ErrorMessage>{errors.creditCardHolderInfoName?.message}</ErrorMessage>
+                )}
                 <Input
                   text="Email do dono do cartão"
-                  name="creditCardHolderInfoEmail"
                   type="text"
                   placeholder="Digite o Email"
-                  value={creditCardHolderInfo.email}
-                  onChange={onChange}
-                  // error={errors.name}
-                />
-
+                  {...register("creditCardHolderInfoEmail")}
+                />{" "}
+                {errors.creditCardHolderInfoEmail && (
+                  <ErrorMessage>{errors.creditCardHolderInfoEmail?.message}</ErrorMessage>
+                )}
                 <Input
                   text="CPF do dono do cartão"
-                  name="creditCardHolderInfoCpfCnpj"
                   type="text"
                   placeholder="Digite o CPF"
-                  value={creditCardHolderInfo.cpfCnpj}
-                  onChange={onChange}
-                  // error={errors.cpf}
-                />
-
+                  {...register("creditCardHolderInfoCpfCnpj")}
+                />{" "}
+                {errors.creditCardHolderInfoCpfCnpj && (
+                  <ErrorMessage>{errors.creditCardHolderInfoCpfCnpj?.message}</ErrorMessage>
+                )}
                 <Input
                   text="CEP do dono do cartão"
-                  name="creditCardHolderInfoPostalCode"
                   type="text"
                   placeholder="Digite o CEP"
-                  value={creditCardHolderInfo.postalCode}
-                  onChange={onChange}
-                  // error={errors.cpf}
-                />
-
+                  {...register("creditCardHolderInfoPostalCode")}
+                />{" "}
+                {errors.creditCardHolderInfoPostalCode && (
+                  <ErrorMessage>{errors.creditCardHolderInfoPostalCode?.message}</ErrorMessage>
+                )}
                 <Input
                   text="Número do endereço do dono do cartão"
-                  name="creditCardHolderInfoAddressNumber"
+                  {...register("creditCardHolderInfoAddressNumber")}
                   type="text"
                   placeholder="Digite o número do endereço"
-                  value={creditCardHolderInfo.addressNumber}
-                  onChange={onChange}
-
-                  // error={errors.cpf}
-                />
-
+                />{" "}
+                {errors.creditCardHolderInfoAddressNumber && (
+                  <ErrorMessage>{errors.creditCardHolderInfoAddressNumber?.message}</ErrorMessage>
+                )}
                 <Input
                   text="Telefone do dono do cartão"
-                  name="creditCardHolderInfoPhone"
                   type="text"
                   placeholder="Digite o número do telefone"
-                  value={creditCardHolderInfo.phone}
-                  onChange={onChange}
-                  // error={errors.cpf}
-                />
+                  {...register("creditCardHolderInfoPhone")}
+                />{" "}
+                {errors.creditCardHolderInfoPhone && (
+                  <ErrorMessage>{errors.creditCardHolderInfoPhone?.message}</ErrorMessage>
+                )}
               </>
             )}
-
             <Input
               text="Nome do titular"
-              name="name"
               type="text"
               placeholder="Digite o nome"
-              value={name}
-              onChange={onChange}
-              // error={errors.name}
-            />
-
+              {...register("holderName")}
+            />{" "}
+            {errors.holderName && <ErrorMessage>{errors.holderName?.message}</ErrorMessage>}
             <Input
               text="Número do cartão"
-              name="cardNumber"
-              type="text"
               placeholder="Digite o número do cartão"
-              value={cardNumber}
-              onChange={onChange}
-              // error={errors.cardNumber}
-            />
-
+              {...register("cardNumber")}
+            />{" "}
+            {errors.cardNumber && <ErrorMessage>{errors.cardNumber?.message}</ErrorMessage>}
             <W50Inputs>
               <div>
                 <Input
                   text="Mês de validade"
-                  name="month"
-                  type="text"
                   placeholder="Digite o mês"
                   maxLength={3}
-                  value={month}
-                  onChange={onChange}
-                  // error={errors.cvv}
-                />
+                  {...register("expiryMonth")}
+                />{" "}
+                {errors.expiryMonth && <ErrorMessage>{errors.expiryMonth?.message}</ErrorMessage>}
               </div>
-
               <div>
                 <Input
                   text="Ano de validade"
-                  name="year"
-                  type="text"
                   placeholder="Digite o ano"
                   maxLength={4}
-                  value={year}
-                  onChange={onChange}
-                  // error={errors.cvv}
-                />
+                  {...register("expiryYear")}
+                />{" "}
+                {errors.expiryYear && <ErrorMessage>{errors.expiryYear?.message}</ErrorMessage>}
               </div>
-
-              {/* Validade */}
             </W50Inputs>
-
             <div>
               <Input
                 text="CVV"
-                name="cvv"
                 type="text"
                 placeholder="Digite o CVV"
                 maxLength={3}
-                value={cvv}
-                onChange={onChange}
-                // error={errors.cvv}
-              />
+                {...register("cvv")}
+              />{" "}
+              {errors.cvv && <ErrorMessage>{errors.cvv?.message}</ErrorMessage>}
             </div>
-
-            <Select
-              text="Parcela"
-              name="installment"
-              value={installment}
-              onChange={onChange}
-              // error={errors.installment}
-            >
+            <Select text="Parcela" name="installment" value={installment} onChange={onChange}>
               <option value="1">
                 1x de{" "}
-                {(valueTeste / 1)?.toLocaleString("pt-BR", {
+                {(handlePrice() / 1)?.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -360,7 +419,7 @@ const PaymentMethodCard = () => {
 
               <option value="2">
                 2x de{" "}
-                {(valueTeste / 2)?.toLocaleString("pt-BR", {
+                {(handlePrice() / 2)?.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -368,7 +427,7 @@ const PaymentMethodCard = () => {
 
               <option value="3">
                 3x de{" "}
-                {(valueTeste / 3)?.toLocaleString("pt-BR", {
+                {(handlePrice() / 3)?.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -376,7 +435,7 @@ const PaymentMethodCard = () => {
 
               <option value="4">
                 4x de{" "}
-                {(valueTeste / 4)?.toLocaleString("pt-BR", {
+                {(handlePrice() / 4)?.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -384,7 +443,7 @@ const PaymentMethodCard = () => {
 
               <option value="5">
                 5x de{" "}
-                {(valueTeste / 5)?.toLocaleString("pt-BR", {
+                {(handlePrice() / 5)?.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -392,7 +451,7 @@ const PaymentMethodCard = () => {
 
               <option value="6">
                 6x de{" "}
-                {(valueTeste / 6)?.toLocaleString("pt-BR", {
+                {(handlePrice() / 6)?.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -400,7 +459,7 @@ const PaymentMethodCard = () => {
 
               <option value="7">
                 7x de{" "}
-                {(valueTeste / 7)?.toLocaleString("pt-BR", {
+                {(handlePrice() / 7)?.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -408,7 +467,7 @@ const PaymentMethodCard = () => {
 
               <option value="8">
                 8x de{" "}
-                {(valueTeste / 8)?.toLocaleString("pt-BR", {
+                {(handlePrice() / 8)?.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -416,7 +475,7 @@ const PaymentMethodCard = () => {
 
               <option value="9">
                 9x de{" "}
-                {(valueTeste / 9)?.toLocaleString("pt-BR", {
+                {(handlePrice() / 9)?.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -424,7 +483,7 @@ const PaymentMethodCard = () => {
 
               <option value="10">
                 10x de{" "}
-                {(valueTeste / 10)?.toLocaleString("pt-BR", {
+                {(handlePrice() / 10)?.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -432,7 +491,7 @@ const PaymentMethodCard = () => {
 
               <option value="11">
                 11x de{" "}
-                {(valueTeste / 11)?.toLocaleString("pt-BR", {
+                {(handlePrice() / 11)?.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -440,7 +499,7 @@ const PaymentMethodCard = () => {
 
               <option value="12">
                 12x de{" "}
-                {(valueTeste / 12)?.toLocaleString("pt-BR", {
+                {(handlePrice() / 12)?.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
@@ -458,24 +517,34 @@ const PaymentMethodCard = () => {
               <option value="11">11x de R$ 33,33</option>
               <option value="12">12x de R$ 33,33</option> */}
             </Select>
-
             <ButtonSaveContainer>
-              <ButtonSave
-                type="button"
-                onClick={() => {
-                  handleCreditCard();
-                }}
-              >
-                Salvar
-              </ButtonSave>
+              {loading ? (
+                <ButtonSave disabled={true}>
+                  <img src={loadingImage} height="40px" width="60px" /> Processando...
+                </ButtonSave>
+              ) : (
+                <ButtonSave type="submit">Salvar</ButtonSave>
+              )}
             </ButtonSaveContainer>
           </Form>
+          <ImportantInfos>
+            <span style={{ fontWeight: "bold" }}>Informações importantes: </span>
+            <br />
+            <span>
+              {" "}
+              - Assim que o pagamento for confirmado, você terá acesso à plataforma de curso;
+            </span>
+            <br />
+            <span>
+              {" "}
+              - Verifique a caixa de entrada do seu e-mail para visualizar mais informações.
+            </span>
+            <br />
+          </ImportantInfos>
         </InfosContainer>
-
-        <ImageContainer>
-          <img src={WithShoppingBagMan} alt="Homem com sacola de compras" />
-        </ImageContainer>
       </Content>
+      {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
+      {success && <Toast message={message} close={() => setSuccess(false)} variant="success" />}
     </Container>
   );
 };
