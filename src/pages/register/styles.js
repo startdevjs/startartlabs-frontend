@@ -9,7 +9,7 @@ export const Main = styled.div`
 `;
 
 export const Body = styled.div`
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
   width: 900px;
   border-radius: 3px;
   border: 1px solid #03357b;

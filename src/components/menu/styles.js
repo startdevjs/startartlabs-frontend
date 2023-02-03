@@ -9,7 +9,7 @@ import { AiFillFacebook } from "react-icons/ai";
 import { BiMenu } from "react-icons/bi";
 
 export const Header = styled.div`
-  background-color: #131129;
+  background: ${({ theme: { colors } }) => colors.primaryColorDark};
   position: fixed;
   top: 0;
   left: 10px;
@@ -29,7 +29,7 @@ export const Header = styled.div`
 `;
 
 export const Logo = styled.img`
-  width: 20px;
+  width: ${({ theme: { payment } }) => (payment ? "30px" : "20px")};
 `;
 
 export const Menu = styled.div`
@@ -38,7 +38,7 @@ export const Menu = styled.div`
   top: 70px;
   bottom: 0;
   width: 80px;
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,13 +51,14 @@ export const Menu = styled.div`
 `;
 
 export const Option = styled.div`
-  color: ${({ active }) => (active === "true" ? "#2a7ae9" : "#7e7e7e")};
+  color: ${({ active }) =>
+    active === "true" ? ({ theme: { colors } }) => colors.secondaryColor : "#7e7e7e"};
 
   padding-top: 40px;
   cursor: pointer;
 
   &:hover {
-    color: #2a7ae9;
+    color: ${({ theme: { colors } }) => colors.secondaryColor};
   }
 `;
 
@@ -134,7 +135,7 @@ export const NotificationContent = styled.div`
     align-items: center;
     justify-content: center;
 
-    background-color: #2a7ae9;
+    background-color: ${({ theme: { colors } }) => colors.secondaryColor};
     border-radius: 50%;
   }
 `;
@@ -158,8 +159,8 @@ export const ModalNotification = styled.div`
   border-radius: 10px;
   /* padding: 10px 5px; */
 
-  background-color: #1d1933;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
+  box-shadow: 0 0 10px ${({ theme: { colors } }) => colors.primaryColorDark};
 
   display: flex;
   flex-direction: column;
@@ -169,7 +170,7 @@ export const ModalNotification = styled.div`
 export const TitleModalNotification = styled.div`
   /* padding: 1rem; */
 
-  border-bottom: 8px solid #131129;
+  border-bottom: 8px solid ${({ theme: { colors } }) => colors.primaryColorDark};
 
   > h2 {
     font-size: 18px;
@@ -189,7 +190,7 @@ export const Notification = styled.div`
 
   /* background-color: #131129; */
   /* border-radius: 10px; */
-  border-bottom: 2px solid #131129;
+  border-bottom: 2px solid ${({ theme: { colors } }) => colors.primaryColorDark};
 
   display: flex;
   align-items: center;
@@ -197,7 +198,7 @@ export const Notification = styled.div`
 
   svg {
     font-size: 20px;
-    /* color: #f73164; */
+    /* color: ${({ theme: { colors } }) => colors.tertiaryColor}; */
   }
 `;
 

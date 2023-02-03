@@ -77,7 +77,7 @@ export const ProjectVideoContainer = styled.div`
 export const ProjectVideo = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
   border-radius: 18px;
 
   padding: 20px 0;
@@ -126,7 +126,7 @@ export const ProjectSideBarList = styled.div`
   height: fit-content;
   /* padding: 20px; */
 
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
 
   border-radius: 15px;
 
@@ -161,7 +161,7 @@ export const ProjectSideBarHeader = styled.div`
   padding: 30px;
   padding-bottom: 10px;
 
-  border-bottom: 3px solid #2a2648;
+  border-bottom: 3px solid ${({ theme: { colors } }) => colors.primaryColorLight};
 `;
 
 export const ProjectSideBarHeaderTitle = styled.h2`
@@ -169,10 +169,11 @@ export const ProjectSideBarHeaderTitle = styled.h2`
   font-weight: 500 !important;
 
   a {
-    color: ${(props) => (props.active ? "#2a7ae9" : "#fff")} !important;
+    color: ${(props) =>
+      props.active ? "${({ theme: { colors } }) => colors.secondaryColor}" : "#fff"} !important;
 
     &:hover {
-      color: #2a7ae9 !important;
+      color: ${({ theme: { colors } }) => colors.secondaryColor} !important;
     }
   }
 `;
@@ -186,13 +187,13 @@ export const ProjectSideBarListItem = styled.div`
   width: 100%;
   border-radius: 15px;
 
-  background-color: #2a2648;
+  background-color: ${({ theme: { colors } }) => colors.primaryColorLight};
   padding: 20px;
 
   cursor: pointer;
 
   &:hover {
-    color: #2a7ae9 !important;
+    color: ${({ theme: { colors } }) => colors.secondaryColor} !important;
   }
 `;
 
@@ -219,7 +220,7 @@ export const ProjectSideBarListItemTitle = styled.h3`
   transition: color 0.2s;
 
   &:hover {
-    color: #2a7ae9 !important;
+    color: ${({ theme: { colors } }) => colors.secondaryColor} !important;
   }
 `;
 
@@ -274,11 +275,11 @@ export const ButtonSendProject = styled.button`
 
   font-size: 16px;
   font-weight: bold;
-  color: #1d1933;
+  color: ${({ theme: { colors } }) => colors.primaryColor};
 
   cursor: pointer;
 
-  background-color: #2a7ae9;
+  background-color: ${({ theme: { colors } }) => colors.secondaryColor};
   transition: background-color 0.2s;
 
   color: #fff;
@@ -351,7 +352,7 @@ export const ButtonEmpty = styled.button`
 
   cursor: pointer;
 
-  background-color: #2a7ae9;
+  background-color: ${({ theme: { colors } }) => colors.secondaryColor};
   color: #fff;
 
   a {

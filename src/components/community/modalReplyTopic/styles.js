@@ -9,7 +9,7 @@ export const Modal = styled(ReactModal)`
   justify-content: center;
   flex-direction: column;
   padding-bottom: 2rem;
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
   border: 0;
   border-radius: 15px;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
@@ -125,7 +125,7 @@ export const Button = styled.button`
   max-width: 20%;
   margin: 0 1em 0 3em;
   transition: filter 0.2s;
-  background-color: #f73164;
+  background-color: ${({ theme: { colors } }) => colors.tertiaryColor};
   color: #fff;
   &:focus {
     outline: none;
@@ -235,7 +235,7 @@ export const ButtonGoBack = styled.button`
 
   background-color: #d4d4d4;
   transition: background-color 0.2s;
-  color: #1d1933;
+  color: ${({ theme: { colors } }) => colors.primaryColor};
 
   font-size: 12px;
   font-weight: 500;
@@ -244,7 +244,7 @@ export const ButtonGoBack = styled.button`
 
   &:hover {
     filter: brightness(0.8);
-    color: #1d1933;
+    color: ${({ theme: { colors } }) => colors.primaryColor};
   }
 `;
 

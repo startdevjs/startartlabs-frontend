@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import Loading from "../../components/loading";
 import Pagination from "../../components/pagination";
 import ProjectCard from "../../components/projectCard";
+import useWhiteLabel from "../../hooks/useWhiteLabel";
 import { getAllProjects } from "./functions/getAllProjects";
+import { getCourses } from "./functions/getCourses";
 import { Container, ProjectContainer, ProjectContent, ProjectTitle } from "./styles";
 
 const Projects = () => {
@@ -10,11 +12,17 @@ const Projects = () => {
   const [loading, setLoading] = useState(false);
   const [projects, setProjects] = useState([]);
 
+  const whiteLabel = useWhiteLabel();
+
   useEffect(() => {
     const skip = (page - 1) * 20;
     const take = 20;
 
-    getAllProjects(setLoading, setProjects, skip, take);
+    if (whiteLabel?.payment) {
+      getCourses(setLoading, setProjects);
+    } else {
+      getAllProjects(setLoading, setProjects, skip, take);
+    }
   }, [page]);
 
   return (
@@ -24,7 +32,7 @@ const Projects = () => {
         {!loading && (
           <>
             <ProjectContainer>
-              <ProjectTitle>Projetos</ProjectTitle>
+              <ProjectTitle>{whiteLabel?.payment ? "Cursos" : "Projetos"}</ProjectTitle>
 
               <ProjectContent>
                 {projects?.projects?.map((project) => (
@@ -33,6 +41,7 @@ const Projects = () => {
                     id={project?.id}
                     name={project?.name}
                     description={project?.description}
+                    price={project?.price}
                     image={
                       project?.image !== null &&
                       project?.image !== undefined &&

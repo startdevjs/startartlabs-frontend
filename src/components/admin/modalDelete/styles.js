@@ -5,7 +5,7 @@ export const Modal = styled(ReactModal)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
 
   border: 0;
   border-radius: 15px;
@@ -93,17 +93,17 @@ export const ButtonCancel = styled(Button)`
 
   &:hover {
     filter: brightness(0.8);
-    color: #1d1933;
+    color: ${({ theme: { colors } }) => colors.primaryColor};
   }
 `;
 
 export const ButtonDelete = styled(Button)`
   background-color: #ff4d4d;
-  color: #1d1933;
+  color: ${({ theme: { colors } }) => colors.primaryColor};
 
   &:hover {
     filter: brightness(0.8);
-    color: #1d1933;
+    color: ${({ theme: { colors } }) => colors.primaryColor};
   }
 `;
 

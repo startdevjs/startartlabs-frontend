@@ -37,6 +37,8 @@ import FirstStep from "../pages/checkout/firstStep";
 import SecondStep from "../pages/checkout/secondStep";
 import PaymentMethod from "../pages/paymentMethod";
 import PaymentConfirmed from "../pages/paymentConfirmed";
+import PrivateCourses from "./privateCourses";
+
 
 const RoutesComponent = () => {
   return (
@@ -49,6 +51,9 @@ const RoutesComponent = () => {
       <Route path="/" element={<Private Component={Home} />} />
       <Route path="/projects" element={<Private Component={Projects} />} />
       <Route path="/project/:projectId" element={<Private Component={Project} />} />
+
+      <Route path="/course/:projectId" element={<PrivateCourses Component={Project} />} />
+
       <Route path="/community" element={<Private Component={CommunityHome} />} />
       <Route path="/community/:id" element={<Private Component={Community} />} />
       <Route path="/community/project/:id" element={<Private Component={CommunityByProject} />} />

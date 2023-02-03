@@ -9,6 +9,7 @@ import { onDelete } from "./functions/onDelete";
 import { getAllProjects } from "./functions/getAllProjects";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import { ButtonCreateProjectContainer, ButtonCreateProject } from "./styles";
+import useWhiteLabel from "../../../hooks/useWhiteLabel";
 
 const AdminProject = () => {
   const [page, setPage] = useState(1);
@@ -22,6 +23,7 @@ const AdminProject = () => {
   const [projects, setProjects] = useState([]);
 
   const { width } = useWindowDimensions();
+  const whiteLabel = useWhiteLabel();
 
   useEffect(() => {
     const skip = (page - 1) * 20;
@@ -57,7 +59,7 @@ const AdminProject = () => {
           <ButtonCreateProjectContainer>
             <ButtonCreateProject>
               <Link to="/admin/project/create">
-                <a>Criar projeto</a>
+                <a>Criar {whiteLabel?.payment ? "curso" : "projeto"}</a>
               </Link>
             </ButtonCreateProject>
           </ButtonCreateProjectContainer>

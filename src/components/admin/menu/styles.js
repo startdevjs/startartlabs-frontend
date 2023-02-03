@@ -12,7 +12,7 @@ export const Menu = styled.div`
   bottom: 0;
   width: 150px;
   height: 100vh;
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +23,8 @@ export const Option = styled.div`
   padding-top: 40px;
   cursor: pointer;
 
-  color: ${({ active }) => (active === "true" ? "#2a7ae9" : "#7e7e7e")};
+  color: ${({ active }) =>
+    active === "true" ? "${({ theme: { colors } }) => colors.secondaryColor}" : "#7e7e7e"};
 
   div {
     display: flex;
@@ -32,7 +33,7 @@ export const Option = styled.div`
   }
 
   &:hover {
-    color: #2a7ae9;
+    color: ${({ theme: { colors } }) => colors.secondaryColor};
   }
 `;
 

@@ -7,7 +7,7 @@ export const Modal = styled(ReactModal)`
   justify-content: center;
   flex-direction: column;
   padding-bottom: 2rem;
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
   border: 0;
   border-radius: 15px;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
@@ -139,7 +139,7 @@ export const Button = styled.button`
   max-width: 20%;
   margin: 0 1em 0 3em;
   transition: filter 0.2s;
-  background-color: #f73164;
+  background-color: ${({ theme: { colors } }) => colors.tertiaryColor};
   color: #fff;
   &:focus {
     outline: none;
