@@ -15,7 +15,7 @@ export const Main = styled.div`
   }
 `;
 export const Body = styled.div`
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
   min-width: 500px;
   width: 35%;
   min-height: 100%;
@@ -51,7 +51,7 @@ export const AvatarArea = styled.div`
 
 export const Container = styled.div`
   width: 30%;
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
   border-radius: 10px;
   padding: 2em;
   display: flex;
@@ -122,7 +122,7 @@ export const Description = styled.p`
   }
 `;
 export const MessageBody = styled.div`
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
   min-width: 400px;
   width: 35%;
   border-radius: 16px;

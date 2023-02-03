@@ -1,6 +1,8 @@
 import api from "../../../../services/api";
 import { getAllProjects } from "./getAllProjects";
 
+const whiteLabel = JSON.parse(localStorage.getItem("whiteLabel"));
+
 export const onDelete = async (
   id,
   setLoading,
@@ -23,10 +25,10 @@ export const onDelete = async (
 
     setLoading(false);
     setSuccess(true);
-    setMessage("Projeto deletado com sucesso");
+    setMessage(whiteLabel?.payment ? "Curso" : "Projeto" + " deletado com sucesso");
   } catch (error) {
     setLoading(false);
     setError(true);
-    setMessage("Erro ao deletar o projeto");
+    setMessage("Erro ao deletar o " + whiteLabel?.payment ? "curso" : "projeto");
   }
 };

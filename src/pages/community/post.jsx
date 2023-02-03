@@ -144,7 +144,11 @@ const CommunityPost = () => {
                   <AuthorUsername>@{topic?.user?.username}</AuthorUsername>
 
                   <AuthorShield
-                    bgColor={topic?.user?.id === topic?.user?.id ? "#2a7ae9" : "#7750f8"}
+                    bgColor={
+                      topic?.user?.id === topic?.user?.id
+                        ? "${({ theme: { colors } }) => colors.secondaryColor}"
+                        : "#7750f8"
+                    }
                   >
                     {topic?.user?.id === topic?.user?.id ? "Criador" : "Participante"}
                   </AuthorShield>
@@ -211,7 +215,11 @@ const CommunityPost = () => {
                     <AuthorUsername>@{item?.user?.username}</AuthorUsername>
 
                     <AuthorShield
-                      bgColor={item?.user?.id === topic?.user?.id ? "#2a7ae9" : "#7750f8"}
+                      bgColor={
+                        item?.user?.id === topic?.user?.id
+                          ? "${({ theme: { colors } }) => colors.secondaryColor}"
+                          : "#7750f8"
+                      }
                     >
                       {item?.user?.id === topic?.user?.id ? "Criador" : "Participante"}
                     </AuthorShield>
@@ -257,7 +265,7 @@ const CommunityPost = () => {
         <defs>
           <clipPath id="svgPath">
             <path
-              fill="#2a7ae9"
+              fill="${({ theme: { colors } }) => colors.secondaryColor}"
               stroke="#000000"
               stroke-width="1.5794"
               stroke-miterlimit="10"

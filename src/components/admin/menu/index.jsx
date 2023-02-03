@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import useWhiteLabel from "../../../hooks/useWhiteLabel";
 import {
   Menu,
   Option,
@@ -12,6 +13,7 @@ import {
 
 const AdminMenuComponent = ({ children }) => {
   const location = useLocation();
+  const whiteLabel = useWhiteLabel();
 
   return (
     <>
@@ -25,9 +27,15 @@ const AdminMenuComponent = ({ children }) => {
         </Link>
         <Link to="/admin/project">
           <Option active={location.pathname === "/admin/project" ? "true" : "false"}>
-            <div className="tooltip tooltip--right" data-tooltip="Admin Projetos">
-              <IconProjects /> Projetos
-            </div>
+            {whiteLabel?.payment ? (
+              <div className="tooltip tooltip--right" data-tooltip="Admin Cursos">
+                <IconProjects /> Cursos
+              </div>
+            ) : (
+              <div className="tooltip tooltip--right" data-tooltip="Admin Projetos">
+                <IconProjects /> Projetos
+              </div>
+            )}
           </Option>
         </Link>
         <Link to="/admin/exercise">

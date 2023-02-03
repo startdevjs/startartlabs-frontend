@@ -58,7 +58,7 @@ const Pagination = ({
         <button
           type="button"
           style={{
-            background: "#f73164",
+            background: "${({ theme: { colors } }) => colors.tertiaryColor}",
             color: "white",
             borderRadius: "0.6rem",
           }}

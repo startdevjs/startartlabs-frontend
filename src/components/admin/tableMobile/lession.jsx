@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import useWhiteLabel from "../../../hooks/useWhiteLabel";
 import api from "../../../services/api";
 import Pagination from "../../pagination";
 import Toggle from "../../toggle";
@@ -23,6 +24,8 @@ const TableMobileLessionComponent = ({
   registersPerPage,
   totalCountOfRegisters,
 }) => {
+  const whiteLabel = useWhiteLabel();
+
   return (
     <>
       <Container>
@@ -42,7 +45,8 @@ const TableMobileLessionComponent = ({
               </TitleCardHeader>
 
               <TitleCardHeader>
-                Projeto: <CardBodyText>{lession?.projectId}</CardBodyText>
+                {whiteLabel?.payment ? "Cursos" : "Projetos"}:{" "}
+                <CardBodyText>{lession?.projectId}</CardBodyText>
               </TitleCardHeader>
             </CardHeader>
 

@@ -18,7 +18,7 @@ export const Button = styled.button`
 
   font-size: 16px;
   font-weight: bold;
-  color: #1d1933;
+  color: ${({ theme: { colors } }) => colors.primaryColor};
 
   cursor: pointer;
 `;
@@ -29,7 +29,7 @@ export const ButtonGoBack = styled(Button)`
 
   &:hover {
     filter: brightness(0.8);
-    color: #1d1933;
+    color: ${({ theme: { colors } }) => colors.primaryColor};
   }
 `;
 
@@ -62,7 +62,7 @@ export const ButtonCreateWarningContainer = styled.div`
 `;
 
 export const ButtonCreateWarning = styled(Button)`
-  background-color: #f73164;
+  background-color: ${({ theme: { colors } }) => colors.tertiaryColor};
   transition: background-color 0.2s;
 
   a {

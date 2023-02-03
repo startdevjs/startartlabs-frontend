@@ -1,5 +1,7 @@
 import api from "../../../../services/api";
 
+const whiteLabel = JSON.parse(localStorage.getItem("whiteLabel"));
+
 export const onCreate = async (
   data,
   setLoading,
@@ -38,10 +40,10 @@ export const onCreate = async (
 
     setLoading(false);
     setSuccess(true);
-    setMessage("Projeto criado com sucesso");
+    setMessage(whiteLabel?.payment ? "Curso" : "Projeto" + " criado com sucesso");
   } catch (error) {
     setLoading(false);
     setError(true);
-    setMessage("Erro ao criar o projeto");
+    setMessage("Erro ao criar o " + whiteLabel?.payment ? "curso" : "projeto");
   }
 };
