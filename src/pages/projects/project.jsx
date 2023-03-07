@@ -69,7 +69,7 @@ const Project = () => {
     getAllLessions(setLoading, setLessions, projectId, skip, take);
   }, [pageLession]);
 
-  useEffect(() => {
+  useMemo(async () => {
     if (!activeLessionId) {
     } else {
       getLessionById(activeLessionId, setLoadingLessionActive, setActiveLession);
@@ -128,6 +128,17 @@ const Project = () => {
     );
   }
 
+// recuperar apenas pc7AFKBvMsk do link https://www.youtube.com/watch?v=pc7AFKBvMsk
+  const getVideoId = (url) => {
+    const videoId = url.split("v=")[1];
+    const ampersandPosition = videoId.indexOf("&");
+    if (ampersandPosition !== -1) {
+      return videoId.substring(0, ampersandPosition);
+    }
+    return videoId;      
+  };
+
+
   return (
     <>
       {loadingLession ? <Loading /> : <></>}
@@ -140,6 +151,30 @@ const Project = () => {
             {!loadingLessionActive ? (
               <ProjectVideoContainer>
                 <ProjectTitle>{activeLession?.name}</ProjectTitle>
+
+                {activeLession?.videoYT !== null &&
+                activeLession?.videoYT !== undefined &&
+                activeLession?.videoYT !== "" ? (
+                  <ProjectVideo>
+                    {/* <ProjectVideoPlayer
+                      src={`https://www.youtube.com/embed/${activeLession?.videoYT}`}
+                      controls
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    /> */}
+                    
+                    <iframe
+                      width="100%"
+                      
+                      src={`https://www.youtube.com/embed/${getVideoId(activeLession?.videoYT)}`} 
+                      title="YouTube video player" 
+                      frameborder="0" 
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                      allowFullScreen
+                    />
+                  </ProjectVideo>
+                ) : (
+                  <></>
+                )}
 
                 {activeLession?.video !== null &&
                 activeLession?.video !== undefined &&

@@ -17,6 +17,7 @@ const CreateLession = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [video, setVideo] = useState("");
+  const [videoYT, setVideoYT] = useState("");
   const [type, setType] = useState("");
   const [projectId, setProjectId] = useState("");
   const [errors, setErrors] = useState({});
@@ -47,6 +48,9 @@ const CreateLession = () => {
       case "projectId":
         setProjectId(value);
         break;
+      case "videoYT":
+        setVideoYT(value);
+        break;
       default:
         break;
     }
@@ -66,6 +70,7 @@ const CreateLession = () => {
       video,
       type,
       projectId,
+      videoYT
     };
 
     onCreate(
@@ -152,6 +157,16 @@ const CreateLession = () => {
         {progressVideo > 0 && (
           <progress class="progress progress--success" value={progressVideo} max="100"></progress>
         )}
+
+        <Input
+          text="Vídeo do Youtube"
+          name="videoYT"
+          type="text"
+          placeholder="Digite o link do vídeo do Youtube"
+          value={videoYT}
+          onChange={onChange}
+          error={errors.videoYT}
+        />
 
         <ContainerButtons>
           <ButtonGoBack type="button" onClick={() => navigate("/admin/lession")}>

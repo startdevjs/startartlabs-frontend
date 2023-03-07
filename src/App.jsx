@@ -11,8 +11,16 @@ import { GlobalStyle } from "./styles/global";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
-
   const domain = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
+  
+  useMemo(() => {
+    var query = window.location.search;
+    var path = window.location.pathname;
+    var url = path + query;
+    window.localStorage.setItem("previousRoute", url);
+  }, [])
+
+
   useMemo(async () => {
     try {
       const res = await apiWhiteLabel.post("/whiteLabel/domain", {
