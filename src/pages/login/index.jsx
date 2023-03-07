@@ -98,7 +98,7 @@ const Login = () => {
               {errors.password && <ErrorMessage>{errors.password?.message}</ErrorMessage>}
               <Password onClick={() => navigate("/forgotPassword")}>Esqueceu a senha?</Password>
               <Button label="Entrar" variant="info" type="submit" />
-              {/* <Account onClick={() => navigate("/register")}>Criar uma conta</Account> */}
+              <Account onClick={() => navigate("/register")}>Criar uma conta</Account>
             </form>
           )}
         </Body>
