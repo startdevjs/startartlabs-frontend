@@ -12,8 +12,6 @@ export const onCreate = async (
 ) => {
   setLoading(true);
 
-  console.log(data);
-
   try {
     const res = await api.post(`/lession`, {
       name: data.name,
