@@ -87,6 +87,18 @@ export const ProjectVideo = styled.div`
   align-items: center;
   justify-content: center;
 
+  iframe {
+    width: 95%;
+    height: 500px;
+  }
+
+  @media (max-width: 500px) {
+    iframe {
+      width: 90%;
+      height: 300px;
+    }
+  }
+
   @media (min-width: 1150px) {
     min-height: 500px;
   }

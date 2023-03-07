@@ -17,9 +17,9 @@ export const onUpdate = async (
     await api.put(`/lession/${id}`, {
       name: data.name,
       description: data.description,
-
       type: Number(data.type),
       projectId: Number(data.projectId),
+      videoYT: data.videoYT,
     });
 
     if (data?.image !== String(data?.image)) {
