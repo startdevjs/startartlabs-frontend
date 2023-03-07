@@ -13,27 +13,28 @@ import { Input, Loading, Button, ErrorMessage, Toast } from "../../components";
 import ModalViewRequests from "../../components/profile/modalViewRequests";
 import { getFriendshipRequests } from "./functions/getFriendshipRequests";
 import { getAllMySentRequests } from "./functions/getAllMySentRequests";
-import { 
-    Body, 
-    Logo, 
-    Main, 
-    AlterPassword, 
-    AlterPasswordModal, 
-    ModalHeader, 
-    ModalBody, 
-    ModalFooter, 
-    ModalContent,
-    AvatarArea,
-    Container,
-    SearchInput,
-    LabelSearch,
-    SearchIcon,
-    MyInvitations,
-    MyFriends,
-    CardsContainer,
-    Description,
-    MessageBody
+import {
+  Body,
+  Logo,
+  Main,
+  AlterPassword,
+  AlterPasswordModal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalContent,
+  AvatarArea,
+  Container,
+  SearchInput,
+  LabelSearch,
+  SearchIcon,
+  MyInvitations,
+  MyFriends,
+  CardsContainer,
+  Description,
+  MessageBody,
 } from "./styles";
+import useWhiteLabel from "../../hooks/useWhiteLabel";
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
@@ -59,6 +60,7 @@ const Profile = () => {
   const session = JSON.parse(localStorage.getItem("startdev-labs"));
   const userId = session?.id;
   const uploadInputRef = useRef(null);
+  const whiteLabel = useWhiteLabel();
 
   useEffect(() => {
     setName(session?.name);
@@ -208,13 +210,12 @@ const Profile = () => {
             <form onSubmit={handleSubmitUpdate}>
               <Logo>Configurações do meu perfil</Logo>
               <AvatarArea className="tile m-0 level">
-              <div className="tile__icon">
-                {
-                  avatar ? (
-                    <img 
-                    className="avatar avatar--lg" 
-                    src={avatar}
-                    style={{backgroundColor: "transparent"}}
+                <div className="tile__icon">
+                  {avatar ? (
+                    <img
+                      className="avatar avatar--lg"
+                      src={avatar}
+                      style={{ backgroundColor: "transparent" }}
                     />
                   ) : (
                     <img
@@ -276,7 +277,11 @@ const Profile = () => {
             <ModalContent
               className="modal-content"
               role="document"
-              style={{ width: "500px", backgroundColor: "#1d1933", border: "1px solid #03357b" }}
+              style={{
+                width: "500px",
+                backgroundColor: whiteLabel?.primaryColor,
+                border: "1px solid #03357b",
+              }}
             >
               <ModalHeader className="modal-header">
                 <a href="#components" className="u-pull-right" aria-label="Close">
@@ -345,12 +350,15 @@ const Profile = () => {
         </Body>
 
         <MessageBody>
-        <Logo>Meus amigos</Logo>
-        <Description>
-            <p>Em breve... Você poderá se conectar com outros programadores, para ampliar sua rede de contatos!</p>
-        </Description>
+          <Logo>Meus amigos</Logo>
+          <Description>
+            <p>
+              Em breve... Você poderá se conectar com outros programadores, para ampliar sua rede de
+              contatos!
+            </p>
+          </Description>
         </MessageBody>
-      {/* <Body> 
+        {/* <Body> 
         <Logo>Meus amigos</Logo>  
         <div style={{display: "flex", flexDirection: "row", gap:"2em", marginBottom: "4em", 
          justifyContent: "center"}}>
@@ -410,8 +418,8 @@ const Profile = () => {
         />}
         </CardsContainer>
       </Body> */}
-    </Main>
-    {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
+      </Main>
+      {error && <Toast message={message} close={() => setError(false)} variant="danger" />}
       {success && <Toast message={message} close={() => setSuccess(false)} variant="success" />}
     </>
   );

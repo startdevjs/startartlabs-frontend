@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { getAllLessions } from "./functions/getAllLessions";
 import { getAllProjects } from "./functions/getAllProjects";
 import { getLessionById } from "./functions/getLessionById";
@@ -35,25 +35,29 @@ import {
   TitleEmpty,
   DescriptionEmpty,
   ButtonEmpty,
+  ButtonDiv,
+  ButtonCommunity,
+  IconChat,
 } from "./styles";
+import api from "../../services/api";
+import useWhiteLabel from "../../hooks/useWhiteLabel";
 
 const Project = () => {
   const [pageLession, setPageLession] = useState(1);
   const [loadingLession, setLoadingLession] = useState(false);
   const [lessions, setLessions] = useState([]);
-
   const [loadingLessionActive, setLoadingLessionActive] = useState(false);
   const [activeLession, setActiveLession] = useState([]);
-
   const [linkProject, setLinkProject] = useState("");
   const [branchProject, setBranchProject] = useState("");
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
 
   const { projectId } = useParams();
+  const navigate = useNavigate();
+  const whiteLabel = useWhiteLabel();
 
   const query = useQuery();
   const activeLessionId = query.get("activeLessionId");
@@ -65,7 +69,7 @@ const Project = () => {
     getAllLessions(setLoading, setLessions, projectId, skip, take);
   }, [pageLession]);
 
-  useEffect(() => {
+  useMemo(async () => {
     if (!activeLessionId) {
     } else {
       getLessionById(activeLessionId, setLoadingLessionActive, setActiveLession);
@@ -87,26 +91,53 @@ const Project = () => {
     }
   };
 
+  useMemo(async () => {
+    if (whiteLabel?.payment) {
+      const registration = await api.get(`/registration/projects/${projectId}}`);
+      if (registration?.status === 400) {
+        navigate("/projects");
+      }
+    }
+  }, []);
+
   if (lessions?.lessions?.length === 0) {
     return (
       <ContainerEmpty>
         <TitleEmpty>Nenhuma aula ou desafio foi encontrada</TitleEmpty>
 
         <DescriptionEmpty>
-          <p>
-            Nenhuma aula ou desafio foi encontrada para esse projeto. Explore outros dos nossos
-            projetos.
-          </p>
+          {whiteLabel?.payment ? (
+            <p>
+              Nenhuma aula ou desafio foi encontrada para esse projeto. Explore outros dos nossos
+              cursos.
+            </p>
+          ) : (
+            <p>
+              Nenhuma aula ou desafio foi encontrada para esse projeto. Explore outros dos nossos
+              projetos.
+            </p>
+          )}
         </DescriptionEmpty>
 
         <Link to="/projects">
           <ButtonEmpty>
-            <a>Explore outros projetos</a>
+            <a>Explore outros {whiteLabel?.payment ? "Cursos" : "Projetos"}</a>
           </ButtonEmpty>
         </Link>
       </ContainerEmpty>
     );
   }
+
+// recuperar apenas pc7AFKBvMsk do link https://www.youtube.com/watch?v=pc7AFKBvMsk
+  const getVideoId = (url) => {
+    const videoId = url.split("v=")[1];
+    const ampersandPosition = videoId.indexOf("&");
+    if (ampersandPosition !== -1) {
+      return videoId.substring(0, ampersandPosition);
+    }
+    return videoId;      
+  };
+
 
   return (
     <>
@@ -120,6 +151,30 @@ const Project = () => {
             {!loadingLessionActive ? (
               <ProjectVideoContainer>
                 <ProjectTitle>{activeLession?.name}</ProjectTitle>
+
+                {activeLession?.videoYT !== null &&
+                activeLession?.videoYT !== undefined &&
+                activeLession?.videoYT !== "" ? (
+                  <ProjectVideo>
+                    {/* <ProjectVideoPlayer
+                      src={`https://www.youtube.com/embed/${activeLession?.videoYT}`}
+                      controls
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    /> */}
+                    
+                    <iframe
+                      width="100%"
+                      
+                      src={`https://www.youtube.com/embed/${getVideoId(activeLession?.videoYT)}`} 
+                      title="YouTube video player" 
+                      frameborder="0" 
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                      allowFullScreen
+                    />
+                  </ProjectVideo>
+                ) : (
+                  <></>
+                )}
 
                 {activeLession?.video !== null &&
                 activeLession?.video !== undefined &&
@@ -255,7 +310,9 @@ const Project = () => {
                     <>
                       <Link
                         style={
-                          lession?.id == activeLessionId ? { color: "#2a7ae9" } : { color: "#fff" }
+                          lession?.id == activeLessionId
+                            ? { color: "${({ theme: { colors } }) => colors.secondaryColor}" }
+                            : { color: "#fff" }
                         }
                         to={`?activeLessionId=${lession?.id}`}
                       >
@@ -271,6 +328,13 @@ const Project = () => {
                   );
                 })}
               </ProjectSideBarListContent>
+              {activeLession.id && (
+                <ButtonDiv>
+                  <ButtonCommunity onClick={() => navigate(`/community/${activeLession.id}`)}>
+                    Ver tópicos na Comunidade <IconChat />
+                  </ButtonCommunity>
+                </ButtonDiv>
+              )}
 
               <ProjectFooter>
                 {lessions?.lessions?.length >= 20 && (

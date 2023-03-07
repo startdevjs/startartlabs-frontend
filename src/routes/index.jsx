@@ -19,11 +19,26 @@ import UpdateWarning from "../pages/admin/warning/update";
 import CreateWarning from "../pages/admin/warning/create";
 import AdminWarning from "../pages/admin/warning";
 import AdminExercise from "../pages/admin/exercise";
+import AdminForum from "../pages/admin/forum";
+import CreateForum from "../pages/admin/forum/create";
+import UpdateForum from "../pages/admin/forum/update";
 import UpdateExercise from "../pages/admin/exercise/update";
 import Project from "../pages/projects/project";
 import Profile from "../pages/profile";
 import Projects from "../pages/projects";
 import Community from "../pages/community";
+import CommunityPost from "../pages/community/post";
+import CommunityHome from "../pages/community/communityHome";
+import CommunityByProject from "../pages/community/communityByProject";
+import PaymentMethodPix from "../pages/paymentMethod/pix";
+import PaymentMethodBankSlip from "../pages/paymentMethod/bankSlip";
+import PaymentMethodCard from "../pages/paymentMethod/card";
+import FirstStep from "../pages/checkout/firstStep";
+import SecondStep from "../pages/checkout/secondStep";
+import PaymentMethod from "../pages/paymentMethod";
+import PaymentConfirmed from "../pages/paymentConfirmed";
+import PrivateCourses from "./privateCourses";
+
 
 const RoutesComponent = () => {
   return (
@@ -36,7 +51,24 @@ const RoutesComponent = () => {
       <Route path="/" element={<Private Component={Home} />} />
       <Route path="/projects" element={<Private Component={Projects} />} />
       <Route path="/project/:projectId" element={<Private Component={Project} />} />
-      <Route path="/community" element={<Private Component={Community} />} />
+
+      <Route path="/course/:projectId" element={<PrivateCourses Component={Project} />} />
+
+      <Route path="/community" element={<Private Component={CommunityHome} />} />
+      <Route path="/community/:id" element={<Private Component={Community} />} />
+      <Route path="/community/project/:id" element={<Private Component={CommunityByProject} />} />
+      <Route path="/community/post/:id" element={<Private Component={CommunityPost} />} />
+      <Route path="/payment/method" element={<Private Component={PaymentMethod} />} />
+      <Route path="/payment/method/pix" element={<Private Component={PaymentMethodPix} />} />
+      <Route
+        path="/payment/method/bankSlip"
+        element={<Private Component={PaymentMethodBankSlip} />}
+      />
+      <Route path="/payment/confirmed" element={<Private Component={PaymentConfirmed} />} />
+      <Route path="/payment/method/card" element={<Private Component={PaymentMethodCard} />} />
+      <Route path="/payment/checkout/first-step" element={<Private Component={FirstStep} />} />
+      <Route path="/payment/checkout/second-step" element={<Private Component={SecondStep} />} />
+
       <Route path="/admin" element={<PrivateAdmin Component={AdminUser} />} />
       <Route path="/admin/user/update/:id" element={<PrivateAdmin Component={UpdateUser} />} />
       <Route path="/admin/project" element={<PrivateAdmin Component={AdminProject} />} />
@@ -57,6 +89,9 @@ const RoutesComponent = () => {
         path="/admin/warning/update/:id"
         element={<PrivateAdmin Component={UpdateWarning} />}
       />
+      <Route path="/admin/forum" element={<PrivateAdmin Component={AdminForum} />} />
+      <Route path="/admin/forum/create" element={<PrivateAdmin Component={CreateForum} />} />
+      <Route path="/admin/forum/update/:id" element={<PrivateAdmin Component={UpdateForum} />} />
       <Route path="/admin/exercise" element={<PrivateAdmin Component={AdminExercise} />} />
       <Route
         path="/admin/exercise/update/:id"

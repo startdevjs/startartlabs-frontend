@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import AvatarImg from "../../assets/bighead.svg";
 import LogoStartdevLabs from "../../assets/icon-startdevlabs.png";
+import LogoStartdev from "../../assets/iconStartDev.png";
 import { Link, useLocation } from "react-router-dom";
 import io from "socket.io-client";
 import api from "../../services/api";
@@ -32,6 +33,7 @@ import {
   IconTiktok,
   IconFacebook,
 } from "./styles";
+import useWhiteLabel from "../../hooks/useWhiteLabel";
 
 // const notificationMessages = [];
 
@@ -56,6 +58,7 @@ const MenuComponent = ({ children }) => {
   const [menuActive, setMenuActive] = useState(false);
 
   const { width } = useWindowDimensions();
+  const whiteLabel = useWhiteLabel();
 
   const session = JSON.parse(localStorage.getItem("startdev-labs"));
   const userId = session?.id;
@@ -118,7 +121,7 @@ const MenuComponent = ({ children }) => {
               right: "235px",
               position: "absolute",
               fontSize: "4.5rem",
-              color: "#1d1933",
+              color: "${({ theme: { colors } }) => colors.primaryColor}",
             }}
           /> */}
 
@@ -197,11 +200,22 @@ const MenuComponent = ({ children }) => {
               </Link>
 
               <Link to="/projects?video=true">
-                <Option active={location.pathname === "/projects" ? "true" : "false"}>
-                  <div className="tooltip tooltip--right" data-tooltip="Projetos">
-                    <IconProjects />
-                  </div>
-                </Option>
+                {whiteLabel?.payment ? (
+                  <Option active={location.pathname === "/projects" ? "true" : "false"}>
+                    <div className="tooltip tooltip--right" data-tooltip="Cursos">
+                      <IconProjects />
+                    </div>
+                  </Option>
+                ) : (
+                  <Option active={location.pathname === "/projects" ? "true" : "false"}>
+                    <div
+                      className="tooltip tooltip--right"
+                      data-tooltip={whiteLabel?.payment ? "Cursos" : "Projetos"}
+                    >
+                      <IconProjects />
+                    </div>
+                  </Option>
+                )}
               </Link>
 
               <Link to="/community">
@@ -247,7 +261,11 @@ const MenuComponent = ({ children }) => {
         <Menu>
           <Link to="/">
             <Option>
-              <Logo src={LogoStartdevLabs} alt="Logo StartDev Labs" />
+              {whiteLabel?.payment ? (
+                <Logo src={LogoStartdev} alt="Logo StartDev" />
+              ) : (
+                <Logo src={LogoStartdevLabs} alt="Logo StartDev Labs" />
+              )}
             </Option>
           </Link>
 
@@ -260,11 +278,22 @@ const MenuComponent = ({ children }) => {
           </Link>
 
           <Link to="/projects?video=true">
-            <Option active={location.pathname === "/projects" ? "true" : "false"}>
-              <div className="tooltip tooltip--right" data-tooltip="Projetos">
-                <IconProjects />
-              </div>
-            </Option>
+            {whiteLabel?.payment ? (
+              <Option active={location.pathname === "/projects" ? "true" : "false"}>
+                <div className="tooltip tooltip--right" data-tooltip="Cursos">
+                  <IconProjects />
+                </div>
+              </Option>
+            ) : (
+              <Option active={location.pathname === "/projects" ? "true" : "false"}>
+                <div
+                  className="tooltip tooltip--right"
+                  data-tooltip={whiteLabel?.payment ? "Cursos" : "Projetos"}
+                >
+                  <IconProjects />
+                </div>
+              </Option>
+            )}
           </Link>
 
           <Link to="/community">

@@ -17,6 +17,8 @@ import {
   ProjectContent,
 } from "./styles";
 import Pagination from "../../components/pagination";
+import useWhiteLabel from "../../hooks/useWhiteLabel";
+import { getCourses } from "./functions/getCourses";
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -24,6 +26,8 @@ const Home = () => {
   const [loadingWarning, setLoadingWarning] = useState([]);
   const [warnings, setWarnings] = useState([]);
   const [projects, setProjects] = useState([]);
+
+  const whiteLabel = useWhiteLabel();
 
   useEffect(() => {
     getAllWarnings(setLoadingWarning, setWarnings);
@@ -33,7 +37,11 @@ const Home = () => {
     const skip = (page - 1) * 20;
     const take = 20;
 
-    getAllProjects(setLoading, setProjects, skip, take);
+    if (whiteLabel?.payment) {
+      getCourses(setLoading, setProjects);
+    } else {
+      getAllProjects(setLoading, setProjects, skip, take);
+    }
   }, [page]);
 
   return (
@@ -66,7 +74,7 @@ const Home = () => {
         {!loading && (
           <>
             <ProjectContainer>
-              <ProjectTitle>Projetos</ProjectTitle>
+              <ProjectTitle>{whiteLabel?.payment ? "Cursos" : "Projetos"}</ProjectTitle>
 
               <ProjectContent>
                 {projects?.projects?.map((project) => (
@@ -75,6 +83,7 @@ const Home = () => {
                     id={project?.id}
                     name={project?.name}
                     description={project?.description}
+                    price={project?.price}
                     image={
                       project?.image !== null &&
                       project?.image !== undefined &&

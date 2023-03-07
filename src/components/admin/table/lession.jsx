@@ -14,6 +14,7 @@ import {
   ButtonEdit,
   ButtonDelete,
 } from "./styles";
+import useWhiteLabel from "../../../hooks/useWhiteLabel";
 
 const TableLessionComponent = ({
   actionDelete,
@@ -24,6 +25,8 @@ const TableLessionComponent = ({
   registersPerPage,
   totalCountOfRegisters,
 }) => {
+  const whiteLabel = useWhiteLabel();
+
   return (
     <>
       <Container>
@@ -34,7 +37,16 @@ const TableLessionComponent = ({
               <Th>Nome</Th>
               <Th>Descrição</Th>
               <Th>Tipo</Th>
-              <Th>Projeto</Th>
+              <Th
+               style={{
+                textAlign: "center",
+              }}
+              >{whiteLabel?.payment ? "Curso" : "Projeto"}</Th>
+              <Th
+               style={{
+                textAlign: "center",
+              }}
+              >Visualizações</Th>
               <Th>Ações</Th>
             </Tr>
           </Thead>
@@ -46,7 +58,16 @@ const TableLessionComponent = ({
                 <Td>{lession?.name}</Td>
                 <Td>{lession?.description?.substring(0, 50)}...</Td>
                 <Td>{lession?.type == 1 ? "Video" : "Desafio"}</Td>
-                <Td>{lession?.projectId}</Td>
+                <Td
+                  style={{
+                    textAlign: "center",
+                  }}
+                >{lession?.projectId}</Td>
+                <Td
+                 style={{
+                  textAlign: "center",
+                }}
+                >{lession?.views}</Td>
                 <Td>
                   <ContainerButtons>
                     <ButtonEdit>

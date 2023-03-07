@@ -23,10 +23,10 @@ export const onDelete = async (
 
     setLoading(false);
     setSuccess(true);
-    setMessage("Usuário deletado com sucesso");
+    setMessage("Aviso deletado com sucesso");
   } catch (error) {
     setLoading(false);
     setError(true);
-    setMessage("Erro ao deletar usuário");
+    setMessage("Erro ao deletar aviso");
   }
 };

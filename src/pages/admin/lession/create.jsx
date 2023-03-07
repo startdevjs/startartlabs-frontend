@@ -7,6 +7,7 @@ import Loading from "../../../components/loading";
 import Select from "../../../components/select";
 import Textarea from "../../../components/textarea";
 import Toast from "../../../components/toast";
+import useWhiteLabel from "../../../hooks/useWhiteLabel";
 import { getAllProjects } from "../project/functions/getAllProjects";
 import { onCreate } from "./functions/onCreate";
 import { ButtonGoBack, ButtonSubmit, ContainerButtons, RichText } from "./styles";
@@ -16,6 +17,7 @@ const CreateLession = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [video, setVideo] = useState("");
+  const [videoYT, setVideoYT] = useState("");
   const [type, setType] = useState("");
   const [projectId, setProjectId] = useState("");
   const [errors, setErrors] = useState({});
@@ -28,6 +30,7 @@ const CreateLession = () => {
   const [projects, setProjects] = useState({});
 
   const navigate = useNavigate();
+  const whiteLabel = useWhiteLabel();
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -44,6 +47,9 @@ const CreateLession = () => {
         break;
       case "projectId":
         setProjectId(value);
+        break;
+      case "videoYT":
+        setVideoYT(value);
         break;
       default:
         break;
@@ -64,6 +70,7 @@ const CreateLession = () => {
       video,
       type,
       projectId,
+      videoYT
     };
 
     onCreate(
@@ -113,10 +120,10 @@ const CreateLession = () => {
         </Select>
 
         <Autocomplete
-          text="Projeto"
+          text={whiteLabel?.payment ? "Curso" : "Projeto"}
           items={projects?.projects}
           setDataId={setProjectId}
-          placeholder="Digite o nome do projeto"
+          placeholder={`Digite o nome do ${whiteLabel?.payment ? "curso" : "projeto"}`}
         />
 
         <Input
@@ -150,6 +157,16 @@ const CreateLession = () => {
         {progressVideo > 0 && (
           <progress class="progress progress--success" value={progressVideo} max="100"></progress>
         )}
+
+        <Input
+          text="Vídeo do Youtube"
+          name="videoYT"
+          type="text"
+          placeholder="Digite o link do vídeo do Youtube"
+          value={videoYT}
+          onChange={onChange}
+          error={errors.videoYT}
+        />
 
         <ContainerButtons>
           <ButtonGoBack type="button" onClick={() => navigate("/admin/lession")}>

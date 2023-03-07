@@ -1,18 +1,21 @@
 import { Main, Body, Logo, Password, Account, LogoContainer } from "./styles";
 import LogoStartdevLabs from "../../assets/logo-startlabs.png";
+import LogoStartdev from "../../assets/logoStartDev.png";
 import { Input, Button, ErrorMessage, Toast, Loading } from "../../components";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../services/api";
+import useWhiteLabel from "../../hooks/useWhiteLabel";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRoutes } from "react-router-dom";
 
 const Login = () => {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const whiteLabel = useWhiteLabel();
   const navigate = useNavigate();
 
   const schema = yup.object({
@@ -48,7 +51,13 @@ const Login = () => {
         };
         api.defaults.headers.Authorization = `Bearer ${response?.data?.token}`;
         localStorage.setItem("startdev-labs", JSON.stringify(object));
-        navigate("/");
+
+        const previousRoute = window.localStorage.getItem("previousRoute");
+        if (previousRoute !== null && previousRoute !== "/login" && previousRoute !== "/register" && previousRoute !== "/forgotPassword" && previousRoute !== "/resetPassword") {
+          navigate(previousRoute);
+        } else {
+          navigate("/");
+        }
         setLoading(false);
       } else {
         setMessage("Usuário e/ou senha inválidos");
@@ -71,7 +80,11 @@ const Login = () => {
             <form onSubmit={handleSubmit(save)}>
               {/* <Logo>Startdev LABS</Logo> */}
               <LogoContainer>
-                <Logo src={LogoStartdevLabs} alt="Logo Startdev Labs" />
+                {whiteLabel?.payment ? (
+                  <Logo src={LogoStartdev} alt="Logo Startdev" />
+                ) : (
+                  <Logo src={LogoStartdevLabs} alt="Logo Startdev Labs" />
+                )}
               </LogoContainer>
               <Input text="Email" placeholder="Digite seu email" {...register("email")} />
               {errors.email && <ErrorMessage>{errors.email?.message}</ErrorMessage>}

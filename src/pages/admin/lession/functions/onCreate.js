@@ -18,6 +18,7 @@ export const onCreate = async (
       description: data.description,
       image: null,
       video: null,
+      videoYT: data.videoYT,
       type: Number(data.type),
       projectId: Number(data.projectId),
     });

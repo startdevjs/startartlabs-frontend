@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BiCodeAlt, BiPlayCircle } from "react-icons/bi";
+import { BiCodeAlt, BiPlayCircle, BiChat } from "react-icons/bi";
 
 export const ProjectContainer = styled.div`
   width: 100%;
@@ -77,7 +77,7 @@ export const ProjectVideoContainer = styled.div`
 export const ProjectVideo = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
   border-radius: 18px;
 
   padding: 20px 0;
@@ -86,6 +86,18 @@ export const ProjectVideo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  iframe {
+    width: 95%;
+    height: 500px;
+  }
+
+  @media (max-width: 500px) {
+    iframe {
+      width: 90%;
+      height: 300px;
+    }
+  }
 
   @media (min-width: 1150px) {
     min-height: 500px;
@@ -123,10 +135,10 @@ export const ProjectDescription = styled.p`
 
 export const ProjectSideBarList = styled.div`
   width: 100%;
-  height: auto;
+  height: fit-content;
   /* padding: 20px; */
 
-  background-color: #1d1933;
+  background-color: ${({ theme: { colors } }) => colors.primaryColor};
 
   border-radius: 15px;
 
@@ -161,7 +173,7 @@ export const ProjectSideBarHeader = styled.div`
   padding: 30px;
   padding-bottom: 10px;
 
-  border-bottom: 3px solid #2a2648;
+  border-bottom: 3px solid ${({ theme: { colors } }) => colors.primaryColorLight};
 `;
 
 export const ProjectSideBarHeaderTitle = styled.h2`
@@ -169,10 +181,11 @@ export const ProjectSideBarHeaderTitle = styled.h2`
   font-weight: 500 !important;
 
   a {
-    color: ${(props) => (props.active ? "#2a7ae9" : "#fff")} !important;
+    color: ${(props) =>
+      props.active ? "${({ theme: { colors } }) => colors.secondaryColor}" : "#fff"} !important;
 
     &:hover {
-      color: #2a7ae9 !important;
+      color: ${({ theme: { colors } }) => colors.secondaryColor} !important;
     }
   }
 `;
@@ -186,13 +199,13 @@ export const ProjectSideBarListItem = styled.div`
   width: 100%;
   border-radius: 15px;
 
-  background-color: #2a2648;
+  background-color: ${({ theme: { colors } }) => colors.primaryColorLight};
   padding: 20px;
 
   cursor: pointer;
 
   &:hover {
-    color: #2a7ae9 !important;
+    color: ${({ theme: { colors } }) => colors.secondaryColor} !important;
   }
 `;
 
@@ -219,7 +232,7 @@ export const ProjectSideBarListItemTitle = styled.h3`
   transition: color 0.2s;
 
   &:hover {
-    color: #2a7ae9 !important;
+    color: ${({ theme: { colors } }) => colors.secondaryColor} !important;
   }
 `;
 
@@ -274,11 +287,11 @@ export const ButtonSendProject = styled.button`
 
   font-size: 16px;
   font-weight: bold;
-  color: #1d1933;
+  color: ${({ theme: { colors } }) => colors.primaryColor};
 
   cursor: pointer;
 
-  background-color: #2a7ae9;
+  background-color: ${({ theme: { colors } }) => colors.secondaryColor};
   transition: background-color 0.2s;
 
   color: #fff;
@@ -351,7 +364,7 @@ export const ButtonEmpty = styled.button`
 
   cursor: pointer;
 
-  background-color: #2a7ae9;
+  background-color: ${({ theme: { colors } }) => colors.secondaryColor};
   color: #fff;
 
   a {
@@ -368,4 +381,28 @@ export const ButtonEmpty = styled.button`
   @media (min-width: 1150px) {
     width: 30%;
   }
+`;
+export const ButtonDiv = styled.div`
+  width: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 2em;
+`;
+export const ButtonCommunity = styled.button`
+  max-width: 80%;
+  margin: 0 auto;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  text-align: center;
+  justify-content: center;
+  &:hover {
+    filter: brightness(0.8);
+  }
+`;
+export const IconChat = styled(BiChat)`
+  font-size: 2.5em;
 `;

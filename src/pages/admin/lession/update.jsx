@@ -7,6 +7,7 @@ import Loading from "../../../components/loading";
 import Select from "../../../components/select";
 import Textarea from "../../../components/textarea";
 import Toast from "../../../components/toast";
+import useWhiteLabel from "../../../hooks/useWhiteLabel";
 import { getAllProjects } from "../project/functions/getAllProjects";
 import { getLessionById } from "./functions/getLessionById";
 import { onUpdate } from "./functions/onUpdate";
@@ -17,6 +18,7 @@ const UpdateLession = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
+  const [videoYT, setVideoYT] = useState("");
   const [type, setType] = useState("");
   const [projectId, setProjectId] = useState("");
   const [errors, setErrors] = useState({});
@@ -31,6 +33,7 @@ const UpdateLession = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
+  const whiteLabel = useWhiteLabel();
 
   useEffect(() => {
     getLessionById(id, setLoading, setLession);
@@ -42,6 +45,7 @@ const UpdateLession = () => {
     setDescription(lession?.description);
     setImage(lession?.image);
     setVideo(lession?.video);
+    setVideoYT(lession?.videoYT);
     setType(lession?.type);
     setProjectId(lession?.projectId);
   }, [lession]);
@@ -62,6 +66,9 @@ const UpdateLession = () => {
       case "projectId":
         setProjectId(value);
         break;
+      case "videoYT":
+        setVideoYT(value);
+        break;
       default:
         break;
     }
@@ -77,6 +84,7 @@ const UpdateLession = () => {
       video,
       type,
       projectId,
+      videoYT,
     };
 
     onUpdate(
@@ -127,11 +135,11 @@ const UpdateLession = () => {
         </Select>
 
         <Autocomplete
-          text="Projeto"
+          text={whiteLabel?.payment ? "Curso" : "Projeto"}
           items={projects?.projects}
           setDataId={setProjectId}
           valueIsUpdate={projectId}
-          placeholder="Digite o nome do projeto"
+          placeholder={`Digite o nome do ${whiteLabel?.payment ? "curso" : "projeto"}`}
         />
 
         <Input
@@ -165,6 +173,16 @@ const UpdateLession = () => {
         {progressVideo > 0 && (
           <progress class="progress progress--success" value={progressVideo} max="100"></progress>
         )}
+
+        <Input
+          text="Vídeo do Youtube"
+          name="videoYT"
+          type="text"
+          placeholder="Digite o link do vídeo do Youtube"
+          value={videoYT}
+          onChange={onChange}
+          error={errors.videoYT}
+        />
 
         <ContainerButtons>
           <ButtonGoBack type="button" onClick={() => navigate("/admin/lession")}>

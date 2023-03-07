@@ -106,7 +106,7 @@ export const Button = styled.button`
 `;
 
 export const WarningButton = styled(Button)`
-  background-color: #f73164;
+  background-color: ${({ theme: { colors } }) => colors.tertiaryColor};
   transition: background-color 0.2s;
 
   a {

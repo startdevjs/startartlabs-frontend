@@ -1,5 +1,7 @@
 import api from "../../../../services/api";
 
+const whiteLabel = JSON.parse(localStorage.getItem("whiteLabel"));
+
 export const onUpdate = async (
   id,
   data,
@@ -41,10 +43,10 @@ export const onUpdate = async (
 
     setLoading(false);
     setSuccess(true);
-    setMessage("Projeto atualizado com sucesso");
+    setMessage(whiteLabel?.payment ? "Curso" : "Projeto" + " atualizado com sucesso");
   } catch (error) {
     setLoading(false);
     setError(true);
-    setMessage("Erro ao atualizar o projeto");
+    setMessage("Erro ao atualizar o " + whiteLabel?.payment ? "curso" : "projeto");
   }
 };
