@@ -211,15 +211,16 @@ const Project = () => {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     /> */}
                     
-                    <iframe
-                      width="100%"
-                      
-                      src={`https://www.youtube.com/embed/${getVideoId(activeLession?.videoYT)}`} 
-                      title="YouTube video player" 
-                      frameborder="0" 
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                      allowFullScreen
-                    />
+                    {activeLession?.videoYT  !== null && activeLession?.videoYT !== undefined ? (
+                      <iframe
+                        width="100%"
+                        src={`https://www.youtube.com/embed/${getVideoId(activeLession?.videoYT)}`} 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowFullScreen
+                      /> 
+                    ) : ""}
                   </ProjectVideo>
                 ) : (
                   <></>
