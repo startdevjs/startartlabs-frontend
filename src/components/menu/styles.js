@@ -4,7 +4,7 @@ import { BsCodeSlash, BsPerson } from "react-icons/bs";
 import { MdOutlineAdminPanelSettings, MdOutlineNotificationsNone } from "react-icons/md";
 import { RxExit } from "react-icons/rx";
 import { BsInstagram, BsYoutube } from "react-icons/bs";
-import { FaTiktok } from "react-icons/fa";
+import { FaDiscord, FaTiktok } from "react-icons/fa";
 import { AiFillFacebook } from "react-icons/ai";
 import { BiMenu } from "react-icons/bi";
 
@@ -233,3 +233,7 @@ export const IconFacebook = styled(AiFillFacebook)`
   color: #fff;
   font-size: 1.3em;
 `;
+export const IconDiscord = styled(FaDiscord)`
+  color: #fff;
+  font-size: 1.3em;
+`
