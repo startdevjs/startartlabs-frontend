@@ -32,6 +32,7 @@ import {
   IconYoutube,
   IconTiktok,
   IconFacebook,
+  IconDiscord
 } from "./styles";
 import useWhiteLabel from "../../hooks/useWhiteLabel";
 
@@ -102,6 +103,10 @@ const MenuComponent = ({ children }) => {
           <a href="https://www.facebook.com/startdevjs" target="_blank">
             <IconFacebook />
           </a>
+          <a href="https://discord.gg/ur2QS9xwkG" target="_blank">
+            <IconDiscord />
+          </a>
+          
         </SocialMediaContainer>
 
         <NotificationContainer>
