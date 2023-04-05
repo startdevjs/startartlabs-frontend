@@ -8,16 +8,36 @@ import {
   ProjectCardPrice,
   ProjectCardButton,
   ProjectCardImage,
+  ProjectCardTags,
+  Tag
 } from "./styles";
 
-const ProjectCard = ({ key, id, name, description, image, price }) => {
+const ProjectCard = ({ key, id, name, description, image, price, tags }) => {
   const whiteLabel = useWhiteLabel();
+
+  console.log(tags);
 
   return (
     <Container key={key}>
       <ProjectCardImage image={image} />
 
       <ProjectCardInfo>
+        <ProjectCardTags>
+          {
+            tags?.map((tag) => (
+              <>
+              {console.log(tag?.tag)}
+              <Tag
+                key={tag?.tag?.id}
+                class="tag tag--black"
+                color={tag?.tag?.color}
+              >{
+                tag?.tag?.name
+              }</Tag>
+              </>
+            ))
+          }</ProjectCardTags>
+
         <ProjectCardTitle>{name}</ProjectCardTitle>
 
         {/* {whiteLabel?.payment && (
@@ -32,7 +52,7 @@ const ProjectCard = ({ key, id, name, description, image, price }) => {
         )} */}
 
         <ProjectCardDescription
-          dangerouslySetInnerHTML={{ __html: description }}
+          dangerouslySetInnerHTML={{ __html: description?.slice(0, 100) }}
         ></ProjectCardDescription>
       </ProjectCardInfo>
 

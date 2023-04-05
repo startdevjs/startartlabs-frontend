@@ -38,6 +38,8 @@ import {
   ButtonDiv,
   ButtonCommunity,
   IconChat,
+  DescriptionEmptyContainer,
+  TitleEmptyContainer
 } from "./styles";
 import api from "../../services/api";
 import useWhiteLabel from "../../hooks/useWhiteLabel";
@@ -56,6 +58,7 @@ const Project = () => {
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
   const [videoUrl, setVideoUrl] = useState('');
+  const [project, setProject] = useState([]);
 
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -70,6 +73,10 @@ const Project = () => {
 
     getAllLessions(setLoading, setLessions, projectId, skip, take);
   }, [pageLession]);
+
+  useEffect(() => {
+    getProjectById(projectId, setLoading, setProject);
+  }, []);
 
   useMemo(async () => {
     if (!activeLessionId) {
@@ -254,8 +261,10 @@ const Project = () => {
               style={{width: 300, height: 300}}
           /> */}
           <Content>
-            {loadingLessionActive ? <Loading /> : <></>}
 
+            
+            {loadingLessionActive ? <Loading /> : <></>}
+          {console.log("project",project)}
             {!loadingLessionActive ? (
               <ProjectVideoContainer>
                 <ProjectTitle>{activeLession?.name}</ProjectTitle>
@@ -282,7 +291,22 @@ const Project = () => {
                     ) : ""}
                   </ProjectVideo>
                 ) : (
-                  <></>
+                  <>
+                    {/* // <ProjectVideo
+                    //   style={{
+                    //     padding: "20px",
+                    //   }}
+                    // > */}
+                      <TitleEmptyContainer>
+                        <h1>{project?.name}</h1>
+                      </TitleEmptyContainer>
+                      <DescriptionEmptyContainer>
+                        <p
+                          dangerouslySetInnerHTML={{ __html: project?.description }}
+                        ></p>
+                      </DescriptionEmptyContainer>
+                    {/* // </ProjectVideo> */}
+                  </>
                 )}
 
                 {activeLession?.video !== null &&
@@ -416,6 +440,8 @@ const Project = () => {
               </ProjectSideBarHeader>
 
               <ProjectSideBarListContent>
+
+                  {console.log("lessions",lessions)}
                 {lessions?.lessions?.map((lession) => {
                   return (
                     <>
@@ -439,13 +465,13 @@ const Project = () => {
                   );
                 })}
               </ProjectSideBarListContent>
-              {activeLession.id && (
+              {/* {activeLession.id && (
                 <ButtonDiv>
                   <ButtonCommunity onClick={() => navigate(`/community/${activeLession.id}`)}>
                     Ver tópicos na Comunidade <IconChat />
                   </ButtonCommunity>
                 </ButtonDiv>
-              )}
+              )} */}
 
               <ProjectFooter>
                 {lessions?.lessions?.length >= 20 && (

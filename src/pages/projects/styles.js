@@ -406,3 +406,31 @@ export const ButtonCommunity = styled.button`
 export const IconChat = styled(BiChat)`
   font-size: 2.5em;
 `;
+
+export const DescriptionEmptyContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin-top: 2em;
+
+  @media (max-width: 400px) {
+    text-align: justify;
+  }
+`
+
+export const TitleEmptyContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center;
+  justify-content: center; */
+  font-size: .5rem;
+
+  @media (max-width: 400px) {
+    align-items: center;
+    justify-content: center; 
+  }
+`

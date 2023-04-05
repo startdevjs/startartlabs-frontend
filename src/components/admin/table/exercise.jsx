@@ -15,6 +15,7 @@ import {
   ButtonDelete,
   ButtonCorrection,
   Corrected,
+  ButtonView
 } from "./styles";
 
 const TableExerciseComponent = ({
@@ -32,12 +33,12 @@ const TableExerciseComponent = ({
         <Table>
           <Thead>
             <Tr>
-              <Th>Id</Th>
-              <Th>Titulo da aula</Th>
-              <Th>Username</Th>
+              {/* <Th>Id</Th> */}
+              {/* <Th>Titulo da aula</Th> */}
+              <Th>Nome</Th>
               <Th>Email</Th>
-              <Th>Link</Th>
-              <Th>Branch</Th>
+              {/* <Th>Link</Th> */}
+              {/* <Th>Branch</Th> */}
               <Th
                 style={{
                   display: "flex",
@@ -54,17 +55,17 @@ const TableExerciseComponent = ({
           <Tbody>
             {exercises?.exercies?.map((exercise, i) => (
               <Tr key={i}>
-                <Td>{exercise?.id}</Td>
-                <Td>{exercise?.lession?.name}</Td>
-                <Td>{exercise?.user?.username}</Td>
+                {/* <Td>{exercise?.id}</Td>
+                <Td>{exercise?.lession?.name}</Td> */}
+                <Td>{exercise?.user?.name}</Td>
                 <Td>{exercise?.user?.email}</Td>
 
-                <Td>
+                {/* <Td>
                   <a target="_blank" href={exercise?.link}>
                     {exercise?.link}
                   </a>
                 </Td>
-                <Td>{exercise?.branch}</Td>
+                <Td>{exercise?.branch}</Td> */}
                 <Td>
                   <Corrected
                     background={
@@ -82,6 +83,12 @@ const TableExerciseComponent = ({
                 </Td>
                 <Td>
                   <ContainerButtons>
+                    <ButtonView>
+                      <Link to={`/admin/exercise/view/${exercise?.id}`}>
+                        <a>Visualizar</a>
+                      </Link>
+                    </ButtonView>
+
                     <ButtonCorrection>
                       <Link to={`/admin/exercise/update/${exercise?.id}`}>
                         <a>Corrigir</a>
