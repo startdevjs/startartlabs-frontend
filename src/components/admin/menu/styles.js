@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AiOutlineHome, AiOutlineComment } from "react-icons/ai";
+import { AiOutlineHome, AiOutlineComment, AiOutlineTags } from "react-icons/ai";
 import { BsCodeSlash, BsPerson } from "react-icons/bs";
 import { MdPlayLesson } from "react-icons/md";
 import { RiFolderWarningLine } from "react-icons/ri";
@@ -15,7 +15,8 @@ export const Menu = styled.div`
   background-color: ${({ theme: { colors } }) => colors.primaryColor};
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
+  padding-top: 20px;
   z-index: 9999;
 `;
 
@@ -59,6 +60,10 @@ export const IconMyAccount = styled(BsPerson)`
 `;
 
 export const IconWarning = styled(RiFolderWarningLine)`
+  ${ICON}
+`;
+
+export const IconTags = styled(AiOutlineTags)`
   ${ICON}
 `;
 

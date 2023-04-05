@@ -23,6 +23,16 @@ export const onUpdate = async (
       description: data.description,
     });
 
+    if (data?.tags?.length > 0) {
+      console.log("TESTE",data.tags);
+      data.tags.forEach(async (tag) => {
+        await api.put(`/projectTag/project/${id}/tag/${tag.id}`, {
+          tagId: tag.id,
+          projectId: Number(id),
+        });
+      });
+    }
+
     if (data?.image !== String(data?.image)) {
       if ((data?.image !== null) | (data?.image !== undefined)) {
         await api.post(`/project/${id}/upload`, formData, {
@@ -43,10 +53,10 @@ export const onUpdate = async (
 
     setLoading(false);
     setSuccess(true);
-    setMessage(whiteLabel?.payment ? "Curso" : "Projeto" + " atualizado com sucesso");
+    setMessage(whiteLabel?.payment ? "Curso" + " atualizado com sucesso" : "Projeto" + " atualizado com sucesso");
   } catch (error) {
     setLoading(false);
     setError(true);
     setMessage("Erro ao atualizar o " + whiteLabel?.payment ? "curso" : "projeto");
-  }
+  } 
 };

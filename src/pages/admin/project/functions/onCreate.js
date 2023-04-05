@@ -34,10 +34,19 @@ export const onCreate = async (
       },
     });
 
+    if (data?.tags) {
+      data.tags.forEach(async (tag) => {
+        await api.post(`/projectTag`, {
+          tagId: tag.id,
+          projectId: res.data.id,
+        });
+      });
+    }
+
     setTimeout(() => {
       navigate("/admin/project");
     }, 1000);
-
+    
     setLoading(false);
     setSuccess(true);
     setMessage(whiteLabel?.payment ? "Curso" : "Projeto" + " criado com sucesso");

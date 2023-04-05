@@ -38,9 +38,12 @@ import {
   ButtonDiv,
   ButtonCommunity,
   IconChat,
+  DescriptionEmptyContainer,
+  TitleEmptyContainer
 } from "./styles";
 import api from "../../services/api";
 import useWhiteLabel from "../../hooks/useWhiteLabel";
+import axios from "axios";
 
 const Project = () => {
   const [pageLession, setPageLession] = useState(1);
@@ -55,6 +58,7 @@ const Project = () => {
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
   const [videoUrl, setVideoUrl] = useState('');
+  const [project, setProject] = useState([]);
 
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -69,6 +73,10 @@ const Project = () => {
 
     getAllLessions(setLoading, setLessions, projectId, skip, take);
   }, [pageLession]);
+
+  useEffect(() => {
+    getProjectById(projectId, setLoading, setProject);
+  }, []);
 
   useMemo(async () => {
     if (!activeLessionId) {
@@ -101,53 +109,107 @@ const Project = () => {
     }
   }, []);
 
-  useMemo(async () => {
+  // useMemo(async () => {
+  //   // setTimeout(() => {
+  //   //   stream.getTracks().forEach(track => track.stop());
+  //   //   video.src = '';
+  //   //   window.URL.revokeObjectURL(url);
+  //   // }, 50000); // definindo o tempo de duração da URL temporária para 5 segundos
 
+  //   // const session = JSON.parse(localStorage.getItem("startdev-labs"));
+  //   // // const response = await fetch('http://localhost:3001/public/videos/1678386099962.mp4');
 
-    // setTimeout(() => {
-    //   stream.getTracks().forEach(track => track.stop());
-    //   video.src = '';
-    //   window.URL.revokeObjectURL(url);
-    // }, 50000); // definindo o tempo de duração da URL temporária para 5 segundos
-
-    // const session = JSON.parse(localStorage.getItem("startdev-labs"));
-    // // const response = await fetch('http://localhost:3001/public/videos/1678386099962.mp4');
-
-    // const response = await fetch(`${import.meta.env.VITE_BASE_URL_IMAGE}/public/videos/1678386099962.mp4`);
-    // const blob = await response.blob();
-    // const url = (URL || webkitURL).createObjectURL(blob);
-    // setVideoURl(url);
-    // (URL || webkitURL).revokeObjectURL(url);
+  //   // const response = await fetch(`${import.meta.env.VITE_BASE_URL_IMAGE}/public/videos/1678386099962.mp4`);
+  //   // const blob = await response.blob();
+  //   // const url = (URL || webkitURL).createObjectURL(blob);
+  //   // setVideoURl(url);
+  //   // (URL || webkitURL).revokeObjectURL(url);
 
     
 
-    // fetch(`http://localhost:3001/public/videos/1678386099962.mp4`, {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "video/mp4",
-    //       Authorization: `Bearer ${session?.token}`,
-    //     },
-    // })
-    //   .then(response => {
-    //     const myResponse = response.clone();
-    //     return myResponse.blob();
-    //   })
-    //   .then(myBlob => {
-    //     var objectURL = URL.createObjectURL(myBlob);
-    //     setVideoURl(objectURL);
-    //   });
-  }, [])
+  //   // fetch(`http://localhost:3001/public/videos/1678386099962.mp4`, {
+  //   //     method: "GET",
+  //   //     headers: {
+  //   //       "Content-Type": "video/mp4",
+  //   //       Authorization: `Bearer ${session?.token}`,
+  //   //     },
+  //   // })
+  //   //   .then(response => {
+  //   //     const myResponse = response.clone();
+  //   //     return myResponse.blob();
+  //   //   })
+  //   //   .then(myBlob => {
+  //   //     var objectURL = URL.createObjectURL(myBlob);
+  //   //     setVideoURl(objectURL);
+  //   //   });
+  // }, [])
+
+  
+  const handleDragStart = (e) => {
+    e.preventDefault();
+  }
+
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+  }
+
+  useEffect(() => {
+    const session = JSON.parse(localStorage.getItem("startdev-labs"));  
+    async function fetchVideo() {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL_IMAGE}/uploads/videos/${activeLession?.video}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${session?.token}`,
+        },
+      });
+      const blob = await response.blob();
+      const url = URL.createObjectURL(
+        new Blob([blob], { type: 'video/mp4' })
+      );
+      setVideoUrl(url);
+    }
+    if (activeLession?.video !== null && activeLession?.video !== undefined) {
+      fetchVideo();
+    }
+  }, [activeLession]);
 
   // useEffect(() => {
+  //   const session = JSON.parse(localStorage.getItem("startdev-labs"));  
   //   async function fetchVideo() {
-  //     const response = await fetch(`${import.meta.env.VITE_BASE_URL_IMAGE}/public/videos/1678386099962.mp4`);
+      
+  //     const response = await fetch(`${import.meta.env.VITE_BASE_URL_IMAGE}/uploads/videos/1678386099962.mp4`, {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: `Bearer ${session?.token}`,
+  //       },
+  //     });
   //     const blob = await response.blob();
-  //     const url = URL.createObjectURL(blob);
+  //     //ObjectURLOptions e defina oneTimeOnly como true. 
+  //     //Isso fará com que o navegador libere o recurso assim que o objeto URL for revogado.
+  //     const url = URL.createObjectURL(
+  //       new Blob([blob], { type: 'video/mp4' }),
+  //       { oneTimeOnly: true }
+  //     );
   //     setVideoUrl(url);
   //   }
   //   fetchVideo();
   // }, []);
 
+  // useEffect(() => {
+  //     const session = JSON.parse(localStorage.getItem("startdev-labs"));  
+  //     async function fetchVideo() {
+  //      const response = await fetch(
+  //           `http://localhost:3001/public/videos/1678386099962.mp4`,
+  //         );
+  //         const blob = await response.blob();
+  //         setVideoUrl(
+  //           URL.createObjectURL(
+  //             new Blob([blob], { type: 'video/mp4' },)
+  //           )
+  //         );
+  //     }
+  //     fetchVideo();
+  //   }, []);
 
   if (lessions?.lessions?.length === 0) {
     return (
@@ -177,7 +239,6 @@ const Project = () => {
     );
   }
 
-// recuperar apenas pc7AFKBvMsk do link https://www.youtube.com/watch?v=pc7AFKBvMsk
   const getVideoId = (url) => {
     const videoId = url.split("v=")[1];
     const ampersandPosition = videoId.indexOf("&");
@@ -194,9 +255,16 @@ const Project = () => {
 
       {!loadingLession ? (
         <Container>
+          {/* <img 
+              src={imgUrl}
+              alt="teste"
+              style={{width: 300, height: 300}}
+          /> */}
           <Content>
-            {loadingLessionActive ? <Loading /> : <></>}
 
+            
+            {loadingLessionActive ? <Loading /> : <></>}
+          {console.log("project",project)}
             {!loadingLessionActive ? (
               <ProjectVideoContainer>
                 <ProjectTitle>{activeLession?.name}</ProjectTitle>
@@ -223,7 +291,22 @@ const Project = () => {
                     ) : ""}
                   </ProjectVideo>
                 ) : (
-                  <></>
+                  <>
+                    {/* // <ProjectVideo
+                    //   style={{
+                    //     padding: "20px",
+                    //   }}
+                    // > */}
+                      <TitleEmptyContainer>
+                        <h1>{project?.name}</h1>
+                      </TitleEmptyContainer>
+                      <DescriptionEmptyContainer>
+                        <p
+                          dangerouslySetInnerHTML={{ __html: project?.description }}
+                        ></p>
+                      </DescriptionEmptyContainer>
+                    {/* // </ProjectVideo> */}
+                  </>
                 )}
 
                 {activeLession?.video !== null &&
@@ -231,14 +314,13 @@ const Project = () => {
                 activeLession?.video !== "" ? (
                   <ProjectVideo>
                     <ProjectVideoPlayer
-                      src={`${import.meta.env.VITE_BASE_URL_IMAGE}/public/videos/${
-                        activeLession?.video
-                      }`}
-                      
-                      // src={videoUrl}
+                      src={videoUrl}
                       controlsList="nodownload"
                       controls
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      onDragStart={handleDragStart} 
+                      onContextMenu={handleContextMenu}
+                      disablePictureInPicture={true}
                     />
                   </ProjectVideo>
                 ) : (
@@ -358,6 +440,8 @@ const Project = () => {
               </ProjectSideBarHeader>
 
               <ProjectSideBarListContent>
+
+                  {console.log("lessions",lessions)}
                 {lessions?.lessions?.map((lession) => {
                   return (
                     <>
@@ -381,13 +465,13 @@ const Project = () => {
                   );
                 })}
               </ProjectSideBarListContent>
-              {activeLession.id && (
+              {/* {activeLession.id && (
                 <ButtonDiv>
                   <ButtonCommunity onClick={() => navigate(`/community/${activeLession.id}`)}>
                     Ver tópicos na Comunidade <IconChat />
                   </ButtonCommunity>
                 </ButtonDiv>
-              )}
+              )} */}
 
               <ProjectFooter>
                 {lessions?.lessions?.length >= 20 && (

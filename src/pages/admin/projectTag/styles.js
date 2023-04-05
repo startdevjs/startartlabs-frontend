@@ -45,7 +45,7 @@ export const ButtonSubmit = styled(Button)`
   }
 `;
 
-export const ButtonCreateExerciseContainer = styled.div`
+export const ButtonCreateProjectTagContainer = styled.div`
   width: 20%;
 
   @media (max-width: 1260px) {
@@ -61,12 +61,12 @@ export const ButtonCreateExerciseContainer = styled.div`
   }
 `;
 
-export const ButtonCreateExercise = styled(Button)`
+export const ButtonCreateProjectTag = styled(Button)`
   background-color: ${({ theme: { colors } }) => colors.tertiaryColor};
   transition: background-color 0.2s;
 
   a {
-    color: #fff;  
+    color: #fff;
   }
 
   &:hover {

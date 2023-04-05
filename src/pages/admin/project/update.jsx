@@ -8,6 +8,10 @@ import Toast from "../../../components/toast";
 import { getProjectById } from "./functions/getProjectById";
 import { onUpdate } from "./functions/onUpdate";
 import { ButtonGoBack, ButtonSubmit, ContainerButtons, RichText } from "./styles";
+import api from "../../../services/api";
+import AutocompleteProjectTagsComponent from "../../../components/autocompleteProjectTags";
+import { getProjectTagById } from "./functions/getProjectTagById";
+import { getAllProjectTags } from "./functions/getAllProjectTag";
 
 const UpdateProject = () => {
   const { id } = useParams();
@@ -15,6 +19,8 @@ const UpdateProject = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState({});
+  const [tag, setTag] = useState("");
+  const [tags, setTags] = useState([]);
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -22,6 +28,7 @@ const UpdateProject = () => {
   const [message, setMessage] = useState("");
   const [progress, setProgress] = useState(0);
   const [project, setProject] = useState({});
+  const [projectTags, setProjectTags] = useState([]);
 
   const navigate = useNavigate();
 
@@ -29,10 +36,36 @@ const UpdateProject = () => {
     getProjectById(id, setLoading, setProject);
   }, []);
 
+  useEffect(() => {
+    getAllProjectTags(setLoading, setProjectTags);
+  }, []);
+
+  useMemo(async () => { 
+    if (tag) {
+      const { data } = await api.get(`/tag/${tag}`);
+      console.log("data", tag);
+
+      setTags([...tags, 
+        {
+          id: tag,
+          name: data.name
+        }
+      ]);
+    }
+  }, [tag]);
+
   useMemo(() => {
     setName(project?.name);
     setDescription(project?.description);
     setImage(project?.image);
+    setTags(
+      project?.ProjectTag?.map((tag) => {
+        return {
+          id: tag?.tag.id,
+          name: tag?.tag?.name
+        };
+      })
+    );
   }, [project]);
 
   const onChange = (e) => {
@@ -44,6 +77,9 @@ const UpdateProject = () => {
         break;
       case "description":
         setDescription(value);
+        break;
+      case "tags":
+        setTags(value);
         break;
       default:
         break;
@@ -57,10 +93,19 @@ const UpdateProject = () => {
       name,
       description,
       image,
+      tags
     };
 
     onUpdate(id, data, setLoading, setSuccess, setError, setMessage, setProgress, navigate);
   };
+
+  const removeTag = async (tagId) => {
+    await api.delete(`/projectTag/${id}/${tagId}`);
+    const updatedArray = tags.filter((tag) => tag.id !== tagId);
+    setTags(updatedArray);
+  };
+
+  console.log("tags", tags);
 
   return (
     <>
@@ -77,17 +122,7 @@ const UpdateProject = () => {
           onChange={onChange}
           error={errors.name}
         />
-
-        {/* <Textarea
-          text="Descrição"
-          name="description"
-          type="description"
-          placeholder="Digite a descrição"
-          value={description}
-          onChange={onChange}
-          error={errors.description}
-        /> */}
-
+        
         <RichText value={description} onChange={setDescription} />
 
         <Input
@@ -104,6 +139,41 @@ const UpdateProject = () => {
         {progress > 0 && (
           <progress class="progress progress--success" value={progress} max="100"></progress>
         )}
+
+
+        <AutocompleteProjectTagsComponent
+          text="Tags"
+          items={projectTags?.projectTags}
+          setDataId={setTag}
+          placeholder="Selecione as tags"
+        />
+
+        <ul>
+          {tags?.map((tag) => (
+            <li key={tag.id}
+              style={{
+                width: "250px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "10px",
+              }}  
+            > 
+              {tag.name}
+              <span
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={async () => {
+                  console.log("tag.id", tag);
+                  await removeTag(tag.id);
+                }}
+              >
+                x
+              </span>
+            </li>
+          ))}
+        </ul>
 
         <ContainerButtons>
           <ButtonGoBack type="button" onClick={() => navigate("/admin/project")}>

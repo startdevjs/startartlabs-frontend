@@ -23,6 +23,7 @@ import AdminForum from "../pages/admin/forum";
 import CreateForum from "../pages/admin/forum/create";
 import UpdateForum from "../pages/admin/forum/update";
 import UpdateExercise from "../pages/admin/exercise/update";
+import AdminProjectTag from "../pages/admin/projectTag";
 import Project from "../pages/projects/project";
 import Profile from "../pages/profile";
 import Projects from "../pages/projects";
@@ -38,7 +39,9 @@ import SecondStep from "../pages/checkout/secondStep";
 import PaymentMethod from "../pages/paymentMethod";
 import PaymentConfirmed from "../pages/paymentConfirmed";
 import PrivateCourses from "./privateCourses";
-
+import CreateProjectTag from "../pages/admin/projectTag/create";
+import UpdateProjectTag from "../pages/admin/projectTag/update";
+import ViewExercise from "../pages/admin/exercise/view";
 
 const RoutesComponent = () => {
   return (
@@ -89,14 +92,29 @@ const RoutesComponent = () => {
         path="/admin/warning/update/:id"
         element={<PrivateAdmin Component={UpdateWarning} />}
       />
-      <Route path="/admin/forum" element={<PrivateAdmin Component={AdminForum} />} />
+      {/* <Route path="/admin/forum" element={<PrivateAdmin Component={AdminForum} />} />
       <Route path="/admin/forum/create" element={<PrivateAdmin Component={CreateForum} />} />
-      <Route path="/admin/forum/update/:id" element={<PrivateAdmin Component={UpdateForum} />} />
+      <Route path="/admin/forum/update/:id" element={<PrivateAdmin Component={UpdateForum} />} /> */}
       <Route path="/admin/exercise" element={<PrivateAdmin Component={AdminExercise} />} />
+      <Route path="/admin/exercise/view/:id" element={<PrivateAdmin Component={ViewExercise} />} />
       <Route
         path="/admin/exercise/update/:id"
         element={<PrivateAdmin Component={UpdateExercise} />}
       />
+      <Route
+        path="/admin/project/tag"
+        element={<PrivateAdmin Component={AdminProjectTag} />}
+      />
+      <Route
+        path="/admin/projectTag/create"
+        element={<PrivateAdmin Component={CreateProjectTag} />}
+      />
+      <Route
+        path="/admin/projectTag/update/:id"
+        element={<PrivateAdmin Component={UpdateProjectTag} />}
+      />
+      
+      
     </Routes>
   );
 };

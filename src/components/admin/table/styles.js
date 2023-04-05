@@ -114,6 +114,19 @@ export const ButtonCorrection = styled(Button)`
   }
 `;
 
+export const ButtonView = styled(Button)`
+  background-color: ${({ theme: { colors } }) => colors.tertiaryColor};
+
+  a {
+    color: ${({ theme: { colors } }) => colors.primaryColor} !important;
+  }
+
+  &:hover {
+    filter: brightness(0.8);
+    color: ${({ theme: { colors } }) => colors.primaryColor};
+  }
+`;
+
 export const ButtonDelete = styled(Button)`
   background-color: #ff4d4d;
   color: ${({ theme: { colors } }) => colors.primaryColor};

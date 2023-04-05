@@ -84,6 +84,7 @@ const Home = () => {
                     name={project?.name}
                     description={project?.description}
                     price={project?.price}
+                    tags={project?.ProjectTag}
                     image={
                       project?.image !== null &&
                       project?.image !== undefined &&
