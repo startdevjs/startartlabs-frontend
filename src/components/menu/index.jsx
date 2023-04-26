@@ -223,13 +223,13 @@ const MenuComponent = ({ children }) => {
                 )}
               </Link>
 
-              <Link to="/community">
+              {/* <Link to="/community">
                 <Option active={location.pathname === "/community" ? "true" : "false"}>
                   <div className="tooltip tooltip--right" data-tooltip="Comunidade">
                     <IconCommunity />
                   </div>
                 </Option>
-              </Link>
+              </Link> */}
 
               <Link to="/profile">
                 <Option active={location.pathname === "/profile" ? "true" : "false"}>
@@ -300,14 +300,14 @@ const MenuComponent = ({ children }) => {
               </Option>
             )}
           </Link>
-
+{/* 
           <Link to="/community">
             <Option active={location.pathname === "/community" ? "true" : "false"}>
               <div className="tooltip tooltip--right" data-tooltip="Comunidade">
                 <IconCommunity />
               </div>
             </Option>
-          </Link>
+          </Link> */}
 
           <Link to="/profile">
             <Option active={location.pathname === "/profile" ? "true" : "false"}>

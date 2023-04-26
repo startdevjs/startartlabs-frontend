@@ -14,6 +14,7 @@ import {
   CardBodyText,
   CardFooter,
   Corrected,
+  ButtonView,
 } from "./styles";
 
 const TableMobileExerciseComponent = ({
@@ -31,30 +32,30 @@ const TableMobileExerciseComponent = ({
         {exercises?.exercies?.map((exercise, i) => (
           <Card key={i}>
             <CardHeader>
-              <TitleCardHeader>
+              {/* <TitleCardHeader>
                 Titulo da aula: <CardBodyText>{exercise?.lession?.name}</CardBodyText>
-              </TitleCardHeader>
+              </TitleCardHeader> */}
 
               <TitleCardHeader>
-                Username: <CardBodyText>{exercise?.user?.username}</CardBodyText>
+                Nome: <CardBodyText>{exercise?.user?.name}</CardBodyText>
               </TitleCardHeader>
 
               <TitleCardHeader>
                 Email: <CardBodyText>{exercise?.user?.email}</CardBodyText>
               </TitleCardHeader>
 
-              <TitleCardHeader>
+              {/* <TitleCardHeader>
                 Link:{" "}
                 <CardBodyText>
                   <a target="_blank" href={exercise?.link}>
                     {exercise?.link}
                   </a>
                 </CardBodyText>
-              </TitleCardHeader>
+              </TitleCardHeader> */}
 
-              <TitleCardHeader>
+              {/* <TitleCardHeader>
                 Branch: <CardBodyText>{exercise?.branch}</CardBodyText>
-              </TitleCardHeader>
+              </TitleCardHeader> */}
 
               <TitleCardHeader>
                 Corrigida:{" "}
@@ -73,6 +74,12 @@ const TableMobileExerciseComponent = ({
 
             <CardFooter>
               <ContainerButtons>
+                <ButtonView>
+                  <Link to={`/admin/exercise/view/${exercise?.id}`}>
+                    <a>Visualizar</a>
+                  </Link>
+                </ButtonView>
+
                 <ButtonCorrection>
                   <Link to={`/admin/exercise/update/${exercise?.id}`}>
                     <a>Corrigir</a>

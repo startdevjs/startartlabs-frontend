@@ -42,6 +42,7 @@ const Projects = () => {
                     name={project?.name}
                     description={project?.description}
                     price={project?.price}
+                    tags={project?.tags}
                     image={
                       project?.image !== null &&
                       project?.image !== undefined &&

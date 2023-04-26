@@ -29,8 +29,9 @@ export const Card = styled.div`
 
 export const CardHeader = styled.div`
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  f
+  /* justify-content: space-between; */
+  /* flex-wrap: wrap; */
 
   align-items: flex-start;
 
@@ -60,6 +61,8 @@ export const CardBodyText = styled.p`
 `;
 
 export const CardFooter = styled.div`
+  w
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -128,6 +131,21 @@ export const ButtonCorrection = styled(Button)`
     color: ${({ theme: { colors } }) => colors.primaryColor};
   }
 `;
+
+export const ButtonView = styled(Button)`
+  background-color: ${({ theme: { colors } }) => colors.tertiaryColor};
+  color: ${({ theme: { colors } }) => colors.primaryColor};
+
+  a {
+    color: ${({ theme: { colors } }) => colors.primaryColor} !important;
+  }
+
+  &:hover {
+    filter: brightness(0.8);
+    color: ${({ theme: { colors } }) => colors.primaryColor};
+  }
+`;
+
 
 export const ButtonDelete = styled(Button)`
   background-color: #ff4d4d;

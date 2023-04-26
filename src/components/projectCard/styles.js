@@ -139,3 +139,19 @@ export const ProjectCardImage = styled.div`
     min-height: 200px;
   }
 `;
+
+export const ProjectCardTags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+`
+
+export const Tag = styled.div`
+  background-color: ${({ color }) => color} !important;
+  border-radius: 4px;
+  padding: 1px 8px;
+  font-size: 13px;
+  font-weight: bold;
+  height: 25px;
+`
