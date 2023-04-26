@@ -264,7 +264,6 @@ const Project = () => {
 
             
             {loadingLessionActive ? <Loading /> : <></>}
-          {console.log("project",project)}
             {!loadingLessionActive ? (
               <ProjectVideoContainer>
                 <ProjectTitle>{activeLession?.name}</ProjectTitle>
@@ -292,20 +291,20 @@ const Project = () => {
                   </ProjectVideo>
                 ) : (
                   <>
-                    {/* // <ProjectVideo
-                    //   style={{
-                    //     padding: "20px",
-                    //   }}
-                    // > */}
-                      <TitleEmptyContainer>
-                        <h1>{project?.name}</h1>
-                      </TitleEmptyContainer>
-                      <DescriptionEmptyContainer>
-                        <p
-                          dangerouslySetInnerHTML={{ __html: project?.description }}
-                        ></p>
-                      </DescriptionEmptyContainer>
-                    {/* // </ProjectVideo> */}
+                    {activeLessionId === null || activeLessionId === undefined || activeLessionId === "" ? (
+                      <>
+                        <TitleEmptyContainer>
+                          <h1>{project?.name}</h1>
+                        </TitleEmptyContainer>
+                        <DescriptionEmptyContainer>
+                          <p
+                            dangerouslySetInnerHTML={{ __html: project?.description }}
+                          ></p>
+                        </DescriptionEmptyContainer>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </>
                 )}
 
@@ -429,7 +428,8 @@ const Project = () => {
                 </SendProjectFooter>
               </ProjectVideoContainer>
             ) : (
-              <></>
+              <>
+              </>
             )}
 
             <ProjectSideBarList>
@@ -441,7 +441,6 @@ const Project = () => {
 
               <ProjectSideBarListContent>
 
-                  {console.log("lessions",lessions)}
                 {lessions?.lessions?.map((lession) => {
                   return (
                     <>

@@ -26,14 +26,13 @@ const ProjectCard = ({ key, id, name, description, image, price, tags }) => {
           {
             tags?.map((tag) => (
               <>
-              {console.log(tag?.tag)}
-              <Tag
-                key={tag?.tag?.id}
-                class="tag tag--black"
-                color={tag?.tag?.color}
-              >{
-                tag?.tag?.name
-              }</Tag>
+                <Tag
+                  key={tag?.tag?.id}
+                  class="tag tag--black"
+                  color={tag?.tag?.color}
+                >{
+                  tag?.tag?.name
+                }</Tag>
               </>
             ))
           }</ProjectCardTags>
@@ -52,7 +51,7 @@ const ProjectCard = ({ key, id, name, description, image, price, tags }) => {
         )} */}
 
         <ProjectCardDescription
-          dangerouslySetInnerHTML={{ __html: description?.slice(0, 100) }}
+          dangerouslySetInnerHTML={{ __html: description?.slice(0, 100) + "..." }}
         ></ProjectCardDescription>
       </ProjectCardInfo>
 
